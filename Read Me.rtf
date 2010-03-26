@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf250
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\b\fs30 \cf0 Webmailer 1.1\
+
+\b0\fs22 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\fs24 \cf0 Ever click on a 
+\f1\fs20 mailto:
+\f0\fs24  link, only to scream in frustration as Apple Mail opens yet again? The curse of the webmail user is that there is no way to get around this problem. That is, until now.\
+\
+Webmailer is an unoriginally named program (actually a preference pane) for Mac OS X that allows you to fix this problem. You can set it to open any URL or run any shell script, complete with the parameters lifted from the mailto link.\
+\
+
+\b Install
+\b0 \
+Simply double-click the Webmailer.prefPane icon to launch System Preferences and install Webmailer. You will also need to set Webmailer to be the default handler for mailto URLs; this can be done right from the Webmailer preferences pane.\
+\
+
+\b Usage
+\b0 \
+Webmailer comes with several preset configurations for popular webmail systems. If you're using one of those, select it and click "Choose". Alternately, double-click next to your row in the column that displays which configuration is active. The green indicator should move to the row you want. If you are using a webmail 
+\i program
+\i0  (e.g. SquirrelMail as opposed to Yahoo! Mail), you will need to change anything in CAPITAL LETTERS to match your actual mail website. You can find out what it should be by logging in to your mail and examining the URL.\
+\
+If, on a certain occasion, you want to choose a 
+\i different
+\i0  configuration from your default, just hold down the shift key when you click the mailto link. (If your browser takes a different action when the shift key is pressed, just click first and then hold the shift key, or try holding shift and option instead.)\
+\
+
+\b Custom Confiugrations
+\b0 \
+If none of the default configurations match your webmail, you can make a new one by clicking the Add button. Enter a name, then press Tab to edit the destination field. This should generally be a URL, likely directed at the Compose page on your webmail site. You can use the following placeholders anywhere in the URL string; they'll be replaced with the appropriate parameters from the mailto link. (Keep in mind that your webmail site may not support all of them).\
+\
+[to] -- The recipient (often between the 
+\f1\fs20 mailto:
+\f0\fs24  and the 
+\f1\fs20 ?
+\f0\fs24  if there is one)\
+[cc] -- Carbon/courtesy copy\
+[bcc] -- Blind carbon copy\
+[subject] -- Message subject\
+[body] -- Message body\
+[?] -- Everything after the 
+\f1\fs20 ?
+\f0\fs24  in a mailto link\
+[anything] -- If the mailto link has the value 
+\f1\fs20 anything
+\f0\fs24  set, this will copy its value. This can be used with any word.\
+\
+You can also use the following modifying forms. The word "to" here is merely an example; any parameter including ? will work.\
+\
+[%to] -- URL-escape the parameter\
+[#to] -- Give the number of characters in the parameter (useful for PHP serialize).\
+[#%to] -- Give the number of characters in the URL-escaped form of the parameter (less useful but there for completeness).\
+\
+URLs do have some reserved characters; if you want to put one of them in you should probably escape them using percent syntax. Note that this is only for characters in the literal URL; most of the time these don't matter for the parameters.\
+\
+(space) -- %20\
+# -- %23 (not needed for [#parameter] syntax)\
+$ -- %24\
+% -- %25 (not needed for [%parameter] syntax)\
+& -- %26 (only needed if it's an actual & within a value, not an argument separator).\
++ -- %2B\
+, -- %2C\
+/ -- %2F\
+: -- %3A\
+; -- %3B\
+= -- %3D\
+? -- %3F\
+@ -- %40\
+[ -- %5B (only needed because of Webmailer)\
+] -- %5D (only needed because of Webmailer)\
+\
+Good luck!\
+\
+
+\b Shell Scripts
+\b0 \
+If you prefer, you can use a shell script instead of a URL -- for example, to log all URLs you click on. (Why you'd want to do this is another story, but there are command-line-based mail programs). Anything that doesn't create a valid URL will be interpreted as a shell script and run in the Terminal. All parameters are still supported, and URL encoding is unnecessary.\
+\
+"But wait," you say, "I just wanted to log everything to a file. I didn't want to open the Terminal for 
+\i that
+\i0 ." That's easy. Just add a # to the very beginning of the line. (This would be interpreted as "comment" in most shells, so it won't make any commands impossible to run). The resulting command, which might look something like this: "#echo [to] >> ~/mailto.txt", will run without the Terminal opening at all.\
+\
+If you just want to open a file or application (as if you had clicked on it in the Finder) you can either use a file URL:\
+\
+file:///Applications/Mail.app\
+\
+or a shell script:\
+\
+open /Applications/Mail.app\
+\
+But neither one will allow you to pass parameters to the program or file, so it's a lot less useful than it might seem. Instead, you can use an AppleScript to pass parameters to a given app:\
+\
+\pard\pardeftab720\ql\qnatural
+\cf0 #osascript -e 'tell application "Mail"' -e 'GetURL "mailto:[to]?[?]"' -e 'activate' -e 'end tell'\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0 \
+But if you were actually going to use Mail, you wouldn't have downloaded Webmailer, right?\
+\
+
+\b Uninstall
+\b0 \
+If you actually don't like Webmailer (for whatever reason), you can uninstall it by control-clicking on its icon in the "Show All" view of System preferences and choosing to remove it. The default mail handler should revert to Apple Mail (darn); if it doesn't, try emptying the Trash (where the preference pane usually ends up).\
+\
+
+\b Notes
+\b0 \
+
+\i Why are there two SquirrelMail modes?\
+
+\i0 Unfortunately, some SquirrelMail accounts don't seem to support mailto.php (the first mode). For these, you'll have to make do with SquirrelMail 2, which directly opens the composition page but doesn't have the sidebar.\
+\
+
+\i It's not working.
+\i0 \
+Well, that's not a great way to ask questions, but even so, the most likely problem is that you didn't enter the URL correctly. If it still doesn't work, you can try changing all of the [parameter]s to [%parameter]s. If it 
+\i still
+\i0  doesn't work, you can always send your specific problem to Belkadan Software.\
+\
+If it's one of the default URLs that doesn't work, and you haven't modified it (beyond putting in your site's addres, if applicable), please notify me so that I can fix it quickly. Not having certain programs made it difficult to test some of these.\
+\
+
+\i Why didn't you include webmail client X?
+\i0 \
+Obviously the default list of webmail clients can't be infinite, and Webmailer includes some of the top choices for webmail programs. However, if you have a client you think should be on the default list that ships with Webmailer, please tell me. (It is also more helpful if 
+\i you
+\i0  can figure out the destination URL, rather than making me do it).\
+\
+More destination URLs are compiled at {\field{\*\fldinst{HYPERLINK "http://belkadan.com/webmailer/destinations"}}{\fldrslt http://belkadan.com/webmailer/destinations}}.\
+\
+
+\b Contact
+\b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+{\field{\*\fldinst{HYPERLINK "mailto:webmailer@belkadan.com"}}{\fldrslt \cf0 webmailer@belkadan.com}}: Bugs, requests, questions, new destination URLs? E-mail me!\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+{\field{\*\fldinst{HYPERLINK "http://belkadan.com/"}}{\fldrslt \cf0 belkadan.com}}: Get more great programs from Belkadan Software!}

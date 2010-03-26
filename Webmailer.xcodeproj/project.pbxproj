@@ -1,0 +1,820 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		8C5E07E80B37C14F00EC858C /* Build All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8C5E08010B37C18500EC858C /* Build configuration list for PBXAggregateTarget "Build All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				8C5E07EA0B37C15B00EC858C /* PBXTargetDependency */,
+				8CAE449A104B7909005F3191 /* PBXTargetDependency */,
+			);
+			name = "Build All";
+			productName = "Build All";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		8C2DF6D3104C6BA300729496 /* FullWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2DF6D2104C6BA300729496 /* FullWidthView.m */; };
+		8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
+		8C2E37CF11067D4500766AB1 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
+		8C3196A7110A5E0800556615 /* DBBackgroundView.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3196A6110A5E0800556615 /* DBBackgroundView.framework */; };
+		8C3196B4110A5E2B00556615 /* DBBackgroundView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3196A6110A5E0800556615 /* DBBackgroundView.framework */; };
+		8C3196C4110A5EC000556615 /* UpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3196C3110A5EC000556615 /* UpdateController.m */; };
+		8C3196C8110A5FFC00556615 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3196C7110A5FFC00556615 /* CTGradient.m */; };
+		8C319709110A61B600556615 /* CTGradient+NSGradientCompatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C319708110A61B600556615 /* CTGradient+NSGradientCompatibility.m */; };
+		8C379CA10B46F87D00F124AB /* mailhandlers_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C379CA00B46F87D00F124AB /* mailhandlers_main.m */; };
+		8C379FF50B46FE5A00F124AB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
+		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
+		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
+		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
+		8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */; };
+		8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */; };
+		8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */; };
+		8C6FFCDF0B3226AF00EF8A76 /* WebmailerDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */; };
+		8C6FFCF30B3226F000EF8A76 /* ConfigurationChooser.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */; };
+		8C6FFDB60B3228EB00EF8A76 /* WebmailerShared.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */; };
+		8C6FFDB70B3228EB00EF8A76 /* WebmailerShared.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */; };
+		8C6FFDF10B322B2F00EF8A76 /* WebmailerPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975B310B30FCA900B481FB /* WebmailerPref.m */; };
+		8C6FFDF20B322B2F00EF8A76 /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
+		8C6FFDF30B322B3000EF8A76 /* AutosortArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975C490B310F6900B481FB /* AutosortArrayController.m */; };
+		8C6FFDF40B322B3100EF8A76 /* NoReturnEditTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975C960B3110C500B481FB /* NoReturnEditTableView.m */; };
+		8C78582F0B326B5D00FB9370 /* Webmailer.app in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFCD90B32268900EF8A76 /* Webmailer.app */; };
+		8C7858930B326E9E00FB9370 /* default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C7858920B326E9E00FB9370 /* default.plist */; };
+		8C7858FE0B32732800FB9370 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C7858FD0B32732800FB9370 /* Localizable.strings */; };
+		8C8018E10B33D17B005334D3 /* EditTrackingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8018DF0B33D17B005334D3 /* EditTrackingTableView.m */; };
+		8C8C5C20110A7CA800D57BBE /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8C5C1F110A7CA800D57BBE /* download.png */; };
+		8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */; };
+		8CBEC2CE104B9F41006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
+		8CBEC2CF104B9F42006DCE23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		8CBEC2D0104B9F45006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
+		8CBEC2D1104B9F46006DCE23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		8CBEC2D2104B9F53006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
+		8CBEC2D3104B9F53006DCE23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		8CC47321110C3BBA004BEF06 /* AddRemoveButtonsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */; };
+		8CC5D1501056346200ED5BF7 /* BWHyperlinkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D14D1056346200ED5BF7 /* BWHyperlinkButton.m */; };
+		8CC5D1511056346200ED5BF7 /* BWHyperlinkButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */; };
+		8CE4E45C0B338E49000CAE73 /* MailtoSchemeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */; };
+		8CE4E5B10B339FD4000CAE73 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
+		8CE4E5BF0B33A000000CAE73 /* icon_32.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8C5E07E90B37C15B00EC858C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C6FFB990B3220AC00EF8A76;
+			remoteInfo = "Preference Pane";
+		};
+		8C7858300B326B6400FB9370 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C6FFCD80B32268900EF8A76;
+			remoteInfo = "Webmailer Daemon";
+		};
+		8CAE4499104B7909005F3191 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C379C980B46F81400F124AB;
+			remoteInfo = "Add Webmailer to Mail Handlers";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8C2E37CC11067CD600766AB1 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8C3196A7110A5E0800556615 /* DBBackgroundView.framework in Copy Frameworks */,
+				8C2E37CF11067D4500766AB1 /* Sparkle.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8C2DF6D1104C6BA300729496 /* FullWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullWidthView.h; sourceTree = "<group>"; };
+		8C2DF6D2104C6BA300729496 /* FullWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullWidthView.m; sourceTree = "<group>"; };
+		8C2E37BE11067CC700766AB1 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../Sparkle 1/With Garbage Collection/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
+		8C3196A6110A5E0800556615 /* DBBackgroundView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBBackgroundView.framework; path = ../DBBackgroundView/build/Release/DBBackgroundView.framework; sourceTree = SOURCE_ROOT; };
+		8C3196C2110A5EC000556615 /* UpdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateController.h; sourceTree = "<group>"; };
+		8C3196C3110A5EC000556615 /* UpdateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateController.m; sourceTree = "<group>"; };
+		8C3196C6110A5FFC00556615 /* CTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTGradient.h; sourceTree = "<group>"; };
+		8C3196C7110A5FFC00556615 /* CTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTGradient.m; sourceTree = "<group>"; };
+		8C319707110A61B600556615 /* CTGradient+NSGradientCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTGradient+NSGradientCompatibility.h"; sourceTree = "<group>"; };
+		8C319708110A61B600556615 /* CTGradient+NSGradientCompatibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CTGradient+NSGradientCompatibility.m"; sourceTree = "<group>"; };
+		8C36E4E00B35DD7300E6041F /* Read Me.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Read Me.rtf"; sourceTree = "<group>"; };
+		8C379C990B46F81400F124AB /* Add Webmailer to Mail Handlers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Add Webmailer to Mail Handlers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C379C9B0B46F81500F124AB /* Add Webmailer to Mail Handlers-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Add Webmailer to Mail Handlers-Info.plist"; sourceTree = "<group>"; };
+		8C379CA00B46F87D00F124AB /* mailhandlers_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailhandlers_main.m; sourceTree = "<group>"; };
+		8C379E170B46FD3500F124AB /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
+		8C6F00110B323DDF00EF8A76 /* active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = active.png; sourceTree = "<group>"; };
+		8C6F00450B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSArray+PlistMutableCopy.h"; sourceTree = "<group>"; };
+		8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NSArray+PlistMutableCopy.m"; sourceTree = "<group>"; };
+		8C6FFB500B321EC800EF8A76 /* Webmailer Daemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Webmailer Daemon-Info.plist"; sourceTree = "<group>"; };
+		8C6FFB9A0B3220AC00EF8A76 /* Webmailer.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Webmailer.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C6FFB9B0B3220AD00EF8A76 /* Preference Pane-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Preference Pane-Info.plist"; sourceTree = "<group>"; };
+		8C6FFBA20B3221B100EF8A76 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PrefPane.nib; sourceTree = "<group>"; };
+		8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
+		8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebmailerDaemon.h; sourceTree = "<group>"; };
+		8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebmailerDaemon.m; sourceTree = "<group>"; };
+		8C6FFCD90B32268900EF8A76 /* Webmailer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Webmailer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C6FFCF20B3226F000EF8A76 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/ConfigurationChooser.nib; sourceTree = "<group>"; };
+		8C6FFD1B0B32286700EF8A76 /* WebmailerShared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebmailerShared.h; sourceTree = "<group>"; };
+		8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebmailerShared.m; sourceTree = "<group>"; };
+		8C7858920B326E9E00FB9370 /* default.plist */ = {isa = PBXFileReference; fileEncoding = 30; languageSpecificationIdentifier = html; lastKnownFileType = text.plist; path = default.plist; sourceTree = "<group>"; };
+		8C7858FB0B3272BB00FB9370 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8C8018DE0B33D17B005334D3 /* EditTrackingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTrackingTableView.h; sourceTree = "<group>"; };
+		8C8018DF0B33D17B005334D3 /* EditTrackingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTrackingTableView.m; sourceTree = "<group>"; };
+		8C8C5C1F110A7CA800D57BBE /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
+		8C975AF50B30F03B00B481FB /* ImageForStateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageForStateTransformer.h; sourceTree = "<group>"; };
+		8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ImageForStateTransformer.m; sourceTree = "<group>"; };
+		8C975B300B30FCA900B481FB /* WebmailerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WebmailerPref.h; sourceTree = "<group>"; };
+		8C975B310B30FCA900B481FB /* WebmailerPref.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = WebmailerPref.m; sourceTree = "<group>"; };
+		8C975C480B310F6900B481FB /* AutosortArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutosortArrayController.h; sourceTree = "<group>"; };
+		8C975C490B310F6900B481FB /* AutosortArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutosortArrayController.m; sourceTree = "<group>"; };
+		8C975C950B3110C500B481FB /* NoReturnEditTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoReturnEditTableView.h; sourceTree = "<group>"; };
+		8C975C960B3110C500B481FB /* NoReturnEditTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoReturnEditTableView.m; sourceTree = "<group>"; };
+		8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = "../Sparkle 1/dsa_pub.pem"; sourceTree = SOURCE_ROOT; };
+		8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
+		8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemPreferences.h; sourceTree = "<group>"; };
+		8CAE44BA104B7B82005F3191 /* Terminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
+		8CC4731F110C3BBA004BEF06 /* AddRemoveButtonsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemoveButtonsController.h; sourceTree = "<group>"; };
+		8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemoveButtonsController.m; sourceTree = "<group>"; };
+		8CC5D14C1056346200ED5BF7 /* BWHyperlinkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHyperlinkButton.h; sourceTree = "<group>"; };
+		8CC5D14D1056346200ED5BF7 /* BWHyperlinkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHyperlinkButton.m; sourceTree = "<group>"; };
+		8CC5D14E1056346200ED5BF7 /* BWHyperlinkButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHyperlinkButtonCell.h; sourceTree = "<group>"; };
+		8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHyperlinkButtonCell.m; sourceTree = "<group>"; };
+		8CE4E45A0B338E49000CAE73 /* MailtoSchemeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailtoSchemeController.h; sourceTree = "<group>"; };
+		8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailtoSchemeController.m; sourceTree = "<group>"; };
+		8CE4E5AE0B339FD4000CAE73 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = icon_32.tiff; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8C379C970B46F81400F124AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CBEC2CE104B9F41006DCE23 /* AppKit.framework in Frameworks */,
+				8CBEC2CF104B9F42006DCE23 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C6FFB980B3220AC00EF8A76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C3196B4110A5E2B00556615 /* DBBackgroundView.framework in Frameworks */,
+				8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */,
+				8CBEC2D0104B9F45006DCE23 /* AppKit.framework in Frameworks */,
+				8CBEC2D1104B9F46006DCE23 /* Foundation.framework in Frameworks */,
+				8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C6FFCD70B32268900EF8A76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CBEC2D2104B9F53006DCE23 /* AppKit.framework in Frameworks */,
+				8CBEC2D3104B9F53006DCE23 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Daemon */ = {
+			isa = PBXGroup;
+			children = (
+				8C4211D30B3639CB0012E9BA /* main.m */,
+				8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */,
+				8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */,
+				8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */,
+				8CAE44BA104B7B82005F3191 /* Terminal.h */,
+			);
+			name = Daemon;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C6FFB9A0B3220AC00EF8A76 /* Webmailer.prefPane */,
+				8C6FFCD90B32268900EF8A76 /* Webmailer.app */,
+				8C379C990B46F81400F124AB /* Add Webmailer to Mail Handlers.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* Webmailer */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Daemon */,
+				8C6FFB6C0B32203300EF8A76 /* Preference Pane */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = Webmailer;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8C6FFD1B0B32286700EF8A76 /* WebmailerShared.h */,
+				8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */,
+				8C379CA00B46F87D00F124AB /* mailhandlers_main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8C36E4E00B35DD7300E6041F /* Read Me.rtf */,
+				8C7858920B326E9E00FB9370 /* default.plist */,
+				8C6F00110B323DDF00EF8A76 /* active.png */,
+				8C8C5C1F110A7CA800D57BBE /* download.png */,
+				8CE4E5AE0B339FD4000CAE73 /* icon.icns */,
+				8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */,
+				8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */,
+				8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */,
+				8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */,
+				8C7858FD0B32732800FB9370 /* Localizable.strings */,
+				8C6FFB500B321EC800EF8A76 /* Webmailer Daemon-Info.plist */,
+				8C6FFB9B0B3220AD00EF8A76 /* Preference Pane-Info.plist */,
+				8C379C9B0B46F81500F124AB /* Add Webmailer to Mail Handlers-Info.plist */,
+				8C3196A6110A5E0800556615 /* DBBackgroundView.framework */,
+				8C2E37BE11067CC700766AB1 /* Sparkle.framework */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */,
+				8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */,
+				8C379E170B46FD3500F124AB /* ApplicationServices.framework */,
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C3196C5110A5FFC00556615 /* CTGradient */ = {
+			isa = PBXGroup;
+			children = (
+				8C3196C6110A5FFC00556615 /* CTGradient.h */,
+				8C3196C7110A5FFC00556615 /* CTGradient.m */,
+				8C319707110A61B600556615 /* CTGradient+NSGradientCompatibility.h */,
+				8C319708110A61B600556615 /* CTGradient+NSGradientCompatibility.m */,
+			);
+			path = CTGradient;
+			sourceTree = "<group>";
+		};
+		8C6FFB6C0B32203300EF8A76 /* Preference Pane */ = {
+			isa = PBXGroup;
+			children = (
+				8C975B300B30FCA900B481FB /* WebmailerPref.h */,
+				8C975B310B30FCA900B481FB /* WebmailerPref.m */,
+				8CE4E45A0B338E49000CAE73 /* MailtoSchemeController.h */,
+				8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */,
+				8C3196C2110A5EC000556615 /* UpdateController.h */,
+				8C3196C3110A5EC000556615 /* UpdateController.m */,
+				8C975AF50B30F03B00B481FB /* ImageForStateTransformer.h */,
+				8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */,
+				8C975C480B310F6900B481FB /* AutosortArrayController.h */,
+				8C975C490B310F6900B481FB /* AutosortArrayController.m */,
+				8CC4731F110C3BBA004BEF06 /* AddRemoveButtonsController.h */,
+				8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */,
+				8C975C950B3110C500B481FB /* NoReturnEditTableView.h */,
+				8C975C960B3110C500B481FB /* NoReturnEditTableView.m */,
+				8C8018DE0B33D17B005334D3 /* EditTrackingTableView.h */,
+				8C8018DF0B33D17B005334D3 /* EditTrackingTableView.m */,
+				8C2DF6D1104C6BA300729496 /* FullWidthView.h */,
+				8C2DF6D2104C6BA300729496 /* FullWidthView.m */,
+				8C6F00450B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.h */,
+				8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */,
+				8CC5D14B1056346200ED5BF7 /* BWHyperlinkButton */,
+				8C3196C5110A5FFC00556615 /* CTGradient */,
+			);
+			name = "Preference Pane";
+			sourceTree = "<group>";
+		};
+		8CC5D14B1056346200ED5BF7 /* BWHyperlinkButton */ = {
+			isa = PBXGroup;
+			children = (
+				8CC5D14C1056346200ED5BF7 /* BWHyperlinkButton.h */,
+				8CC5D14D1056346200ED5BF7 /* BWHyperlinkButton.m */,
+				8CC5D14E1056346200ED5BF7 /* BWHyperlinkButtonCell.h */,
+				8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */,
+			);
+			path = BWHyperlinkButton;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8C379C980B46F81400F124AB /* Add Webmailer to Mail Handlers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C379C9C0B46F81600F124AB /* Build configuration list for PBXNativeTarget "Add Webmailer to Mail Handlers" */;
+			buildPhases = (
+				8C379C950B46F81400F124AB /* Resources */,
+				8C379C960B46F81400F124AB /* Sources */,
+				8C379C970B46F81400F124AB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Add Webmailer to Mail Handlers";
+			productName = "Add Webmailer to Mail Handlers";
+			productReference = 8C379C990B46F81400F124AB /* Add Webmailer to Mail Handlers.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8C6FFB990B3220AC00EF8A76 /* Preference Pane */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C6FFB9C0B3220AD00EF8A76 /* Build configuration list for PBXNativeTarget "Preference Pane" */;
+			buildPhases = (
+				8C6FFB960B3220AC00EF8A76 /* Resources */,
+				8C6FFB970B3220AC00EF8A76 /* Sources */,
+				8C2E37CC11067CD600766AB1 /* Copy Frameworks */,
+				8C6FFB980B3220AC00EF8A76 /* Frameworks */,
+				8C9E9A42110BE70100BD7153 /* Copy and Symlink Resources */,
+				8C9E9B63110BEFDC00BD7153 /* Symlink Preference Pane */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C7858310B326B6400FB9370 /* PBXTargetDependency */,
+			);
+			name = "Preference Pane";
+			productName = "Preference Pane";
+			productReference = 8C6FFB9A0B3220AC00EF8A76 /* Webmailer.prefPane */;
+			productType = "com.apple.product-type.bundle";
+		};
+		8C6FFCD80B32268900EF8A76 /* Webmailer Daemon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C6FFCDC0B32269000EF8A76 /* Build configuration list for PBXNativeTarget "Webmailer Daemon" */;
+			buildPhases = (
+				8C6FFCD50B32268900EF8A76 /* Resources */,
+				8C6FFCD60B32268900EF8A76 /* Sources */,
+				8C6FFCD70B32268900EF8A76 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Webmailer Daemon";
+			productName = "Webmailer Daemon";
+			productReference = 8C6FFCD90B32268900EF8A76 /* Webmailer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Webmailer" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Webmailer */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8C5E07E80B37C14F00EC858C /* Build All */,
+				8C6FFCD80B32268900EF8A76 /* Webmailer Daemon */,
+				8C6FFB990B3220AC00EF8A76 /* Preference Pane */,
+				8C379C980B46F81400F124AB /* Add Webmailer to Mail Handlers */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8C379C950B46F81400F124AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C379FF50B46FE5A00F124AB /* icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C6FFB960B3220AC00EF8A76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */,
+				8C78582F0B326B5D00FB9370 /* Webmailer.app in Resources */,
+				8C7858930B326E9E00FB9370 /* default.plist in Resources */,
+				8C7858FE0B32732800FB9370 /* Localizable.strings in Resources */,
+				8CE4E5BF0B33A000000CAE73 /* icon_32.tiff in Resources */,
+				8C8C5C20110A7CA800D57BBE /* download.png in Resources */,
+				8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C6FFCD50B32268900EF8A76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C6FFCF30B3226F000EF8A76 /* ConfigurationChooser.nib in Resources */,
+				8CE4E5B10B339FD4000CAE73 /* icon.icns in Resources */,
+				8C5E05730B37A96E00EC858C /* active.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8C9E9A42110BE70100BD7153 /* Copy and Symlink Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy and Symlink Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "for img in \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Webmailer.app/Contents/Resources\"/*.{icns,png}; do\n\tln -sf \"Webmailer.app/Contents/Resources/$(basename $img)\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/$(basename $img)\"\ndone\n\n# Workaround for Sparkle bug\ncp \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework/Resources/relaunch\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"";
+		};
+		8C9E9B63110BEFDC00BD7153 /* Symlink Preference Pane */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink Preference Pane";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -L ~/Library/PreferencePanes/\"${WRAPPER_NAME}\" ]; then\n\trm ~/Library/PreferencePanes/\"${WRAPPER_NAME}\"\n\tln -sf \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" ~/Library/PreferencePanes\nelif [ -d ~/Library/PreferencePanes/\"${WRAPPER_NAME}\" ]; then\n\techo \"warning: existing preference pane present (not removing)\"\nelse\n\tln -sf \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" ~/Library/PreferencePanes\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8C379C960B46F81400F124AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C379CA10B46F87D00F124AB /* mailhandlers_main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C6FFB970B3220AC00EF8A76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C6FFDB70B3228EB00EF8A76 /* WebmailerShared.m in Sources */,
+				8C6FFDF10B322B2F00EF8A76 /* WebmailerPref.m in Sources */,
+				8C6FFDF20B322B2F00EF8A76 /* ImageForStateTransformer.m in Sources */,
+				8C6FFDF30B322B3000EF8A76 /* AutosortArrayController.m in Sources */,
+				8C6FFDF40B322B3100EF8A76 /* NoReturnEditTableView.m in Sources */,
+				8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */,
+				8CE4E45C0B338E49000CAE73 /* MailtoSchemeController.m in Sources */,
+				8C8018E10B33D17B005334D3 /* EditTrackingTableView.m in Sources */,
+				8C2DF6D3104C6BA300729496 /* FullWidthView.m in Sources */,
+				8CC5D1501056346200ED5BF7 /* BWHyperlinkButton.m in Sources */,
+				8CC5D1511056346200ED5BF7 /* BWHyperlinkButtonCell.m in Sources */,
+				8C3196C4110A5EC000556615 /* UpdateController.m in Sources */,
+				8C3196C8110A5FFC00556615 /* CTGradient.m in Sources */,
+				8C319709110A61B600556615 /* CTGradient+NSGradientCompatibility.m in Sources */,
+				8CC47321110C3BBA004BEF06 /* AddRemoveButtonsController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C6FFCD60B32268900EF8A76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C6FFCDF0B3226AF00EF8A76 /* WebmailerDaemon.m in Sources */,
+				8C6FFDB60B3228EB00EF8A76 /* WebmailerShared.m in Sources */,
+				8C4211D40B3639CB0012E9BA /* main.m in Sources */,
+				8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C5E07EA0B37C15B00EC858C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C6FFB990B3220AC00EF8A76 /* Preference Pane */;
+			targetProxy = 8C5E07E90B37C15B00EC858C /* PBXContainerItemProxy */;
+		};
+		8C7858310B326B6400FB9370 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C6FFCD80B32268900EF8A76 /* Webmailer Daemon */;
+			targetProxy = 8C7858300B326B6400FB9370 /* PBXContainerItemProxy */;
+		};
+		8CAE449A104B7909005F3191 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C379C980B46F81400F124AB /* Add Webmailer to Mail Handlers */;
+			targetProxy = 8CAE4499104B7909005F3191 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C6FFBA20B3221B100EF8A76 /* English */,
+			);
+			name = PrefPane.nib;
+			sourceTree = "<group>";
+		};
+		8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C6FFCF20B3226F000EF8A76 /* English */,
+			);
+			name = ConfigurationChooser.nib;
+			sourceTree = "<group>";
+		};
+		8C7858FD0B32732800FB9370 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C7858FB0B3272BB00FB9370 /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8C379C9D0B46F81600F124AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Add Webmailer to Mail Handlers-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PREBINDING = NO;
+				PRODUCT_NAME = "Add Webmailer to Mail Handlers";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8C379C9E0B46F81600F124AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Add Webmailer to Mail Handlers-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PREBINDING = NO;
+				PRODUCT_NAME = "Add Webmailer to Mail Handlers";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8C5E08020B37C18500EC858C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build All";
+			};
+			name = Debug;
+		};
+		8C5E08030B37C18500EC858C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = "Build All";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		8C6FFB9D0B3220AD00EF8A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					x86_64,
+					i386,
+				);
+				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Sparkle 1/With Garbage Collection\"",
+					"\"$(SRCROOT)/../DBBackgroundView/build/Release\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				"GCC_ENABLE_OBJC_GC[arch=i386]" = unsupported;
+				"GCC_ENABLE_OBJC_GC[arch=ppc]" = unsupported;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Preference Pane-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Webmailer;
+				USER_HEADER_SEARCH_PATHS = "\"/Users/jordy/programming/Cocoa/Sparkle 1/Extras/Source Code\"";
+				WRAPPER_EXTENSION = prefPane;
+			};
+			name = Debug;
+		};
+		8C6FFB9E0B3220AD00EF8A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Sparkle 1/With Garbage Collection\"",
+					"\"$(SRCROOT)/../DBBackgroundView/build/Release\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_GC = supported;
+				"GCC_ENABLE_OBJC_GC[arch=i386]" = unsupported;
+				"GCC_ENABLE_OBJC_GC[arch=ppc]" = unsupported;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Preference Pane-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Webmailer;
+				USER_HEADER_SEARCH_PATHS = "\"/Users/jordy/programming/Cocoa/Sparkle 1/Extras/Source Code\"";
+				WRAPPER_EXTENSION = prefPane;
+			};
+			name = Release;
+		};
+		8C6FFCDD0B32269000EF8A76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Webmailer Daemon-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					ScriptingBridge,
+				);
+				"OTHER_LDFLAGS[sdk=macosx10.4][arch=*]" = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Webmailer;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8C6FFCDE0B32269000EF8A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Webmailer Daemon-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					ScriptingBridge,
+				);
+				"OTHER_LDFLAGS[sdk=macosx10.4][arch=*]" = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Webmailer;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=macosx10.4][arch=*]" = (
+					"numberWithInteger=numberWithInt",
+					"numberWithUnsignedInteger=numberWithUnsignedInt",
+					"NSUInteger=unsigned",
+					"NSInteger=int",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				"GCC_VERSION[arch=i386]" = 4.0;
+				"GCC_VERSION[arch=ppc]" = 4.0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=macosx10.4][arch=*]" = (
+					"NSUInteger=unsigned",
+					"NSInteger=int",
+				);
+				GCC_VERSION = 4.0;
+				"GCC_VERSION[arch=x86_64]" = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				"MACOSX_DEPLOYMENT_TARGET[arch=x86_64]" = 10.5;
+				PREBINDING = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8C379C9C0B46F81600F124AB /* Build configuration list for PBXNativeTarget "Add Webmailer to Mail Handlers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C379C9D0B46F81600F124AB /* Debug */,
+				8C379C9E0B46F81600F124AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C5E08010B37C18500EC858C /* Build configuration list for PBXAggregateTarget "Build All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C5E08020B37C18500EC858C /* Debug */,
+				8C5E08030B37C18500EC858C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C6FFB9C0B3220AD00EF8A76 /* Build configuration list for PBXNativeTarget "Preference Pane" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C6FFB9D0B3220AD00EF8A76 /* Debug */,
+				8C6FFB9E0B3220AD00EF8A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C6FFCDC0B32269000EF8A76 /* Build configuration list for PBXNativeTarget "Webmailer Daemon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C6FFCDD0B32269000EF8A76 /* Debug */,
+				8C6FFCDE0B32269000EF8A76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Webmailer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

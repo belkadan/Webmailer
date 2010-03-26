@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>configurations</key>
+	<array>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://webmail.aol.com/mail/compose-message.aspx?to=[to]&amp;[?]</string>
+			<key>name</key>
+			<string>AIM Mail</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://mail.google.com/mail?view=cm&amp;fs=1&amp;tf=1&amp;to=[to]&amp;su=[subject]&amp;body=[body]</string>
+			<key>name</key>
+			<string>Gmail</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://SITE/imp/compose.php?actionID=compose_expand_addr&amp;to=[to]&amp;cc=[cc]&amp;bcc=[bcc]</string>
+			<key>name</key>
+			<string>Horde IMP</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://mail.live.com/mail/mail.aspx?rru=compose%3faction%3dcompose%26to%3d[%to]%26[%?]</string>
+			<key>name</key>
+			<string>Live Hotmail</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://SITE/exchange/USER/drafts/?cmd=new&amp;mailtoaddr=[to]</string>
+			<key>name</key>
+			<string>Outlook</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://SITE/?_task=mail&amp;_action=compose&amp;_to=[to]&amp;_cc=[cc]&amp;_bcc=[bcc]&amp;_subject=[subject]&amp;_message=[body]</string>
+			<key>name</key>
+			<string>Roundcube</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://SITE/src/mailto.php?emailaddress=[to]%3F[%?]</string>
+			<key>name</key>
+			<string>SquirrelMail</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://SITE/src/compose.php?send_to=[to]&amp;send_to_cc=[cc]&amp;send_to_bcc=[bcc]&amp;subject=[subject]&amp;body=[body]</string>
+			<key>name</key>
+			<string>SquirrelMail 2</string>
+		</dict>
+		<dict>
+			<key>active</key>
+			<true/>
+			<key>destinationURL</key>
+			<string>http://compose.mail.yahoo.com/?To=[to]&amp;Body=[body]&amp;Subject=[subject]&amp;Cc=[cc]&amp;Bcc=[bcc]</string>
+			<key>name</key>
+			<string>Yahoo! Mail</string>
+		</dict>
+		<dict>
+			<key>destinationURL</key>
+			<string>http://SITE/zimbra/?view=compose&amp;to=[to]&amp;[?]</string>
+			<key>name</key>
+			<string>Zimbra</string>
+		</dict>
+	</array>
+	<key>currentDestination</key>
+	<string>http://compose.mail.yahoo.com/?To=[to]&amp;Body=[body]&amp;Subject=[subject]&amp;Cc=[cc]&amp;Bcc=[bcc]</string>
+</dict>
+</plist>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIconFile</key>
+	<string>icon</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.belkadan.Webmailer</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>SUFeedURL</key>
+	<string>http://belkadan.com/webmailer/updates</string>
+	<key>SUAllowsAutomaticUpdates</key>
+	<false/>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.1</string>
+	<key>NSMainNibFile</key>
+	<string>PrefPane</string>
+	<key>NSPrefPaneIconFile</key>
+	<string>icon_32.tiff</string>
+	<key>NSPrefPaneIconLabel</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>NSPrincipalClass</key>
+	<string>ComBelkadanWebmailer_PrefPane</string>
+</dict>
+</plist>
