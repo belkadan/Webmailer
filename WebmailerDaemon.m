@@ -94,10 +94,18 @@
 	showConfigurationList = NO;
 	mailtoURL = nil;
 	
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:WebmailerCurrentDestinationKey] == nil)
+	NSDictionary *defaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
+	if (!defaults)
 	{
 		[self openPreferencePane:nil];
 	}
+	else
+	{
+		[self willChangeValueForKey:@"configurations"];
+		configurations = [[defaults objectForKey:WebmailerConfigurationsKey] retain];
+		[self didChangeValueForKey:@"configurations"];
+	}
+
 
 	NSImage *activeImage;
 #if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
@@ -166,13 +174,13 @@
 
 	if (showConfigurations)
 	{
-		NSArray *configurations = [configurationController arrangedObjects];
-		NSUInteger count = [configurations count];
+		NSArray *arrangedConfigurations = [configurationController arrangedObjects];
+		NSUInteger count = [arrangedConfigurations count];
 		NSUInteger i;
 		
 		for (i = 0; i < count; i += 1)
 		{
-			if ([[[configurations objectAtIndex:i] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
+			if ([[[arrangedConfigurations objectAtIndex:i] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
 			{
 				[configurationController setSelectionIndex:i];
 				[configurationTable scrollRowToVisible:i];
@@ -185,7 +193,7 @@
 	}
 	else
 	{
-		[self launchDestination:[[NSUserDefaults standardUserDefaults] objectForKey:WebmailerCurrentDestinationKey]];
+		[self launchDestination:[[[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain] objectForKey:WebmailerCurrentDestinationKey]];
 	}
 }
 
@@ -414,6 +422,7 @@
 - (void)dealloc
 {
 	[mailtoURL release];
+	[configurations release];
 	[super dealloc];
 }
 

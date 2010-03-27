@@ -35,6 +35,8 @@
 {
 	BOOL showConfigurationList;
 	NSString *mailtoURL;
+	NSArray *configurations;
+	
 	IBOutlet NSArrayController *configurationController;
 	IBOutlet NSTableView *configurationTable;
 	IBOutlet NSWindow *configurationWindow;
