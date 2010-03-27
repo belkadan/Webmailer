@@ -82,6 +82,15 @@ static const NSSize emailAppIconSize = {16, 16};
 	
 	NSString *currentIdentifier = (NSString *) LSCopyDefaultHandlerForURLScheme((CFStringRef) WebmailerMailtoScheme);
 	NSArray *appIDs = (NSArray *) LSCopyAllHandlersForURLScheme((CFStringRef) WebmailerMailtoScheme);
+	
+	if (!appIDs) {
+		if (!currentIdentifier) {
+			currentIdentifier = (NSString *) CFRetain((CFStringRef) AppleMailDomain);
+		}
+
+		appIDs = (NSArray *) CFArrayCreate(NULL, (const void **)&currentIdentifier, 1, &kCFTypeArrayCallBacks);
+	}
+	
 	NSEnumerator *appIDEnum = [appIDs objectEnumerator];
 	
 	NSString *nextID, *nextPath, *nextName;
@@ -169,7 +178,7 @@ static const NSSize emailAppIconSize = {16, 16};
 	[menuItems release];
 	
 	CFRelease(appIDs);
-	CFRelease(currentIdentifier);
+	if (currentIdentifier) CFRelease(currentIdentifier);
 }
 
 /*!
