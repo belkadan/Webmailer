@@ -23,7 +23,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="516"/>
+			<integer value="447"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -449,7 +449,7 @@ AADCEQ4AAAAAAAAAAAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlLCBJbmMuLCAyMDEwAA</
 														</object>
 														<object class="NSTableColumn" id="605779375">
 															<string key="NSIdentifier">name</string>
-															<double key="NSWidth">414</double>
+															<double key="NSWidth">140</double>
 															<double key="NSMinWidth">40</double>
 															<double key="NSMaxWidth">414</double>
 															<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -489,7 +489,7 @@ AADCEQ4AAAAAAAAAAAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlLCBJbmMuLCAyMDEwAA</
 														</object>
 														<object class="NSTableColumn" id="240563090">
 															<string key="NSIdentifier">destinationURL</string>
-															<double key="NSWidth">113</double>
+															<double key="NSWidth">387</double>
 															<double key="NSMinWidth">65.0478515625</double>
 															<double key="NSMaxWidth">489</double>
 															<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -635,7 +635,7 @@ AADCEQ4AAAAAAAAAAAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlLCBJbmMuLCAyMDEwAA</
 										<string key="NSContents">Add</string>
 										<reference key="NSSupport" ref="767363618"/>
 										<reference key="NSControlView" ref="654299794"/>
-										<int key="NSButtonFlags">-2038152961</int>
+										<int key="NSButtonFlags">-2038021889</int>
 										<int key="NSButtonFlags2">1</int>
 										<string key="NSAlternateContents"/>
 										<object class="NSMutableString" key="NSKeyEquivalent">
@@ -1912,7 +1912,6 @@ AADCEQ4AAAAAAAAAAAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlLCBJbmMuLCAyMDEwAA</
 					<string>531.IBPluginDependency</string>
 					<string>532.IBPluginDependency</string>
 					<string>533.IBPluginDependency</string>
-					<string>550.IBPluginDependency</string>
 					<string>565.IBPluginDependency</string>
 					<string>566.IBPluginDependency</string>
 					<string>566.IBSegmentedControlInspectorSelectedSegmentMetadataKey</string>
@@ -1986,7 +1985,6 @@ AADCEQ4AAAAAAAAAAAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlLCBJbmMuLCAyMDEwAA</
 					<string>com.brandonwalkin.BWToolkit</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.belkadan.ibplugins.dbbackgroundview</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
