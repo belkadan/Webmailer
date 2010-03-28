@@ -42,7 +42,7 @@
 {
 	if (self = [super initWithBundle:bundle])
 	{
-		NSArray *immutableConfigurations = (NSArray *) CFPreferencesCopyAppValue((CFStringRef) WebmailerConfigurationsKey, (CFStringRef) WebmailerAppDomain);
+		NSArray *immutableConfigurations = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain] objectForKey:WebmailerConfigurationsKey] retain];
 		if (immutableConfigurations == nil)
 		{
 			// First time setup
@@ -50,16 +50,17 @@
 			CFPreferencesSetMultiple((CFDictionaryRef) initialDefaults, NULL, (CFStringRef) WebmailerAppDomain, kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
 			CFPreferencesAppSynchronize((CFStringRef) WebmailerAppDomain);
 			
-			immutableConfigurations = (NSArray *) CFPreferencesCopyAppValue((CFStringRef) WebmailerConfigurationsKey, (CFStringRef) WebmailerAppDomain);
+			immutableConfigurations = [[initialDefaults objectForKey:WebmailerConfigurationsKey] retain];
 			[initialDefaults release];
 		}
+
 		
 		NSURL *daemonURL = [[NSURL alloc] initWithString:[bundle pathForResource:@"Webmailer" ofType:@"app"]];
 		LSRegisterURL((CFURLRef) daemonURL, false);
 		[daemonURL release];
 		
 		configurations = [immutableConfigurations mutableDeepPropertyListCopy];
-		CFRelease(immutableConfigurations);
+		[immutableConfigurations release];
 
 		NSImage *activeImage;
 #if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
