@@ -311,7 +311,7 @@
 			}
 			else
 			{
-				headerRange = [mailtoURL rangeOfString:[header stringByAppendingString:@"="]];
+				headerRange = [mailtoURL rangeOfString:[header stringByAppendingString:@"="] options:NSCaseInsensitiveSearch];
 				if (headerRange.location == NSNotFound)
 				{
 					headerRange.location = headerRange.length = 0;
