@@ -64,6 +64,38 @@
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype;
 @end
 
+
+/*!
+ * Returns YES if the shift key is currently held, NO if not.
+ */
+BOOL isShiftKeyDown () {
+	BOOL result;
+
+#if !defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_6
+	CGEventRef tempEvent = CGEventCreate(NULL /*default event source*/);
+	result = ((CGEventGetFlags(tempEvent) & kCGEventFlagMaskShift) != 0);
+	CFRelease(tempEvent);
+	
+#elif MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6
+	if ([NSEvent respondsToSelector:@selector(modifierFlags)])
+	{
+		result = (([NSEvent modifierFlags] & NSShiftKeyMask) != 0);
+	}
+	else
+	{
+		CGEventRef tempEvent = CGEventCreate(NULL /*default event source*/);
+		result = ((CGEventGetFlags(tempEvent) & kCGEventFlagMaskShift) != 0);
+		CFRelease(tempEvent);
+	}
+	
+#else
+	result = (([NSEvent modifierFlags] & NSShiftKeyMask) != 0);
+	
+#endif
+
+	return result;
+}
+
 #pragma mark -
 
 /*!
@@ -148,29 +180,7 @@
 	[mailtoURL release];
 	mailtoURL = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] retain];
 	
-	BOOL showConfigurations;
-	
-#if !defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_6
-	CGEventRef tempEvent = CGEventCreate(NULL /*default event source*/);
-	showConfigurations = ((CGEventGetFlags(tempEvent) & kCGEventFlagMaskShift) != 0);
-	CFRelease(tempEvent);
-	
-#elif MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6
-	if ([NSEvent respondsToSelector:@selector(modifierFlags)])
-	{
-		showConfigurations = (([NSEvent modifierFlags] & NSShiftKeyMask) != 0);
-	}
-	else
-	{
-		CGEventRef tempEvent = CGEventCreate(NULL /*default event source*/);
-		showConfigurations = ((CGEventGetFlags(tempEvent) & kCGEventFlagMaskShift) != 0);
-		CFRelease(tempEvent);
-	}
-	
-#else
-	showConfigurations = (([NSEvent modifierFlags] & NSShiftKeyMask) != 0);
-	
-#endif
+	BOOL showConfigurations = isShiftKeyDown();
 
 	if (showConfigurations)
 	{
