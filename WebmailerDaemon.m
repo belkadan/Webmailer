@@ -180,6 +180,8 @@ BOOL isShiftKeyDown () {
 	[mailtoURL release];
 	mailtoURL = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] retain];
 	
+	[self recordSource:event];
+	
 	BOOL showConfigurations = isShiftKeyDown();
 
 	if (showConfigurations)
@@ -205,6 +207,12 @@ BOOL isShiftKeyDown () {
 	{
 		[self launchDestination:[[[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain] objectForKey:WebmailerCurrentDestinationKey]];
 	}
+}
+
+- (void)recordSource:(NSAppleEventDescriptor *)event {
+	NSData *data = [[[event attributeDescriptorForKeyword:keyAddressAttr] coerceToDescriptorType: typeProcessSerialNumber] data];
+	NSAssert([data length] <= sizeof(sourcePSN), @"PSN key is too big!");
+	[data getBytes:&sourcePSN];
 }
 
 /*!
@@ -369,7 +377,15 @@ BOOL isShiftKeyDown () {
 	NSURL *destinationURL = [[NSURL alloc] initWithString:destination];
 	if (destinationURL != nil)
 	{
-		[[NSWorkspace sharedWorkspace] openURL:destinationURL];
+		if ([self sourceCanHandleURL:destinationURL])
+		{
+			[self openURLInSource:destinationURL];
+		}
+		else
+		{
+			// Fall back to default URL handler.
+			[[NSWorkspace sharedWorkspace] openURL:destinationURL];
+		}
 		[destinationURL release];
 	}
 	else
@@ -434,6 +450,41 @@ BOOL isShiftKeyDown () {
 	[mailtoURL release];
 	[configurations release];
 	[super dealloc];
+}
+
+#pragma mark -
+
+NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
+	if (psn->highLongOfPSN == 0 && psn->lowLongOfPSN == 0)
+		return nil;
+	
+	FSRef bundleLocation;
+	OSStatus status = GetProcessBundleLocation(psn, &bundleLocation);
+	if (status != noErr)
+		return nil;
+	
+	NSURL *appURL = (NSURL *)CFURLCreateFromFSRef(NULL, &bundleLocation);
+	return [appURL autorelease];
+}
+
+- (BOOL)sourceCanHandleURL:(NSURL *)url
+{
+	NSURL *appURL = GetURLForPSN(&sourcePSN);
+	
+	Boolean canHandle;
+	OSStatus status = LSCanURLAcceptURL((CFURLRef)url, (CFURLRef)appURL, kLSRolesViewer, kLSAcceptDefault, &canHandle);
+	
+	if (status != noErr)
+		return noErr;
+
+	return (canHandle != NO);
+}
+
+- (void)openURLInSource:(NSURL *)url
+{
+	SBApplication *target = [SBApplication applicationWithURL:GetURLForPSN(&sourcePSN)];
+	[target setDelegate:self];
+	[target sendEvent:kInternetEventClass id:kAEGetURL parameters:keyDirectObject, url, NULL];
 }
 
 #pragma mark -

@@ -34,6 +34,7 @@
 @interface WebmailerDaemon : NSObject
 {
 	BOOL showConfigurationList;
+	ProcessSerialNumber sourcePSN;
 	NSString *mailtoURL;
 	NSArray *configurations;
 	
