@@ -22,23 +22,23 @@
  Except as contained in this notice, the name(s) of the above copyright holders
  shall not be used in advertising or otherwise to promote the sale, use or other
  dealings in this Software without prior authorization.
-*******************************************************************************/
+ *******************************************************************************/
 
-#import <AppKit/AppKit.h>
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
+#import <ScriptingBridge/ScriptingBridge.h>
 
-@interface WebmailerDaemon : NSObject
-{
-	NSString *mailtoURL;
-	ProcessSerialNumber sourcePSN;
-	
-	NSArray *configurations;
-	
-	IBOutlet NSArrayController *configurationController;
-	IBOutlet NSTableView *configurationTable;
-	IBOutlet NSWindow *configurationWindow;
-}
-- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
-- (IBAction)confirmConfiguration:(id)sender;
-- (IBAction)openPreferencePane:(id)sender;
-- (void)launchDestination:(NSString *)destinationPrototype;
+# if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
+@interface WebmailerDaemon () <SBApplicationDelegate>
 @end
+# endif /* MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED */
+
+@interface SystemPreferencesApplication : SBApplication
+- (void)setCurrentPane:(SBObject *)currentPane;
+- (SBObject *)currentPane;
+- (SBElementArray *)panes;
+@end
+
+@interface TerminalApplication : SBApplication
+- (SBObject *)doScript:(NSString *)script in:(id)tabOrWindow;
+@end
+#endif /* MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED */

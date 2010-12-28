@@ -165,6 +165,7 @@
 		8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailtoSchemeController.m; sourceTree = "<group>"; };
 		8CE4E5AE0B339FD4000CAE73 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = icon_32.tiff; sourceTree = "<group>"; };
+		8CFEB4F912C9E076002D85E8 /* ScriptingBridgeApps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptingBridgeApps.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +208,7 @@
 				8C4211D30B3639CB0012E9BA /* main.m */,
 				8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */,
 				8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */,
+				8CFEB4F912C9E076002D85E8 /* ScriptingBridgeApps.h */,
 				8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */,
 				8CAE44BA104B7B82005F3191 /* Terminal.h */,
 			);
@@ -396,7 +398,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Webmailer" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Webmailer */;
 			projectDirPath = "";
 			projectRoot = "";

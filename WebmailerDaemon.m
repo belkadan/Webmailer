@@ -1,5 +1,5 @@
 /*******************************************************************************
- Copyright (c) 2006-2009 Jordy Rose
+ Copyright (c) 2006-2010 Jordy Rose
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -24,35 +24,11 @@
  dealings in this Software without prior authorization.
 *******************************************************************************/
 
-//
-//  WebmailerDaemon.m
-//  Webmailer
-//
-
 #import "WebmailerDaemon.h"
 #import "WebmailerShared.h"
 #import "ImageForStateTransformer.h"
 
-
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-#import <ScriptingBridge/ScriptingBridge.h>
-
-#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-@interface WebmailerDaemon () <SBApplicationDelegate>
-@end
-#endif
-
-@interface SystemPreferencesApplication : SBApplication
-- (void)setCurrentPane:(SBObject *)currentPane;
-- (SBObject *)currentPane;
-- (SBElementArray *)panes;
-@end
-
-@interface TerminalApplication : SBApplication
-- (SBObject *)doScript:(NSString *)script in:(id)tabOrWindow;
-@end
-#endif
-
+#import "ScriptingBridgeApps.h"
 
 // to stop warnings on pre-10.6 builds
 @interface NSEvent (ComBelkadanWebmailer_NoWarn)
@@ -68,15 +44,15 @@
 /*!
  * Returns YES if the shift key is currently held, NO if not.
  */
-BOOL isShiftKeyDown () {
+BOOL isShiftKeyDown ()
+{
 	BOOL result;
 
-#if !defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_6
-	CGEventRef tempEvent = CGEventCreate(NULL /*default event source*/);
-	result = ((CGEventGetFlags(tempEvent) & kCGEventFlagMaskShift) != 0);
-	CFRelease(tempEvent);
-	
-#elif MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6
+#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
+# if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MIN_REQUIRED
+	result = (([NSEvent modifierFlags] & NSShiftKeyMask) != 0);
+
+# else /* MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6 */
 	if ([NSEvent respondsToSelector:@selector(modifierFlags)])
 	{
 		result = (([NSEvent modifierFlags] & NSShiftKeyMask) != 0);
@@ -87,14 +63,53 @@ BOOL isShiftKeyDown () {
 		result = ((CGEventGetFlags(tempEvent) & kCGEventFlagMaskShift) != 0);
 		CFRelease(tempEvent);
 	}
-	
-#else
-	result = (([NSEvent modifierFlags] & NSShiftKeyMask) != 0);
-	
+
+# endif
+
+#else /* MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_6 */
+	CGEventRef tempEvent = CGEventCreate(NULL /*default event source*/);
+	result = ((CGEventGetFlags(tempEvent) & kCGEventFlagMaskShift) != 0);
+	CFRelease(tempEvent);
+
 #endif
 
 	return result;
 }
+
+/*!
+ * Returns the image used to represent the currently selected destination.
+ */
+NSImage *GetActiveDestinationImage ()
+{
+	NSImage *image;
+
+	// If available, use the active state image that comes with Mac OS X.
+#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
+	image = [NSImage imageNamed:@"NSStatusAvailable"]; // don't use the constant to avoid crash on Tiger
+	if (image)
+#endif
+	{
+		// Otherwise, use our own bundled image.
+		image = [NSImage imageNamed:@"active"];
+	}
+
+	return image;
+}
+
+// FIXME: document me!
+NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
+	if (psn->highLongOfPSN == 0 && psn->lowLongOfPSN == 0)
+		return nil;
+	
+	FSRef bundleLocation;
+	OSStatus status = GetProcessBundleLocation(psn, &bundleLocation);
+	if (status != noErr)
+		return nil;
+	
+	NSURL *appURL = (NSURL *)CFURLCreateFromFSRef(NULL, &bundleLocation);
+	return [appURL autorelease];
+}
+
 
 #pragma mark -
 
@@ -120,52 +135,73 @@ BOOL isShiftKeyDown () {
 @implementation WebmailerDaemon
 - (void)awakeFromNib
 {
+	// Register for GetURL events.
 	NSAppleEventManager *aevtManager = [NSAppleEventManager sharedAppleEventManager];
 	[aevtManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 	
-	showConfigurationList = NO;
-	mailtoURL = nil;
-	
-	NSDictionary *defaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
-	if (!defaults)
+	// Make sure the user has configured Webmailer before. 
+	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
+	if (!prefs)
 	{
 		[self openPreferencePane:nil];
 	}
-	else
-	{
-		[self willChangeValueForKey:@"configurations"];
-		configurations = [[defaults objectForKey:WebmailerConfigurationsKey] retain];
-		[self didChangeValueForKey:@"configurations"];
-	}
+	
+	// Quit if no incoming event after 30s.
+	[NSTimer scheduledTimerWithTimeInterval:30 target:NSApp selector:@selector(terminate:) userInfo:nil repeats:NO];
+}
 
-
-	NSImage *activeImage;
-#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-	activeImage = [[NSImage imageNamed:@"NSStatusAvailable"] copy]; // don't use the constant to avoid crash on Tiger
-	if (!activeImage)
-#endif
-	{
-		activeImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForImageResource:@"active"]];
-	}
-
-	ImageForStateTransformer *transformer = [[ImageForStateTransformer alloc] initWithTrueImage:activeImage falseImage:nil];
-	[NSValueTransformer setValueTransformer:transformer forName:@"ImageForState"];
-	[transformer release];
-	[activeImage release];
-
+/*!
+ * Set up the configuration chooser, then display it and bring the Webmailer app to the front.
+ * The user can then choose which configuration to use for the URL that was clicked.
+ */
+- (void)showConfigurationChooser {
+	// Set up sort descriptors for destination URLs.
 	NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationNameKey ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
 	NSSortDescriptor *sortByDestination = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationURLKey ascending:YES];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByName, sortByDestination, nil];
-	[configurationController setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
 	[sortByName release];
 	[sortByDestination release];
+
+	// Sort the configurations.
+	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
+	NSArray *sortedConfigurations = [[prefs objectForKey:WebmailerConfigurationsKey] sortedArrayUsingDescriptors:sortDescriptors];
+	[sortDescriptors release];
 	
+	// Update the displayed configurations.
+	[self willChangeValueForKey:@"configurations"];
+	configurations = [sortedConfigurations copy];
+	[self didChangeValueForKey:@"configurations"];
+
+		
+	// Create a new value transformer that shows an active icon for true values.
+	ImageForStateTransformer *transformer = [[ImageForStateTransformer alloc] initWithTrueImage:GetActiveDestinationImage() falseImage:nil];
+	[NSValueTransformer setValueTransformer:transformer forName:@"ImageForState"];
+	[transformer release];
+	
+	
+	// Select the active destination.
+	NSUInteger count = [configurations count];
+	NSUInteger i;
+	
+	for (i = 0; i < count; i += 1)
+	{
+		if ([[[configurations objectAtIndex:i] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
+		{
+			[configurationController setSelectionIndex:i];
+			[configurationTable scrollRowToVisible:i];
+			break;
+		}
+	}
+	
+	
+	// Set the table to fire an action on double-click.
 	[configurationTable setDoubleAction:@selector(confirmConfiguration:)];
 	[configurationTable setTarget:self];
-	
-	// quit if no incoming event after 30s
-	[NSTimer scheduledTimerWithTimeInterval:30 target:NSApp selector:@selector(terminate:) userInfo:nil repeats:NO];
+
+
+	// Bring up the configuration window.
+	[NSApp activateIgnoringOtherApps:YES]; // needed because we're an NSUIElement
+	[configurationWindow makeKeyAndOrderFront:self];
 }
 
 /*!
@@ -176,40 +212,32 @@ BOOL isShiftKeyDown () {
  * The reply event is unused.
  */
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
-{	
-	[mailtoURL release];
-	mailtoURL = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] retain];
-	
-	[self recordSource:event];
-	
-	BOOL showConfigurations = isShiftKeyDown();
+{		
+	[self extractEventData:event];
 
-	if (showConfigurations)
+	BOOL shouldShowConfigurations = isShiftKeyDown();
+	if (shouldShowConfigurations)
 	{
-		NSArray *arrangedConfigurations = [configurationController arrangedObjects];
-		NSUInteger count = [arrangedConfigurations count];
-		NSUInteger i;
-		
-		for (i = 0; i < count; i += 1)
-		{
-			if ([[[arrangedConfigurations objectAtIndex:i] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
-			{
-				[configurationController setSelectionIndex:i];
-				[configurationTable scrollRowToVisible:i];
-				break;
-			}
-		}
-		
-		[NSApp activateIgnoringOtherApps:YES]; // needed because we're an NSUIElement
-		[configurationWindow makeKeyAndOrderFront:self];
+		[self showConfigurationChooser];
 	}
 	else
 	{
-		[self launchDestination:[[[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain] objectForKey:WebmailerCurrentDestinationKey]];
+		NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
+		[self launchDestination:[prefs objectForKey:WebmailerCurrentDestinationKey]];
 	}
 }
 
-- (void)recordSource:(NSAppleEventDescriptor *)event {
+/*!
+ * Extract any useful information from a GetURL AppleEvent, including the URL
+ * that was clicked.
+ */
+- (void)extractEventData:(NSAppleEventDescriptor *)event {
+	// Save mailto URL.
+	[mailtoURL release];
+	mailtoURL = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] copy];
+
+	// Save the PSN of the application that sent this message.
+	// TODO: Someday, maybe Apple will switch to something other than PSNs for this.
 	NSData *data = [[[event attributeDescriptorForKeyword:keyAddressAttr] coerceToDescriptorType: typeProcessSerialNumber] data];
 	NSAssert([data length] <= sizeof(sourcePSN), @"PSN key is too big!");
 	[data getBytes:&sourcePSN];
@@ -262,6 +290,12 @@ BOOL isShiftKeyDown () {
  */
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype
 {
+	return [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscapes:NO];
+}
+
+// FIXME: document me!
+- (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes
+{
 	NSMutableString *destination = [[NSMutableString alloc] init];
 	
 	NSUInteger colonIndex = [mailtoURL rangeOfString:@":"].location;
@@ -291,13 +325,11 @@ BOOL isShiftKeyDown () {
 			
 			shouldCountCharsInstead = ([replaceStr characterAtIndex:matchStart] == '#');
 			if (shouldCountCharsInstead) {
-				shouldCountCharsInstead = YES;
 				matchStart += 1;
 			}
 			
 			shouldEscape = ([replaceStr characterAtIndex:matchStart] == '%');
 			if (shouldEscape) {
-				shouldEscape = YES;
 				matchStart += 1;
 			}
 			
@@ -351,10 +383,32 @@ BOOL isShiftKeyDown () {
 			
 			replaceStr = [mailtoURL substringWithRange:headerRange];
 			
-			if (shouldEscape) replaceStr = [replaceStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			if (shouldCountCharsInstead) replaceStr = [NSString stringWithFormat:@"%d", [replaceStr length]];
+			// The order of operations here is important!
+			// 1. Percent-escape for URLs BEFORE counting characters.
+			// 2. Count characters BEFORE backslash-escaping for shells!
+			if (shouldEscape && !useShellEscapes)
+			{
+				replaceStr = [replaceStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			}
 			
-			[destination appendString:replaceStr];
+			if (shouldCountCharsInstead)
+			{
+				replaceStr = [NSString stringWithFormat:@"%lu", (long unsigned)[replaceStr length]];
+			}
+			
+			if (shouldEscape && useShellEscapes)
+			{
+				// Quote the shell input.
+				// FIXME: is this the right behavior?
+				[destination appendString:@"'"];
+				[destination appendString:[replaceStr stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"]];
+				[destination appendString:@"'"];
+			}
+			else
+			{
+				// Append the piece as is (possibly already escaped)
+				[destination appendString:replaceStr];
+			}
 		}
 		
 		if ([scanner scanUpToString:@"[" intoString:&replaceStr]) [destination appendString:replaceStr];
@@ -373,76 +427,106 @@ BOOL isShiftKeyDown () {
  */
 - (void)launchDestination:(NSString *)destinationPrototype
 {
-	NSString *destination = [self replacePlaceholdersInDestinationPrototype:destinationPrototype];
-	NSURL *destinationURL = [[NSURL alloc] initWithString:destination];
-	if (destinationURL != nil)
+	if ([destinationPrototype characterAtIndex:0] == '#')
 	{
-		if ([self sourceCanHandleURL:destinationURL])
-		{
-			[self openURLInSource:destinationURL];
-		}
-		else
-		{
-			// Fall back to default URL handler.
-			[[NSWorkspace sharedWorkspace] openURL:destinationURL];
-		}
-		[destinationURL release];
+		// It's a background shell script!
+		NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscaped:YES];
+		[self launchShellScript:script];
 	}
 	else
 	{
-		if ([destination characterAtIndex:0] == '#')
+		NSString *destination = [self replacePlaceholdersInDestinationPrototype:destinationPrototype];
+		NSURL *destinationURL = [[NSURL alloc] initWithString:destination];
+		
+		if (destinationURL)
 		{
-			NSString *userShell = [[[NSProcessInfo processInfo] environment] objectForKey:@"SHELL"];
-			if ([userShell length] == 0) userShell = @"/bin/sh";
-			
-			NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-			if ([[destination substringFromIndex:1] writeToFile:tempFile atomically:NO encoding:NSUTF8StringEncoding error:NULL])
+			// It's a valid URL
+			if ([self sourceCanHandleURL:destinationURL])
 			{
-				NSTask *task = [NSTask launchedTaskWithLaunchPath:userShell arguments:[NSArray arrayWithObject:tempFile]];
-				[task waitUntilExit];
+				[self openURLInSource:destinationURL];
 			}
 			else
 			{
-				NSMutableString *scriptSource = [destination mutableCopy];
-				
-				[scriptSource replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:0 range:NSMakeRange(0, [destination length])];
-				[scriptSource replaceCharactersInRange:NSMakeRange(0, 1) withString:@"do shell script \""];
-				[scriptSource appendString:@"\""];
-				
-				NSAppleScript *runScript = [[NSAppleScript alloc] initWithSource:scriptSource];
-				[runScript executeAndReturnError:NULL];
-				[runScript release];
-				[scriptSource release];
-			}			
+				// Fall back to default URL handler.
+				[[NSWorkspace sharedWorkspace] openURL:destinationURL];
+			}
+			[destinationURL release];
 		}
 		else
 		{
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-			if (NSClassFromString(@"SBApplication"))
-			{
-				TerminalApplication *terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
-				[terminal setDelegate:self];
-				[terminal activate];
-				(void)[terminal doScript:destination in:nil];
-			}
-			else
-#endif
-			{
-				NSMutableString *scriptSource = [destination mutableCopy];
-				
-				[scriptSource replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:0 range:NSMakeRange(0, [destination length])];
-				[scriptSource replaceCharactersInRange:NSMakeRange(0, 0) withString:@"tell application \"Terminal\" to do script \""];
-				[scriptSource appendString:@"\""];
-
-				NSAppleScript *runScript = [[NSAppleScript alloc] initWithSource:scriptSource];
-				[runScript executeAndReturnError:NULL];
-				[runScript release];
-				[scriptSource release];
-			}
+			// It's not a valid URL; must be an "open Terminal" shell script.
+			NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscaped:YES];
+			[self launchTerminal:script];
 		}
 	}
-	
+
 	[NSApp terminate:self]; // Don't want to just stick around, right?
+}
+
+// FIXME: Document me!
+- (void)launchShellScript:(NSString *)script
+{
+	// Find out the user's preferred shell. Default to /bin/sh.
+	NSString *userShell = [[[NSProcessInfo processInfo] environment] objectForKey:@"SHELL"];
+	if ([userShell length] == 0) userShell = @"/bin/sh";
+	
+	// FIXME: error handling!
+	// Launch the shell.
+	NSTask *task = [[NSTask alloc] init];
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardInput:[pipe fileHandleForReading]];
+	[task setLaunchPath:userShell];
+	[task launch];
+	
+	NSFileHandle *input = [pipe fileHandleForWriting];
+	[input writeData:[[script substringFromIndex:1] dataUsingEncoding:NSUTF8StringEncoding]];
+	[input closeFile];
+	[task waitUntilExit];
+	[task release];
+	
+	if (!YES)
+	{
+		// Otherwise, use AppleScript.
+		NSMutableString *scriptSource = [script mutableCopy];
+		
+		[scriptSource replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:0 range:NSMakeRange(0, [script length])];
+		[scriptSource replaceCharactersInRange:NSMakeRange(0, 1) withString:@"do shell script \""];
+		[scriptSource appendString:@"\""];
+		
+		NSAppleScript *runScript = [[NSAppleScript alloc] initWithSource:scriptSource];
+		[runScript executeAndReturnError:NULL];
+		[runScript release];
+		[scriptSource release];
+	}	
+}
+
+// FIXME: Document me!
+- (void)launchTerminal:(NSString *)script
+{
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+	if (NSClassFromString(@"SBApplication"))
+	{
+		// If ScriptingBridge is available, use that.
+		TerminalApplication *terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
+		[terminal setDelegate:self];
+		[terminal activate];
+		(void)[terminal doScript:script in:nil];
+	}
+	else
+#endif
+	{
+		// Otherwise, use AppleScript.
+		NSMutableString *scriptSource = [script mutableCopy];
+		
+		[scriptSource replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:0 range:NSMakeRange(0, [script length])];
+		[scriptSource replaceCharactersInRange:NSMakeRange(0, 0) withString:@"tell application \"Terminal\" to do script \""];
+		[scriptSource appendString:@"\""];
+
+		NSAppleScript *runScript = [[NSAppleScript alloc] initWithSource:scriptSource];
+		[runScript executeAndReturnError:NULL];
+		[runScript release];
+		[scriptSource release];
+	}
 }
 
 - (void)dealloc
@@ -453,19 +537,6 @@ BOOL isShiftKeyDown () {
 }
 
 #pragma mark -
-
-NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
-	if (psn->highLongOfPSN == 0 && psn->lowLongOfPSN == 0)
-		return nil;
-	
-	FSRef bundleLocation;
-	OSStatus status = GetProcessBundleLocation(psn, &bundleLocation);
-	if (status != noErr)
-		return nil;
-	
-	NSURL *appURL = (NSURL *)CFURLCreateFromFSRef(NULL, &bundleLocation);
-	return [appURL autorelease];
-}
 
 - (BOOL)sourceCanHandleURL:(NSURL *)url
 {
