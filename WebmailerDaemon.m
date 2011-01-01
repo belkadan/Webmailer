@@ -42,8 +42,8 @@
 - (void)launchShellScript:(NSString *)script;
 - (void)launchTerminal:(NSString *)script;
 
-- (BOOL)sourceCanHandleURL:(NSURL *)url;
-- (void)openURLInSource:(NSURL *)url;
+- (NSURL *)chooseAppForOpeningURL:(NSURL *)url;
+- (void)openURL:(NSURL *)url withApplication:(NSURL *)appURL;
 
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype;
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes;
@@ -118,6 +118,29 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 		return nil;
 	
 	NSURL *appURL = (NSURL *)CFURLCreateFromFSRef(NULL, &bundleLocation);
+	return [appURL autorelease];
+}
+
+// FIXME: document me!
+BOOL AppCanHandleURL (NSURL *appURL, NSURL *url) {
+	Boolean canHandle;
+	OSStatus status = LSCanURLAcceptURL((CFURLRef)url, (CFURLRef)appURL, kLSRolesViewer, kLSAcceptDefault, &canHandle);
+	
+	if (status != noErr)
+		return NO;
+	
+	return (canHandle != NO);
+}
+
+// FIXME: document me!
+NSURL *GetDefaultAppURLForURL(NSURL *url) {
+	// TODO: in 10.6, replace this function with -[NSWorkspace URLForApplicationToOpenURL:]
+	NSURL *appURL = nil;
+	OSStatus status = LSGetApplicationForURL((CFURLRef)url, kLSRolesAll, NULL, (CFURLRef*)&appURL);
+
+	if (status != noErr)
+		return nil;
+	
 	return [appURL autorelease];
 }
 
@@ -456,9 +479,10 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 		if (destinationURL)
 		{
 			// It's a valid URL
-			if ([self sourceCanHandleURL:destinationURL])
+			NSURL *appURL = [self chooseAppForOpeningURL:destinationURL];
+			if (appURL)
 			{
-				[self openURLInSource:destinationURL];
+				[self openURL:destinationURL withApplication:appURL];
 			}
 			else
 			{
@@ -538,24 +562,82 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 
 #pragma mark -
 
-- (BOOL)sourceCanHandleURL:(NSURL *)url
+// FIXME: document me
+// FIXME: unit tests?
+- (NSURL *)chooseAppForOpeningURL:(NSURL *)url
 {
-	NSURL *appURL = GetURLForPSN(&sourcePSN);
+	NSURL *source = GetURLForPSN(&sourcePSN);
+	if (AppCanHandleURL(source, url)) return source;
 	
-	Boolean canHandle;
-	OSStatus status = LSCanURLAcceptURL((CFURLRef)url, (CFURLRef)appURL, kLSRolesViewer, kLSAcceptDefault, &canHandle);
+	NSURL *defaultAppURL = GetDefaultAppURLForURL(url);
 	
-	if (status != noErr)
-		return NO;
+	// FIXME: after source, should prefer default if it's open
+	// (if both Safari and Chrome are open, a link from Xcode should prefer the
+	//  user's default browser, not whichever happens to show up first)
 
-	return (canHandle != NO);
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	NSURL *currentChoice = nil;
+
+#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
+	if ([workspace respondsToSelector:@selector(runningApplications)])
+	{
+		NSURL *nextAppURL;
+		for (NSRunningApplication *nextApp in [workspace runningApplications])
+		{
+			nextAppURL = nextApp.bundleURL;
+			if ([nextAppURL isEqual:defaultAppURL])
+			{
+				return defaultAppURL;
+			}
+			else if (!currentChoice && AppCanHandleURL(nextAppURL, url))
+			{
+				currentChoice = nextAppURL;
+			}
+		}
+	}
+	else
+#endif
+	{
+		NSEnumerator *appEnum = [[workspace launchedApplications] objectEnumerator];
+		NSDictionary *nextAppInfo;
+		NSURL *nextAppURL;
+		while (nextAppInfo = [appEnum nextObject])
+		{
+			nextAppURL = [NSURL fileURLWithPath:[nextAppInfo objectForKey:@"NSApplicationPath"]];
+			if ([nextAppURL isEqual:defaultAppURL])
+			{
+				return defaultAppURL;
+			}
+			else if (!currentChoice && AppCanHandleURL(nextAppURL, url))
+			{
+				currentChoice = nextAppURL;
+			}
+		}
+	}
+	
+	return currentChoice;
 }
 
-- (void)openURLInSource:(NSURL *)url
+// FIXME: document me!
+- (void)openURL:(NSURL *)url withApplication:(NSURL *)appURL
 {
-	SBApplication *target = [SBApplication applicationWithURL:GetURLForPSN(&sourcePSN)];
-	[target setDelegate:self];
-	[target sendEvent:kInternetEventClass id:kAEGetURL parameters:keyDirectObject, url, NULL];
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+	if (NSClassFromString(@"SBApplication"))
+	{
+		SBApplication *target = [SBApplication applicationWithURL:appURL];
+		[target setDelegate:self];
+		[target sendEvent:kInternetEventClass id:kAEGetURL parameters:keyDirectObject, url, NULL];
+	}
+	else
+#endif
+	{
+		LSLaunchURLSpec launchSpec = {
+			.appURL = (CFURLRef)appURL,
+			.itemURLs = (CFArrayRef)[NSArray arrayWithObject:url],
+			.launchFlags = kLSLaunchDefaults
+		};
+		(void)LSOpenFromURLSpec(&launchSpec, NULL);
+	}
 }
 
 #pragma mark -
