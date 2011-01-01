@@ -38,7 +38,10 @@
 	IBOutlet NSWindow *configurationWindow;
 }
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
+
+- (void)showConfigurationChooser;
 - (IBAction)confirmConfiguration:(id)sender;
 - (IBAction)openPreferencePane:(id)sender;
+
 - (void)launchDestination:(NSString *)destinationPrototype;
 @end

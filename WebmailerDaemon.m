@@ -37,7 +37,16 @@
 
 
 @interface WebmailerDaemon (ComBelkadanWebmailer_Private)
+- (void)extractEventData:(NSAppleEventDescriptor *)event;
+
+- (void)launchShellScript:(NSString *)script;
+- (void)launchTerminal:(NSString *)script;
+
+- (BOOL)sourceCanHandleURL:(NSURL *)url;
+- (void)openURLInSource:(NSURL *)url;
+
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype;
+- (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes;
 @end
 
 
@@ -96,7 +105,9 @@ NSImage *GetActiveDestinationImage ()
 	return image;
 }
 
-// FIXME: document me!
+/*!
+ * Finds the URL of a running application with a given process serial number.
+ */
 NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 	if (psn->highLongOfPSN == 0 && psn->lowLongOfPSN == 0)
 		return nil;
@@ -265,6 +276,10 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 #endif
 	else
 	{
+		// Yes, having a compiled script would make this more efficient.
+		// However, then we'd have to read it in from disk, which would be slower
+		// and probably just make the bundle bigger overall.
+		// This section is only here for 10.4 compatibility anyway.
 		NSAppleScript *prefPaneOpenScript = [[NSAppleScript alloc] initWithSource:@"tell application \"System Preferences\"\nset current pane to pane \"com.belkadan.Webmailer\"\nactivate\nend tell"];
 		[prefPaneOpenScript executeAndReturnError:NULL];
 		[prefPaneOpenScript release];
@@ -430,7 +445,7 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 	if ([destinationPrototype characterAtIndex:0] == '#')
 	{
 		// It's a background shell script!
-		NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscaped:YES];
+		NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscapes:YES];
 		[self launchShellScript:script];
 	}
 	else
@@ -455,7 +470,7 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 		else
 		{
 			// It's not a valid URL; must be an "open Terminal" shell script.
-			NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscaped:YES];
+			NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscapes:YES];
 			[self launchTerminal:script];
 		}
 	}
@@ -470,7 +485,6 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 	NSString *userShell = [[[NSProcessInfo processInfo] environment] objectForKey:@"SHELL"];
 	if ([userShell length] == 0) userShell = @"/bin/sh";
 	
-	// FIXME: error handling!
 	// Launch the shell.
 	NSTask *task = [[NSTask alloc] init];
 	NSPipe *pipe = [NSPipe pipe];
@@ -478,26 +492,12 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 	[task setLaunchPath:userShell];
 	[task launch];
 	
+	// Write the script.
 	NSFileHandle *input = [pipe fileHandleForWriting];
 	[input writeData:[[script substringFromIndex:1] dataUsingEncoding:NSUTF8StringEncoding]];
 	[input closeFile];
 	[task waitUntilExit];
 	[task release];
-	
-	if (!YES)
-	{
-		// Otherwise, use AppleScript.
-		NSMutableString *scriptSource = [script mutableCopy];
-		
-		[scriptSource replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:0 range:NSMakeRange(0, [script length])];
-		[scriptSource replaceCharactersInRange:NSMakeRange(0, 1) withString:@"do shell script \""];
-		[scriptSource appendString:@"\""];
-		
-		NSAppleScript *runScript = [[NSAppleScript alloc] initWithSource:scriptSource];
-		[runScript executeAndReturnError:NULL];
-		[runScript release];
-		[scriptSource release];
-	}	
 }
 
 // FIXME: Document me!
@@ -546,7 +546,7 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 	OSStatus status = LSCanURLAcceptURL((CFURLRef)url, (CFURLRef)appURL, kLSRolesViewer, kLSAcceptDefault, &canHandle);
 	
 	if (status != noErr)
-		return noErr;
+		return NO;
 
 	return (canHandle != NO);
 }
