@@ -566,6 +566,12 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 // FIXME: unit tests?
 - (NSURL *)chooseAppForOpeningURL:(NSURL *)url
 {
+	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
+	if ([[prefs objectForKey:WebmailerDisableAppChoosingKey] boolValue])
+	{
+		return nil;
+	}
+	
 	NSURL *source = GetURLForPSN(&sourcePSN);
 	if (AppCanHandleURL(source, url)) return source;
 	

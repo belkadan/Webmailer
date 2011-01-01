@@ -30,6 +30,7 @@ NSString * const AppleMailDomain = @"com.apple.mail";
 NSString * const WebmailerAppDomain = @"com.belkadan.Webmailer";
 NSString * const WebmailerConfigurationsKey = @"configurations";
 NSString * const WebmailerCurrentDestinationKey = @"currentDestination";
+NSString * const WebmailerDisableAppChoosingKey = @"disableSmartAppChoosing";
 NSString * const WebmailerMailtoScheme = @"mailto";
 
 NSString * const WebmailerDestinationIsActiveKey = @"active";
