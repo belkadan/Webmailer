@@ -107,6 +107,8 @@ NSImage *GetActiveDestinationImage ()
 
 /*!
  * Finds the URL of a running application with a given process serial number.
+ * If the URL cannot be found, for whatever reason (perhaps the application has
+ * quit), returns nil.
  */
 NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 	if (psn->highLongOfPSN == 0 && psn->lowLongOfPSN == 0)
@@ -121,7 +123,10 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
 	return [appURL autorelease];
 }
 
-// FIXME: document me!
+/*!
+ * Returns YES if the application at the first URL can open the second URL.
+ * Basically a wrapper around LSCanURLAcceptURL().
+ */
 BOOL AppCanHandleURL (NSURL *appURL, NSURL *url) {
 	Boolean canHandle;
 	OSStatus status = LSCanURLAcceptURL((CFURLRef)url, (CFURLRef)appURL, kLSRolesViewer, kLSAcceptDefault, &canHandle);
@@ -129,10 +134,14 @@ BOOL AppCanHandleURL (NSURL *appURL, NSURL *url) {
 	if (status != noErr)
 		return NO;
 	
-	return (canHandle != NO);
+	return canHandle ? YES : NO; // conversion from Boolean to BOOL...doesn't hurt!
 }
 
-// FIXME: document me!
+/*!
+ * Returns the URL of the application the Finder would use to open this URL.
+ * If there is no application registered for the URL, returns nil.
+ * Basically a wrapper around LSGetApplicationForURL().
+ */
 NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	// TODO: in 10.6, replace this function with -[NSWorkspace URLForApplicationToOpenURL:]
 	NSURL *appURL = nil;
@@ -332,6 +341,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 }
 
 // FIXME: document me!
+// FIXME: unit tests!
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes
 {
 	NSMutableString *destination = [[NSMutableString alloc] init];
@@ -423,8 +433,8 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 			
 			// The order of operations here is important!
 			// 1. Percent-escape for URLs BEFORE counting characters.
-			// 2. Count characters BEFORE backslash-escaping for shells!
-			if (shouldEscape && !useShellEscapes)
+			// 2. Only shell-escape if percent-escaping /didn't/ happen.
+			if (shouldEscape)
 			{
 				replaceStr = [replaceStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			}
@@ -434,13 +444,11 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 				replaceStr = [NSString stringWithFormat:@"%lu", (long unsigned)[replaceStr length]];
 			}
 			
-			if (shouldEscape && useShellEscapes)
+			if (useShellEscapes && !shouldEscape)
 			{
-				// Quote the shell input.
-				// FIXME: is this the right behavior?
-				[destination appendString:@"'"];
-				[destination appendString:[replaceStr stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"]];
-				[destination appendString:@"'"];
+				// Percent-escape quotes (only)
+				replaceStr = [replaceStr stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"]];
+				[destination appendString:[replaceStr stringByReplacingOccurrencesOfString:@"'" withString:@"%27"]];
 			}
 			else
 			{
