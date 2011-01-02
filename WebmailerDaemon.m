@@ -447,7 +447,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 			if (useShellEscapes && !shouldEscape)
 			{
 				// Percent-escape quotes (only)
-				replaceStr = [replaceStr stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"]];
+				replaceStr = [replaceStr stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
 				[destination appendString:[replaceStr stringByReplacingOccurrencesOfString:@"'" withString:@"%27"]];
 			}
 			else
