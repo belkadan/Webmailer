@@ -35,7 +35,6 @@
 		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
 		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
 		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
-		8C63D2DC12D2E126009196DF /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8C63D2DB12D2E126009196DF /* README.txt */; };
 		8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */; };
 		8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */; };
 		8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */; };
@@ -210,6 +209,8 @@
 				8C4211D30B3639CB0012E9BA /* main.m */,
 				8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */,
 				8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */,
+				8C975AF50B30F03B00B481FB /* ImageForStateTransformer.h */,
+				8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */,
 				8CFEB4F912C9E076002D85E8 /* ScriptingBridgeApps.h */,
 				8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */,
 				8CAE44BA104B7B82005F3191 /* Terminal.h */,
@@ -305,8 +306,6 @@
 				8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */,
 				8C3196C2110A5EC000556615 /* UpdateController.h */,
 				8C3196C3110A5EC000556615 /* UpdateController.m */,
-				8C975AF50B30F03B00B481FB /* ImageForStateTransformer.h */,
-				8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */,
 				8C975C480B310F6900B481FB /* AutosortArrayController.h */,
 				8C975C490B310F6900B481FB /* AutosortArrayController.m */,
 				8CC4731F110C3BBA004BEF06 /* AddRemoveButtonsController.h */,
@@ -451,7 +450,6 @@
 				8C6FFCF30B3226F000EF8A76 /* ConfigurationChooser.nib in Resources */,
 				8CE4E5B10B339FD4000CAE73 /* icon.icns in Resources */,
 				8C5E05730B37A96E00EC858C /* active.png in Resources */,
-				8C63D2DC12D2E126009196DF /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
