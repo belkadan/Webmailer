@@ -43,7 +43,6 @@
 - (void)launchTerminal:(NSString *)script;
 
 - (NSURL *)chooseAppForOpeningURL:(NSURL *)url;
-- (void)openURL:(NSURL *)url withApplication:(NSURL *)appURL;
 
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype;
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes;
@@ -127,7 +126,7 @@ NSURL *GetURLForPSN (const ProcessSerialNumber *psn) {
  * Returns YES if the application at the first URL can open the second URL.
  * Basically a wrapper around LSCanURLAcceptURL().
  */
-BOOL AppCanHandleURL (NSURL *appURL, NSURL *url) {
+BOOL CanOpenURLWithApplication (NSURL *url, NSURL *appURL) {
 	Boolean canHandle;
 	OSStatus status = LSCanURLAcceptURL((CFURLRef)url, (CFURLRef)appURL, kLSRolesViewer, kLSAcceptDefault, &canHandle);
 	
@@ -135,6 +134,20 @@ BOOL AppCanHandleURL (NSURL *appURL, NSURL *url) {
 		return NO;
 	
 	return canHandle ? YES : NO; // conversion from Boolean to BOOL...doesn't hurt!
+}
+
+/*!
+ * Open a URL using the given application. 
+ * Essentially a wrapper around LSOpenFromURLSpec().
+ */
+void OpenURLWithApplication(NSURL *url, NSURL *appURL)
+{
+	LSLaunchURLSpec launchSpec = {
+		.appURL = (CFURLRef)appURL,
+		.itemURLs = (CFArrayRef)[NSArray arrayWithObject:url],
+		.launchFlags = kLSLaunchDefaults
+	};
+	(void)LSOpenFromURLSpec(&launchSpec, NULL);
 }
 
 /*!
@@ -193,6 +206,13 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	[NSTimer scheduledTimerWithTimeInterval:30 target:NSApp selector:@selector(terminate:) userInfo:nil repeats:NO];
 }
 
+- (void)dealloc
+{
+	[mailtoURL release];
+	[configurations release];
+	[super dealloc];
+}
+
 /*!
  * Set up the configuration chooser, then display it and bring the Webmailer app to the front.
  * The user can then choose which configuration to use for the URL that was clicked.
@@ -248,45 +268,6 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 }
 
 /*!
- * Respond to a GetURL Apple Event. The URL (the direct object of the event) is
- * stored for now in an instance variable; it must have the mailto: scheme.
- * If the shift key is held down, the configuration-choosing window is opened;
- * otherwise the program progresses directly to launching the destination URL.
- * The reply event is unused.
- */
-- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
-{		
-	[self extractEventData:event];
-
-	BOOL shouldShowConfigurations = isShiftKeyDown();
-	if (shouldShowConfigurations)
-	{
-		[self showConfigurationChooser];
-	}
-	else
-	{
-		NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
-		[self launchDestination:[prefs objectForKey:WebmailerCurrentDestinationKey]];
-	}
-}
-
-/*!
- * Extract any useful information from a GetURL AppleEvent, including the URL
- * that was clicked.
- */
-- (void)extractEventData:(NSAppleEventDescriptor *)event {
-	// Save mailto URL.
-	[mailtoURL release];
-	mailtoURL = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] copy];
-
-	// Save the PSN of the application that sent this message.
-	// TODO: Someday, maybe Apple will switch to something other than PSNs for this.
-	NSData *data = [[[event attributeDescriptorForKeyword:keyAddressAttr] coerceToDescriptorType: typeProcessSerialNumber] data];
-	NSAssert([data length] <= sizeof(sourcePSN), @"PSN key is too big!");
-	[data getBytes:&sourcePSN];
-}
-
-/*!
  * Opens the Webmailer preference pane, using a file open if Webmailer is in the pane's Resources,
  * and either Scripting Bridge or NSAppleScript if it is outside.
  */
@@ -328,6 +309,49 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	[configurationWindow orderOut:sender];
 	[self launchDestination:[[configurationController selection] valueForKey:WebmailerDestinationURLKey]];
 }
+
+#pragma mark -
+
+/*!
+ * Respond to a GetURL Apple Event. The URL (the direct object of the event) is
+ * stored for now in an instance variable; it must have the mailto: scheme.
+ * If the shift key is held down, the configuration-choosing window is opened;
+ * otherwise the program progresses directly to launching the destination URL.
+ * The reply event is unused.
+ */
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{		
+	[self extractEventData:event];
+
+	BOOL shouldShowConfigurations = isShiftKeyDown();
+	if (shouldShowConfigurations)
+	{
+		[self showConfigurationChooser];
+	}
+	else
+	{
+		NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
+		[self launchDestination:[prefs objectForKey:WebmailerCurrentDestinationKey]];
+	}
+}
+
+/*!
+ * Extract any useful information from a GetURL AppleEvent, including the URL
+ * that was clicked.
+ */
+- (void)extractEventData:(NSAppleEventDescriptor *)event {
+	// Save mailto URL.
+	[mailtoURL release];
+	mailtoURL = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] copy];
+
+	// Save the PSN of the application that sent this message.
+	// TODO: Someday, maybe Apple will switch to something other than PSNs for this.
+	NSData *data = [[[event attributeDescriptorForKeyword:keyAddressAttr] coerceToDescriptorType: typeProcessSerialNumber] data];
+	NSAssert([data length] <= sizeof(sourcePSN), @"PSN key is too big!");
+	[data getBytes:&sourcePSN];
+}
+
+#pragma mark -
 
 /*!
  * Replaces Webmailer placeholders in a destination URL string with the corresponding
@@ -463,6 +487,8 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	return [destination autorelease];
 }
 
+#pragma mark -
+
 /*!
  * This method uses the given destination URL and rewrites it, using the rules
  * described in the Webmailer Read Me file. Then, it takes the appropriate action,
@@ -476,6 +502,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	if ([destinationPrototype characterAtIndex:0] == '#')
 	{
 		// It's a background shell script!
+		destinationPrototype = [destinationPrototype substringFromIndex:1];
 		NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscapes:YES];
 		[self launchShellScript:script];
 	}
@@ -490,7 +517,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 			NSURL *appURL = [self chooseAppForOpeningURL:destinationURL];
 			if (appURL)
 			{
-				[self openURL:destinationURL withApplication:appURL];
+				OpenURLWithApplication(destinationURL, appURL);
 			}
 			else
 			{
@@ -510,7 +537,78 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	[NSApp terminate:self]; // Don't want to just stick around, right?
 }
 
-// FIXME: Document me!
+
+/*!
+ * Returns the URL of the application Webmailer should use to open the given
+ * destination URL. If smart app choosing is disabled in the preferences, or
+ * if no good applications can be found, returns nil.
+ *
+ * 1. If the app that sent us the mailto URL can handle the destination, pick that.
+ * 2. If the default app for the destination URL is open, pick that.
+ * 3. If any app that can handle the destination URL is open, pick one of them.
+ * 4. Otherwise, give up and return nil.
+ */
+- (NSURL *)chooseAppForOpeningURL:(NSURL *)url
+{
+	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
+	if ([[prefs objectForKey:WebmailerDisableAppChoosingKey] boolValue])
+	{
+		return nil;
+	}
+	
+	// If the app that sent us the mailto URL can handle the destination, pick that.
+	NSURL *source = GetURLForPSN(&sourcePSN);
+	if (CanOpenURLWithApplication(url, source)) return source;
+	
+	// Otherwise, start scanning the list of open applications.
+	NSURL *defaultAppURL = GetDefaultAppURLForURL(url);
+	
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	NSURL *currentChoice = nil;
+	
+#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
+	if ([workspace respondsToSelector:@selector(runningApplications)])
+	{
+		NSURL *nextAppURL;
+		for (NSRunningApplication *nextApp in [workspace runningApplications])
+		{
+			nextAppURL = nextApp.bundleURL;
+			if ([nextAppURL isEqual:defaultAppURL])
+			{
+				return defaultAppURL;
+			}
+			else if (!currentChoice && CanOpenURLWithApplication(url, nextAppURL))
+			{
+				currentChoice = nextAppURL;
+			}
+		}
+	}
+	else
+#endif
+	{
+		NSEnumerator *appEnum = [[workspace launchedApplications] objectEnumerator];
+		NSDictionary *nextAppInfo;
+		NSURL *nextAppURL;
+		while (nextAppInfo = [appEnum nextObject])
+		{
+			nextAppURL = [NSURL fileURLWithPath:[nextAppInfo objectForKey:@"NSApplicationPath"]];
+			if ([nextAppURL isEqual:defaultAppURL])
+			{
+				return defaultAppURL;
+			}
+			else if (!currentChoice && CanOpenURLWithApplication(url, nextAppURL))
+			{
+				currentChoice = nextAppURL;
+			}
+		}
+	}
+	
+	return currentChoice;
+}
+
+/*!
+ * Run the given script in the user's preferred shell. The output goes to stdout.
+ */
 - (void)launchShellScript:(NSString *)script
 {
 	// Find out the user's preferred shell. Default to /bin/sh.
@@ -526,13 +624,17 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	
 	// Write the script.
 	NSFileHandle *input = [pipe fileHandleForWriting];
-	[input writeData:[[script substringFromIndex:1] dataUsingEncoding:NSUTF8StringEncoding]];
+	[input writeData:[script dataUsingEncoding:NSUTF8StringEncoding]];
 	[input closeFile];
 	[task waitUntilExit];
 	[task release];
 }
 
-// FIXME: Document me!
+/*!
+ * Run the given script in the Terminal, so it can be used interactively.
+ *
+ * TODO: use handler for com.apple.Terminal.shell-script ?
+ */
 - (void)launchTerminal:(NSString *)script
 {
 #if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
@@ -558,99 +660,6 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 		[runScript executeAndReturnError:NULL];
 		[runScript release];
 		[scriptSource release];
-	}
-}
-
-- (void)dealloc
-{
-	[mailtoURL release];
-	[configurations release];
-	[super dealloc];
-}
-
-#pragma mark -
-
-// FIXME: document me
-// FIXME: unit tests?
-- (NSURL *)chooseAppForOpeningURL:(NSURL *)url
-{
-	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
-	if ([[prefs objectForKey:WebmailerDisableAppChoosingKey] boolValue])
-	{
-		return nil;
-	}
-	
-	NSURL *source = GetURLForPSN(&sourcePSN);
-	if (AppCanHandleURL(source, url)) return source;
-	
-	NSURL *defaultAppURL = GetDefaultAppURLForURL(url);
-	
-	// FIXME: after source, should prefer default if it's open
-	// (if both Safari and Chrome are open, a link from Xcode should prefer the
-	//  user's default browser, not whichever happens to show up first)
-
-	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-	NSURL *currentChoice = nil;
-
-#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-	if ([workspace respondsToSelector:@selector(runningApplications)])
-	{
-		NSURL *nextAppURL;
-		for (NSRunningApplication *nextApp in [workspace runningApplications])
-		{
-			nextAppURL = nextApp.bundleURL;
-			if ([nextAppURL isEqual:defaultAppURL])
-			{
-				return defaultAppURL;
-			}
-			else if (!currentChoice && AppCanHandleURL(nextAppURL, url))
-			{
-				currentChoice = nextAppURL;
-			}
-		}
-	}
-	else
-#endif
-	{
-		NSEnumerator *appEnum = [[workspace launchedApplications] objectEnumerator];
-		NSDictionary *nextAppInfo;
-		NSURL *nextAppURL;
-		while (nextAppInfo = [appEnum nextObject])
-		{
-			nextAppURL = [NSURL fileURLWithPath:[nextAppInfo objectForKey:@"NSApplicationPath"]];
-			if ([nextAppURL isEqual:defaultAppURL])
-			{
-				return defaultAppURL;
-			}
-			else if (!currentChoice && AppCanHandleURL(nextAppURL, url))
-			{
-				currentChoice = nextAppURL;
-			}
-		}
-	}
-	
-	return currentChoice;
-}
-
-// FIXME: document me!
-- (void)openURL:(NSURL *)url withApplication:(NSURL *)appURL
-{
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-	if (NSClassFromString(@"SBApplication"))
-	{
-		SBApplication *target = [SBApplication applicationWithURL:appURL];
-		[target setDelegate:self];
-		[target sendEvent:kInternetEventClass id:kAEGetURL parameters:keyDirectObject, url, NULL];
-	}
-	else
-#endif
-	{
-		LSLaunchURLSpec launchSpec = {
-			.appURL = (CFURLRef)appURL,
-			.itemURLs = (CFArrayRef)[NSArray arrayWithObject:url],
-			.launchFlags = kLSLaunchDefaults
-		};
-		(void)LSOpenFromURLSpec(&launchSpec, NULL);
 	}
 }
 
