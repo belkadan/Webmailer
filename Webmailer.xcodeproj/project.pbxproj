@@ -35,6 +35,7 @@
 		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
 		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
 		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
+		8C63D2DC12D2E126009196DF /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8C63D2DB12D2E126009196DF /* README.txt */; };
 		8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */; };
 		8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */; };
 		8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */; };
@@ -124,6 +125,7 @@
 		8C379CA00B46F87D00F124AB /* mailhandlers_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailhandlers_main.m; sourceTree = "<group>"; };
 		8C379E170B46FD3500F124AB /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
+		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		8C6F00110B323DDF00EF8A76 /* active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = active.png; sourceTree = "<group>"; };
 		8C6F00450B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSArray+PlistMutableCopy.h"; sourceTree = "<group>"; };
 		8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NSArray+PlistMutableCopy.m"; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		29B97314FDCFA39411CA2CEA /* Webmailer */ = {
 			isa = PBXGroup;
 			children = (
+				8C63D2DB12D2E126009196DF /* README.txt */,
 				080E96DDFE201D6D7F000001 /* Daemon */,
 				8C6FFB6C0B32203300EF8A76 /* Preference Pane */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -448,6 +451,7 @@
 				8C6FFCF30B3226F000EF8A76 /* ConfigurationChooser.nib in Resources */,
 				8CE4E5B10B339FD4000CAE73 /* icon.icns in Resources */,
 				8C5E05730B37A96E00EC858C /* active.png in Resources */,
+				8C63D2DC12D2E126009196DF /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
