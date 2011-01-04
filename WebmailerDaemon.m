@@ -27,6 +27,7 @@
 #import "WebmailerDaemon.h"
 #import "WebmailerShared.h"
 #import "ImageForStateTransformer.h"
+#import "NSString+PrototypeExpansion.h"
 
 #import "ScriptingBridgeApps.h"
 
@@ -368,123 +369,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 // FIXME: unit tests!
 - (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes
 {
-	NSMutableString *destination = [[NSMutableString alloc] init];
-	
-	NSUInteger colonIndex = [mailtoURL rangeOfString:@":"].location;
-	NSUInteger questionMarkIndex = [mailtoURL rangeOfString:@"?"].location;
-	
-	NSString *replaceStr;
-	NSRange headerRange;
-	BOOL shouldEscape, shouldCountCharsInstead;
-	NSUInteger urlLength = [mailtoURL length];
-	
-	NSScanner *scanner = [NSScanner scannerWithString:destinationPrototype];
-	if ([scanner scanUpToString:@"[" intoString:&replaceStr]) [destination appendString:replaceStr];
-	
-	while ([scanner scanString:@"[" intoString:NULL])
-	{
-		replaceStr = nil;
-		if (![scanner scanUpToString:@"]" intoString:&replaceStr] || ![scanner scanString:@"]" intoString:NULL])
-		{
-			// treat as literal text
-			[destination appendString:@"["];
-			if (replaceStr) [destination appendString:replaceStr];
-			
-		}
-		else
-		{
-			NSUInteger matchStart = 0;
-			
-			shouldCountCharsInstead = ([replaceStr characterAtIndex:matchStart] == '#');
-			if (shouldCountCharsInstead) {
-				matchStart += 1;
-			}
-			
-			shouldEscape = ([replaceStr characterAtIndex:matchStart] == '%');
-			if (shouldEscape) {
-				matchStart += 1;
-			}
-			
-			NSString *header = (matchStart > 0) ? [replaceStr substringFromIndex:matchStart] : replaceStr;
-			
-			if ([@"?" isEqual:header])
-			{
-				if (questionMarkIndex != NSNotFound)
-				{
-					headerRange.location = questionMarkIndex + 1;
-					headerRange.length = urlLength - headerRange.location;
-				}
-				else
-				{
-					headerRange.location = headerRange.length = 0;
-				}
-			}
-			else if ([@"to" isEqual:header])
-			{
-				headerRange.location = colonIndex + 1;
-				if (questionMarkIndex != NSNotFound)
-				{
-					headerRange.length = questionMarkIndex - headerRange.location;
-				}
-				else
-				{
-					headerRange.length = urlLength - headerRange.location;
-				}
-			}
-			else
-			{
-				headerRange = [mailtoURL rangeOfString:[header stringByAppendingString:@"="] options:NSCaseInsensitiveSearch];
-				if (headerRange.location == NSNotFound)
-				{
-					headerRange.location = headerRange.length = 0;
-				}
-				else
-				{
-					headerRange.location += headerRange.length;
-					NSUInteger nextAmpersand = [mailtoURL rangeOfString:@"&" options:0 range:NSMakeRange(headerRange.location, urlLength - headerRange.location)].location;
-					if (nextAmpersand != NSNotFound)
-					{
-						headerRange.length = nextAmpersand - headerRange.location;
-					}
-					else
-					{
-						headerRange.length = urlLength - headerRange.location;
-					}
-				}					
-			}
-			
-			replaceStr = [mailtoURL substringWithRange:headerRange];
-			
-			// The order of operations here is important!
-			// 1. Percent-escape for URLs BEFORE counting characters.
-			// 2. Only shell-escape if percent-escaping /didn't/ happen.
-			if (shouldEscape)
-			{
-				replaceStr = [replaceStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			}
-			
-			if (shouldCountCharsInstead)
-			{
-				replaceStr = [NSString stringWithFormat:@"%lu", (long unsigned)[replaceStr length]];
-			}
-			
-			if (useShellEscapes && !shouldEscape)
-			{
-				// Percent-escape quotes (only)
-				replaceStr = [replaceStr stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
-				[destination appendString:[replaceStr stringByReplacingOccurrencesOfString:@"'" withString:@"%27"]];
-			}
-			else
-			{
-				// Append the piece as is (possibly already escaped)
-				[destination appendString:replaceStr];
-			}
-		}
-		
-		if ([scanner scanUpToString:@"[" intoString:&replaceStr]) [destination appendString:replaceStr];
-	}
-	
-	return [destination autorelease];
+	return [destinationPrototype replaceWebmailerPlaceholdersUsingMailtoURLString:mailtoURL alwaysEscapeQuotes:useShellEscapes];
 }
 
 #pragma mark -

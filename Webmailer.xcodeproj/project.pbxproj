@@ -35,6 +35,10 @@
 		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
 		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
 		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
+		8C63D2E612D2E54C009196DF /* NSString+PrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */; };
+		8C63D32D12D2F1EA009196DF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C63D32912D2F1E2009196DF /* SenTestingKit.framework */; };
+		8C63D34612D2F222009196DF /* NSString+PrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */; };
+		8C63D34D12D2F312009196DF /* TestPrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D32712D2F137009196DF /* TestPrototypeExpansion.m */; };
 		8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */; };
 		8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */; };
 		8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */; };
@@ -125,6 +129,12 @@
 		8C379E170B46FD3500F124AB /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
 		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansion.h"; sourceTree = "<group>"; };
+		8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PrototypeExpansion.m"; sourceTree = "<group>"; };
+		8C63D31A12D2F0AA009196DF /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C63D31B12D2F0AA009196DF /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		8C63D32712D2F137009196DF /* TestPrototypeExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPrototypeExpansion.m; sourceTree = "<group>"; };
+		8C63D32912D2F1E2009196DF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		8C6F00110B323DDF00EF8A76 /* active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = active.png; sourceTree = "<group>"; };
 		8C6F00450B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSArray+PlistMutableCopy.h"; sourceTree = "<group>"; };
 		8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NSArray+PlistMutableCopy.m"; sourceTree = "<group>"; };
@@ -179,6 +189,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8C63D31712D2F0AA009196DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C63D32D12D2F1EA009196DF /* SenTestingKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C6FFB980B3220AC00EF8A76 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -209,6 +227,8 @@
 				8C4211D30B3639CB0012E9BA /* main.m */,
 				8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */,
 				8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */,
+				8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */,
+				8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */,
 				8C975AF50B30F03B00B481FB /* ImageForStateTransformer.h */,
 				8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */,
 				8CFEB4F912C9E076002D85E8 /* ScriptingBridgeApps.h */,
@@ -224,6 +244,7 @@
 				8C6FFB9A0B3220AC00EF8A76 /* Webmailer.prefPane */,
 				8C6FFCD90B32268900EF8A76 /* Webmailer.app */,
 				8C379C990B46F81400F124AB /* Add Webmailer to Mail Handlers.app */,
+				8C63D31A12D2F0AA009196DF /* Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -236,8 +257,10 @@
 				8C6FFB6C0B32203300EF8A76 /* Preference Pane */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				8C63D32012D2F10B009196DF /* Testing */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				8C63D31B12D2F0AA009196DF /* Tests-Info.plist */,
 			);
 			name = Webmailer;
 			sourceTree = "<group>";
@@ -282,6 +305,7 @@
 				8C379E170B46FD3500F124AB /* ApplicationServices.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				8C63D32912D2F1E2009196DF /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -295,6 +319,14 @@
 				8C319708110A61B600556615 /* CTGradient+NSGradientCompatibility.m */,
 			);
 			path = CTGradient;
+			sourceTree = "<group>";
+		};
+		8C63D32012D2F10B009196DF /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				8C63D32712D2F137009196DF /* TestPrototypeExpansion.m */,
+			);
+			name = Testing;
 			sourceTree = "<group>";
 		};
 		8C6FFB6C0B32203300EF8A76 /* Preference Pane */ = {
@@ -354,6 +386,24 @@
 			productName = "Add Webmailer to Mail Handlers";
 			productReference = 8C379C990B46F81400F124AB /* Add Webmailer to Mail Handlers.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8C63D31912D2F0AA009196DF /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C63D31E12D2F0AB009196DF /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				8C63D31512D2F0AA009196DF /* Resources */,
+				8C63D31612D2F0AA009196DF /* Sources */,
+				8C63D31712D2F0AA009196DF /* Frameworks */,
+				8C63D31812D2F0AA009196DF /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 8C63D31A12D2F0AA009196DF /* Tests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 		8C6FFB990B3220AC00EF8A76 /* Preference Pane */ = {
 			isa = PBXNativeTarget;
@@ -416,6 +466,7 @@
 				8C6FFCD80B32268900EF8A76 /* Webmailer Daemon */,
 				8C6FFB990B3220AC00EF8A76 /* Preference Pane */,
 				8C379C980B46F81400F124AB /* Add Webmailer to Mail Handlers */,
+				8C63D31912D2F0AA009196DF /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -426,6 +477,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C379FF50B46FE5A00F124AB /* icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C63D31512D2F0AA009196DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +514,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		8C63D31812D2F0AA009196DF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		8C9E9A42110BE70100BD7153 /* Copy and Symlink Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -495,6 +566,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8C63D31612D2F0AA009196DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C63D34612D2F222009196DF /* NSString+PrototypeExpansion.m in Sources */,
+				8C63D34D12D2F312009196DF /* TestPrototypeExpansion.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C6FFB970B3220AC00EF8A76 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -525,6 +605,7 @@
 				8C6FFDB60B3228EB00EF8A76 /* WebmailerShared.m in Sources */,
 				8C4211D40B3639CB0012E9BA /* main.m in Sources */,
 				8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */,
+				8C63D2E612D2E54C009196DF /* NSString+PrototypeExpansion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +709,60 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				PRODUCT_NAME = "Build All";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		8C63D31C12D2F0AB009196DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		8C63D31D12D2F0AB009196DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -794,6 +929,15 @@
 			buildConfigurations = (
 				8C5E08020B37C18500EC858C /* Debug */,
 				8C5E08030B37C18500EC858C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C63D31E12D2F0AB009196DF /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C63D31C12D2F0AB009196DF /* Debug */,
+				8C63D31D12D2F0AB009196DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
