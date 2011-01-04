@@ -163,6 +163,35 @@
 
 #pragma mark -
 
+// This family of methods is for KVC on the smart app choosing preference.
+// Notice there is no backing variable.
+
+/*!
+ * Returns NO if the Webmailer daemon should attempt to intelligently
+ * pick which app to handle a destination with. Careful of the negative!
+ *
+ * By default, Webmailer will try to be smart as of version 1.2.
+ */
+- (BOOL)appChoosingDisabled
+{
+	return CFPreferencesGetAppBooleanValue((CFStringRef) WebmailerDisableAppChoosingKey, (CFStringRef) WebmailerAppDomain, NULL) ? YES : NO;
+}
+
+/*!
+ * Sets whether or not the Webmailer daemon should attempt to intelligently
+ * pick which app to handle a destination with.
+ *
+ * Setting this to YES will emulate the behavior of Webmailer before version 1.2.
+ */
+- (void)setAppChoosingDisabled:(BOOL)disableAppChoosing
+{
+	CFBooleanRef value = disableAppChoosing ? kCFBooleanTrue : kCFBooleanFalse;
+	CFPreferencesSetAppValue((CFStringRef) WebmailerDisableAppChoosingKey, value, (CFStringRef) WebmailerAppDomain);
+	CFPreferencesAppSynchronize((CFStringRef) WebmailerAppDomain);
+}
+
+#pragma mark -
+
 // This family of methods is for KVC on the configurations list
 // Only -remove... is interesting, because it has to save its changes
 // (-insert... is always paired with an edit in Webmailer, which triggers a save anyway)

@@ -39,4 +39,7 @@
 - (IBAction)apply:(id)sender;
 - (IBAction)update:(id)sender;
 - (IBAction)add:(id)sender;
+
+- (BOOL)appChoosingDisabled;
+- (void)setAppChoosingDisabled:(BOOL)disableAppChoosing;
 @end
