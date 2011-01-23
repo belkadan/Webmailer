@@ -26,6 +26,8 @@
 
 #import <AppKit/AppKit.h>
 
+static NSString * const kRelativeWebmailerPath = @"PreferencePanes/Webmailer.prefPane/Contents/Resources/Webmailer.app";
+
 int main(int argc, char *argv[])
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
@@ -34,7 +36,7 @@ int main(int argc, char *argv[])
 	NSEnumerator *libraryEnum = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, YES) objectEnumerator];
 	NSString *nextPath;
 	
-	while (nextPath = [[libraryEnum nextObject] stringByAppendingPathComponent:@"PreferencePanes/Webmailer.prefPane/Contents/Resources/Webmailer.app"])
+	while ((nextPath = [[libraryEnum nextObject] stringByAppendingPathComponent:kRelativeWebmailerPath]))
 	{
 		if ([fileManager fileExistsAtPath:nextPath])
 			break;
@@ -51,7 +53,7 @@ int main(int argc, char *argv[])
 			else
 			{
 				NSBeep();
-				NSLog(@"Unable to add Webmailer as a mail handler. Please e-mail jediknil@belkadan.com with this error code: %d", returnCode);
+				NSLog(@"Unable to add Webmailer as a mail handler. Please e-mail webmailer@belkadan.com with this error code: %d", returnCode);
 			}
 		}
 	}
