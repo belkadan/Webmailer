@@ -38,7 +38,7 @@
 		8C63D2E612D2E54C009196DF /* NSString+PrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */; };
 		8C63D32D12D2F1EA009196DF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C63D32912D2F1E2009196DF /* SenTestingKit.framework */; };
 		8C63D34612D2F222009196DF /* NSString+PrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */; };
-		8C63D34D12D2F312009196DF /* TestPrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D32712D2F137009196DF /* TestPrototypeExpansion.m */; };
+		8C63D34D12D2F312009196DF /* TestFieldParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D32712D2F137009196DF /* TestFieldParsing.m */; };
 		8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */; };
 		8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */; };
 		8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */; };
@@ -133,7 +133,7 @@
 		8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PrototypeExpansion.m"; sourceTree = "<group>"; };
 		8C63D31A12D2F0AA009196DF /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C63D31B12D2F0AA009196DF /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
-		8C63D32712D2F137009196DF /* TestPrototypeExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPrototypeExpansion.m; sourceTree = "<group>"; };
+		8C63D32712D2F137009196DF /* TestFieldParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestFieldParsing.m; sourceTree = "<group>"; };
 		8C63D32912D2F1E2009196DF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		8C6F00110B323DDF00EF8A76 /* active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = active.png; sourceTree = "<group>"; };
 		8C6F00450B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSArray+PlistMutableCopy.h"; sourceTree = "<group>"; };
@@ -166,6 +166,7 @@
 		8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemPreferences.h; sourceTree = "<group>"; };
 		8CAE44BA104B7B82005F3191 /* Terminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
+		8CB3590B12E6C71400919F1D /* NSString+PrototypeExpansionPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansionPrivate.h"; sourceTree = "<group>"; };
 		8CC4731F110C3BBA004BEF06 /* AddRemoveButtonsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemoveButtonsController.h; sourceTree = "<group>"; };
 		8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemoveButtonsController.m; sourceTree = "<group>"; };
 		8CC5D14C1056346200ED5BF7 /* BWHyperlinkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHyperlinkButton.h; sourceTree = "<group>"; };
@@ -228,6 +229,7 @@
 				8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */,
 				8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */,
 				8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */,
+				8CB3590B12E6C71400919F1D /* NSString+PrototypeExpansionPrivate.h */,
 				8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */,
 				8C975AF50B30F03B00B481FB /* ImageForStateTransformer.h */,
 				8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */,
@@ -324,7 +326,7 @@
 		8C63D32012D2F10B009196DF /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				8C63D32712D2F137009196DF /* TestPrototypeExpansion.m */,
+				8C63D32712D2F137009196DF /* TestFieldParsing.m */,
 			);
 			name = Testing;
 			sourceTree = "<group>";
@@ -571,7 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C63D34612D2F222009196DF /* NSString+PrototypeExpansion.m in Sources */,
-				8C63D34D12D2F312009196DF /* TestPrototypeExpansion.m in Sources */,
+				8C63D34D12D2F312009196DF /* TestFieldParsing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

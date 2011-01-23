@@ -25,17 +25,7 @@
  *******************************************************************************/
 
 #import "NSString+PrototypeExpansion.h"
-
-@interface MailtoFields : NSObject
-{
-	NSString *mailtoURL;
-	NSUInteger colonIndex, questionMarkIndex, urlLength;
-}
-- (id)initWithURLString:(NSString *)mailtoURLString;
-- (NSString *)valueForHeader:(NSString *)header escapeQuotes:(BOOL)shouldForceQuoteEscapes;
-- (NSString *)rawValueForHeader:(NSString *)header;
-@end
-
+#import "NSString+PrototypeExpansionPrivate.h"
 
 @implementation NSString (ComBelkadanWebmailer_PrototypeExpansion)
 
@@ -87,14 +77,17 @@
 	self = [super init];
 	if (self)
 	{
-		mailtoURL = [mailtoURLString copy];
-		
-		colonIndex = [mailtoURL rangeOfString:@":"].location;
+		NSUInteger colonIndex = [mailtoURLString rangeOfString:@":"].location;
 		if (colonIndex == NSNotFound)
 		{
 			// Assume the mailto: has been stripped already.
-			colonIndex = 0;
+			mailtoURL = [mailtoURLString copy];
 		}
+		else
+		{
+			mailtoURL = [[mailtoURLString substringFromIndex:colonIndex+1] copy];
+		}
+
 		
 		questionMarkIndex = [mailtoURL rangeOfString:@"?"].location;
 		urlLength = [mailtoURL length];
@@ -136,7 +129,10 @@
 	// 2. Only shell-escape if percent-escaping /didn't/ happen.
 	if (shouldEscape)
 	{
-		result = [result stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		// FIXME: won't work under garbage collection!
+		CFStringRef extraEscapes = shouldForceQuoteEscapes ? CFSTR("&'") : CFSTR("&");
+		CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)result, NULL, extraEscapes, kCFStringEncodingUTF8);
+		result = [(id)escaped autorelease];
 	}
 	else if (shouldForceQuoteEscapes)
 	{
@@ -177,16 +173,13 @@
 		{
 			// mailto:recipient
 			//        ^^^^^^^^^
-			return [mailtoURL substringFromIndex:colonIndex+1];
+			return mailtoURL;
 		}
-		else if (questionMarkIndex > colonIndex + 1)
+		else if (questionMarkIndex > 0)
 		{
 			// mailto:recipient?subject=hello&cc=me
 			//        ^^^^^^^^^
-			NSRange recipientRange;
-			recipientRange.location = colonIndex + 1;
-			recipientRange.length = questionMarkIndex - recipientRange.location;
-			return [mailtoURL substringWithRange:recipientRange];
+			return [mailtoURL substringToIndex:questionMarkIndex];
 		}
 	}
 
