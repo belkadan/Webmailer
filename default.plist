@@ -11,14 +11,16 @@
 			<string>AIM Mail</string>
 		</dict>
 		<dict>
+			<key>active</key>
+			<true/>
 			<key>destinationURL</key>
-			<string>http://mail.google.com/mail?view=cm&amp;fs=1&amp;tf=1&amp;to=[to]&amp;su=[subject]&amp;body=[body]</string>
+			<string>https://mail.google.com/mail/?extsrc=mailto&amp;url=mailto:[%to]%3f[%?]</string>
 			<key>name</key>
 			<string>Gmail</string>
 		</dict>
 		<dict>
 			<key>destinationURL</key>
-			<string>http://SITE/imp/compose.php?actionID=compose_expand_addr&amp;to=[to]&amp;cc=[cc]&amp;bcc=[bcc]</string>
+			<string>http://SITE/imp/compose.php?actionID=compose_expand_addr&amp;to=[to]&amp;[?]</string>
 			<key>name</key>
 			<string>Horde IMP</string>
 		</dict>
@@ -36,7 +38,7 @@
 		</dict>
 		<dict>
 			<key>destinationURL</key>
-			<string>http://SITE/?_task=mail&amp;_action=compose&amp;_to=[to]&amp;_cc=[cc]&amp;_bcc=[bcc]&amp;_subject=[subject]&amp;_message=[body]</string>
+			<string>http://SITE/?_task=mail&amp;_action=compose&amp;to=mailto:[to]?[?]</string>
 			<key>name</key>
 			<string>Roundcube</string>
 		</dict>
@@ -53,8 +55,6 @@
 			<string>SquirrelMail 2</string>
 		</dict>
 		<dict>
-			<key>active</key>
-			<true/>
 			<key>destinationURL</key>
 			<string>http://compose.mail.yahoo.com/?To=[to]&amp;Body=[body]&amp;Subject=[subject]&amp;Cc=[cc]&amp;Bcc=[bcc]</string>
 			<key>name</key>
@@ -68,6 +68,6 @@
 		</dict>
 	</array>
 	<key>currentDestination</key>
-	<string>http://compose.mail.yahoo.com/?To=[to]&amp;Body=[body]&amp;Subject=[subject]&amp;Cc=[cc]&amp;Bcc=[bcc]</string>
+	<string>https://mail.google.com/mail/?extsrc=mailto&amp;url=mailto:[%to]%3f[%?]</string>
 </dict>
 </plist>
