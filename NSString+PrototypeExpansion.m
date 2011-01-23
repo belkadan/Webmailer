@@ -37,6 +37,7 @@
 	NSString *replaceStr;
 	
 	NSScanner *scanner = [NSScanner scannerWithString:self];
+	[scanner setCharactersToBeSkipped:nil];
 	// Take care of anything before the first placeholder.
 	if ([scanner scanUpToString:@"[" intoString:&replaceStr]) [result appendString:replaceStr];
 	

@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8C083D4912ECDBC600A285FA /* TestPlaceholderExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C083D4812ECDBC600A285FA /* TestPlaceholderExpansion.m */; };
 		8C2DF6D3104C6BA300729496 /* FullWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2DF6D2104C6BA300729496 /* FullWidthView.m */; };
 		8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
 		8C2E37CF11067D4500766AB1 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
@@ -112,6 +113,7 @@
 /* Begin PBXFileReference section */
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8C083D4812ECDBC600A285FA /* TestPlaceholderExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPlaceholderExpansion.m; sourceTree = "<group>"; };
 		8C2DF6D1104C6BA300729496 /* FullWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullWidthView.h; sourceTree = "<group>"; };
 		8C2DF6D2104C6BA300729496 /* FullWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullWidthView.m; sourceTree = "<group>"; };
 		8C2E37BE11067CC700766AB1 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../Sparkle 1/With Garbage Collection/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
@@ -327,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				8C63D32712D2F137009196DF /* TestFieldParsing.m */,
+				8C083D4812ECDBC600A285FA /* TestPlaceholderExpansion.m */,
 			);
 			name = Testing;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 			files = (
 				8C63D34612D2F222009196DF /* NSString+PrototypeExpansion.m in Sources */,
 				8C63D34D12D2F312009196DF /* TestFieldParsing.m in Sources */,
+				8C083D4912ECDBC600A285FA /* TestPlaceholderExpansion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
