@@ -29,6 +29,14 @@
 
 @implementation NSString (ComBelkadanWebmailer_PrototypeExpansion)
 
+/*!
+ * Replaces any placeholders of the form "[header]" in the string, using the given
+ * mailto URL as the source of the values for the placeholders. Headers can be
+ * prefixed with "#" to insert a character count instead of the header value, or
+ * "%" to percent-escape (using UTF-8) any non-URL characters. In addition, the
+ * shouldForceQuoteEscapes parameter allows you to conditionally force escaping
+ * of all single and double quotes in the receiver, regardless of "%" annotations.
+ */
 - (NSString *)replaceWebmailerPlaceholdersUsingMailtoURLString:(NSString *)mailtoURL alwaysEscapeQuotes:(BOOL)shouldForceQuoteEscapes
 {
 	MailtoFields *mailto = [[MailtoFields alloc] initWithURLString:mailtoURL];
@@ -73,6 +81,10 @@
 
 @implementation MailtoFields
 
+/*!
+ * Creates a new field-accessor with the given URL. The URL should have the
+ * form of a mailto: URL (with or without the URL scheme present).
+ */
 - (id)initWithURLString:(NSString *)mailtoURLString
 {
 	self = [super init];
@@ -102,6 +114,20 @@
 	[super dealloc];
 }
 
+/*!
+ * Returns the value for a given header, subject to certain transformations.
+ * There are two special headers:
+ *   @"to" returns the recipient (the "user and host" part of the URL)
+ *   @"?" returns the query (everything after the "?" in the URL)
+ * Header names can also be prefixed:
+ *   @"#" returns the number of characters in a value instead of the value itself.
+ *   @"%" replaces non-URL characters (and ampersands) with their percent-escaped
+ *        equivalents.
+ * Finally, the shouldForceQuoteEscapes flag will make sure single and double
+ * quotes are escaped (such as for use in shell scripts).
+ * If a certain header is not in the URL, @"" is returned. The character count
+ * for a missing header is @"0".
+ */
 - (NSString *)valueForHeader:(NSString *)header escapeQuotes:(BOOL)shouldForceQuoteEscapes
 {
 	// Figure out what kind of placeholder this is.
@@ -149,6 +175,12 @@
 	return result;
 }
 
+/*!
+ * Returns the value of the given header in the URL. If the header is not in the
+ * URL, returns the empty string. There are two special cases:
+ *  @"to" will return the recipient (the part before the question mark)
+ *  @"?" will return everything following the query delimiter (names and values)
+ */
 - (NSString *)rawValueForHeader:(NSString *)header
 {
 	// Special case for "all additional headers in the query part of the URL".

@@ -44,9 +44,6 @@
 - (void)launchTerminal:(NSString *)script;
 
 - (NSURL *)chooseAppForOpeningURL:(NSURL *)url;
-
-- (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype;
-- (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes;
 @end
 
 
@@ -355,26 +352,6 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 #pragma mark -
 
 /*!
- * Replaces Webmailer placeholders in a destination URL string with the corresponding
- * values from the mailto URL. See the Read Me file for available placeholders.
- *
- * @todo Unit tests!
- */
-- (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype
-{
-	return [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscapes:NO];
-}
-
-// FIXME: document me!
-// FIXME: unit tests!
-- (NSString *)replacePlaceholdersInDestinationPrototype:(NSString *)destinationPrototype shellEscapes:(BOOL)useShellEscapes
-{
-	return [destinationPrototype replaceWebmailerPlaceholdersUsingMailtoURLString:mailtoURL alwaysEscapeQuotes:useShellEscapes];
-}
-
-#pragma mark -
-
-/*!
  * This method uses the given destination URL and rewrites it, using the rules
  * described in the Webmailer Read Me file. Then, it takes the appropriate action,
  * based on whether the result is a URL or a shell script. Non-interactive shell
@@ -388,12 +365,12 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	{
 		// It's a background shell script!
 		destinationPrototype = [destinationPrototype substringFromIndex:1];
-		NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscapes:YES];
+		NSString *script = [destinationPrototype replaceWebmailerPlaceholdersUsingMailtoURLString:mailtoURL alwaysEscapeQuotes:YES];
 		[self launchShellScript:script];
 	}
 	else
 	{
-		NSString *destination = [self replacePlaceholdersInDestinationPrototype:destinationPrototype];
+		NSString *destination = [destinationPrototype replaceWebmailerPlaceholdersUsingMailtoURLString:mailtoURL alwaysEscapeQuotes:NO];
 		NSURL *destinationURL = [[NSURL alloc] initWithString:destination];
 		
 		if (destinationURL)
@@ -414,7 +391,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 		else
 		{
 			// It's not a valid URL; must be an "open Terminal" shell script.
-			NSString *script = [self replacePlaceholdersInDestinationPrototype:destinationPrototype shellEscapes:YES];
+			NSString *script = [destinationPrototype replaceWebmailerPlaceholdersUsingMailtoURLString:mailtoURL alwaysEscapeQuotes:YES];
 			[self launchTerminal:script];
 		}
 	}
