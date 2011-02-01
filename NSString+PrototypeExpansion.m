@@ -156,10 +156,9 @@
 	// 2. Only shell-escape if percent-escaping /didn't/ happen.
 	if (shouldEscape)
 	{
-		// FIXME: won't work under garbage collection!
 		CFStringRef extraEscapes = shouldForceQuoteEscapes ? CFSTR("&'") : CFSTR("&");
 		CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)result, NULL, extraEscapes, kCFStringEncodingUTF8);
-		result = [(id)escaped autorelease];
+		result = [NSMakeCollectable(escaped) autorelease];
 	}
 	else if (shouldForceQuoteEscapes)
 	{
