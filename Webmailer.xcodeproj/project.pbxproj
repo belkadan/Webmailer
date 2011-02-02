@@ -137,7 +137,7 @@
 		8C379C9B0B46F81500F124AB /* Add Webmailer to Mail Handlers-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Add Webmailer to Mail Handlers-Info.plist"; sourceTree = "<group>"; };
 		8C379CA00B46F87D00F124AB /* mailhandlers_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailhandlers_main.m; sourceTree = "<group>"; };
 		8C379E170B46FD3500F124AB /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
-		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
+		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "/Volumes/Melody/Xcode2.5/Library/Xcode/Project Templates/Application/Cocoa Application/main.m"; sourceTree = "<absolute>"; };
 		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansion.h"; sourceTree = "<group>"; };
 		8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PrototypeExpansion.m"; sourceTree = "<group>"; };
@@ -710,6 +710,140 @@
 			};
 			name = Release;
 		};
+		8C4864C412F945190054D6CB /* Debug 10.4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Webmailer Daemon-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				"OTHER_LDFLAGS[sdk=macosx10.4][arch=*]" = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Webmailer;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Debug 10.4";
+		};
+		8C4864C512F945190054D6CB /* Debug 10.4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					x86_64,
+					i386,
+				);
+				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\\\"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection\\\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\\\"$(SRCROOT)/../DBBackgroundView/build/Release\\\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				"GCC_ENABLE_OBJC_GC[arch=i386]" = unsupported;
+				"GCC_ENABLE_OBJC_GC[arch=ppc]" = unsupported;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Preference Pane-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Webmailer;
+				USER_HEADER_SEARCH_PATHS = "\"/Users/jordy/programming/Cocoa/Sparkle 1/Extras/Source Code\"";
+				WRAPPER_EXTENSION = prefPane;
+			};
+			name = "Debug 10.4";
+		};
+		8C4864C612F945190054D6CB /* Debug 10.4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Add Webmailer to Mail Handlers-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PREBINDING = NO;
+				PRODUCT_NAME = "Add Webmailer to Mail Handlers";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Debug 10.4";
+		};
+		8C4864C712F945190054D6CB /* Debug 10.4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Debug 10.4";
+		};
+		8C4864C812F945190054D6CB /* Debug 10.4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build All";
+			};
+			name = "Debug 10.4";
+		};
+		8C4864C912F945190054D6CB /* Debug 10.4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1)",
+					"$(GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_2)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=macosx10.4][arch=*]" = (
+					"numberWithInteger=numberWithInt",
+					"numberWithUnsignedInteger=numberWithUnsignedInt",
+					"NSUInteger=unsigned",
+					"NSInteger=int",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_1 = "NSUInteger=\"unsigned long\"";
+				GCC_PREPROCESSOR_DEFINITIONS_QUOTED_FOR_PROJECT_2 = "NSInteger=\"long\"";
+				GCC_VERSION = 4.0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.4;
+			};
+			name = "Debug 10.4";
+		};
 		8C5E08020B37C18500EC858C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -797,9 +931,11 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../Sparkle 1/With Garbage Collection\"",
-					"\"$(SRCROOT)/../DBBackgroundView/build/Release\"",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\\\"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection\\\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\\\"$(SRCROOT)/../DBBackgroundView/build/Release\\\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -823,9 +959,11 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../Sparkle 1/With Garbage Collection\"",
-					"\"$(SRCROOT)/../DBBackgroundView/build/Release\"",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\\\"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection\\\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\\\"$(SRCROOT)/../DBBackgroundView/build/Release\\\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = supported;
 				"GCC_ENABLE_OBJC_GC[arch=i386]" = unsupported;
@@ -906,6 +1044,7 @@
 				"GCC_VERSION[arch=ppc]" = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 			};
 			name = Debug;
 		};
@@ -938,55 +1077,61 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C379C9D0B46F81600F124AB /* Debug */,
+				8C4864C612F945190054D6CB /* Debug 10.4 */,
 				8C379C9E0B46F81600F124AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8C5E08010B37C18500EC858C /* Build configuration list for PBXAggregateTarget "Build All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C5E08020B37C18500EC858C /* Debug */,
+				8C4864C812F945190054D6CB /* Debug 10.4 */,
 				8C5E08030B37C18500EC858C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8C63D31E12D2F0AB009196DF /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C63D31C12D2F0AB009196DF /* Debug */,
+				8C4864C712F945190054D6CB /* Debug 10.4 */,
 				8C63D31D12D2F0AB009196DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8C6FFB9C0B3220AD00EF8A76 /* Build configuration list for PBXNativeTarget "Preference Pane" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C6FFB9D0B3220AD00EF8A76 /* Debug */,
+				8C4864C512F945190054D6CB /* Debug 10.4 */,
 				8C6FFB9E0B3220AD00EF8A76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8C6FFCDC0B32269000EF8A76 /* Build configuration list for PBXNativeTarget "Webmailer Daemon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C6FFCDD0B32269000EF8A76 /* Debug */,
+				8C4864C412F945190054D6CB /* Debug 10.4 */,
 				8C6FFCDE0B32269000EF8A76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Webmailer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
+				8C4864C912F945190054D6CB /* Debug 10.4 */,
 				C01FCF5008A954540054247B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
