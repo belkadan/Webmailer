@@ -27,6 +27,10 @@
 #import "NSString+PrototypeExpansion.h"
 #import "NSString+PrototypeExpansionPrivate.h"
 
+#if !defined(MAC_OS_X_VERSION_10_5) || MAC_OS_X_VERSION_10_5 > MAC_OS_X_VERSION_MAX_ALLOWED
+# define NSMakeCollectable(cfObj) ((id) cfObj)
+#endif
+
 @implementation NSString (ComBelkadanWebmailer_PrototypeExpansion)
 
 /*!
@@ -162,8 +166,10 @@
 	}
 	else if (shouldForceQuoteEscapes)
 	{
-		result = [result stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
-		result = [result stringByReplacingOccurrencesOfString:@"\'" withString:@"%27"];
+		NSMutableString *replaceable = [result mutableCopy];
+		[replaceable replaceOccurrencesOfString:@"\"" withString:@"%22" options:0 range:NSMakeRange(0, [replaceable length])];
+		[replaceable replaceOccurrencesOfString:@"\'" withString:@"%27" options:0 range:NSMakeRange(0, [replaceable length])];
+		result = [replaceable autorelease];
 	}
 	
 	if (shouldCountCharsInstead)
