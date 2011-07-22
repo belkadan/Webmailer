@@ -64,7 +64,11 @@
 
 		NSImage *activeImage;
 #if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-		activeImage = [[NSImage imageNamed:@"NSStatusAvailable"] copy]; // don't use the constant to avoid crash on Tiger
+		extern NSString * const NSImageNameStatusAvailable WEAK_IMPORT_ATTRIBUTE;
+		if (NSImageNameStatusAvailable)
+		{
+			activeImage = [[NSImage imageNamed:NSImageNameStatusAvailable] copy];
+		}
 		if (!activeImage)
 #endif
 		{
