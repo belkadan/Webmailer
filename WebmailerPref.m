@@ -55,7 +55,7 @@
 		}
 
 		
-		NSURL *daemonURL = [[NSURL alloc] initWithString:[bundle pathForResource:@"Webmailer" ofType:@"app"]];
+		NSURL *daemonURL = [[NSURL alloc] initFileURLWithPath:[bundle pathForResource:@"Webmailer" ofType:@"app"]];
 		LSRegisterURL((CFURLRef) daemonURL, false);
 		[daemonURL release];
 		
