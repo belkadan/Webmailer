@@ -1064,6 +1064,7 @@
 				"MACOSX_DEPLOYMENT_TARGET[arch=x86_64]" = 10.5;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				"SDKROOT[arch=ppc]" = macosx10.5;
 				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
