@@ -740,12 +740,9 @@
 				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(SRCROOT)/../DBBackgroundView/build/Release",
+					"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "$(SRCROOT)/../DBBackgroundView/build/Release";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -758,7 +755,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Webmailer;
-				USER_HEADER_SEARCH_PATHS = "\"/Users/jordy/programming/Cocoa/Sparkle 1/Extras/Source Code\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Sparkle 1/Extras/Source Code\"";
 				WRAPPER_EXTENSION = prefPane;
 			};
 			name = "Debug 10.4";
@@ -826,6 +823,7 @@
 				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=macosx10.4][arch=*]" = (
+					"CGFloat=float",
 					"numberWithInteger=numberWithInt",
 					"numberWithUnsignedInteger=numberWithUnsignedInt",
 					"NSUInteger=unsigned",
@@ -836,7 +834,8 @@
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.4;
 			};
 			name = "Debug 10.4";
 		};
@@ -926,12 +925,9 @@
 				"ARCHS[sdk=macosx10.4]" = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(SRCROOT)/../DBBackgroundView/build/Release",
+					"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "$(SRCROOT)/../DBBackgroundView/build/Release";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -944,7 +940,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Webmailer;
-				USER_HEADER_SEARCH_PATHS = "\"/Users/jordy/programming/Cocoa/Sparkle 1/Extras/Source Code\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Sparkle 1/Extras/Source Code\"";
 				WRAPPER_EXTENSION = prefPane;
 			};
 			name = Debug;
@@ -954,12 +950,9 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(SRCROOT)/../DBBackgroundView/build/Release",
+					"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "$(SRCROOT)/../DBBackgroundView/build/Release";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = supported;
 				"GCC_ENABLE_OBJC_GC[arch=i386]" = unsupported;
@@ -971,7 +964,7 @@
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Webmailer;
-				USER_HEADER_SEARCH_PATHS = "\"/Users/jordy/programming/Cocoa/Sparkle 1/Extras/Source Code\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Sparkle 1/Extras/Source Code\"";
 				WRAPPER_EXTENSION = prefPane;
 			};
 			name = Release;
@@ -1035,13 +1028,13 @@
 					"NSUInteger=unsigned",
 					"NSInteger=int",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				"GCC_VERSION[arch=i386]" = 4.0;
+				GCC_VERSION = "";
+				"GCC_VERSION[arch=i386]" = com.apple.compilers.llvmgcc42;
 				"GCC_VERSION[arch=ppc]" = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = macosx10.6;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -1057,7 +1050,7 @@
 					"NSInteger=int",
 				);
 				GCC_VERSION = 4.0;
-				"GCC_VERSION[arch=x86_64]" = 4.2;
+				"GCC_VERSION[arch=x86_64]" = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
