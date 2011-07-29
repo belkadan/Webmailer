@@ -60,11 +60,6 @@ static const CGFloat kUpdateBarHeight = 29;
 	[updateBar setBackgroundGradient:gradient];
 	[gradient release];
 	
-	// Set update icon
-	NSImage *image = [[NSImage alloc] initWithContentsOfFile:[[self hostBundle] pathForImageResource:@"download"]];
-	[updateIconView setImage:image];
-	[image release];
-	
 	// And check for updates
 	[self setDelegate:self];
 	[self checkForUpdateInformation];

@@ -41,15 +41,22 @@ const CGFloat kLeftAlignedViewMargin = 7;
 @implementation ComBelkadanWebmailer_AddRemoveButtonsController
 
 - (void)awakeFromNib {
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
 	if ([self hasSquareSegmentedControl]) {
 		[addButton addObserver:self forKeyPath:@"enabled" options:0 context:[ComBelkadanWebmailer_AddRemoveButtonsController class]];
 		[removeButton addObserver:self forKeyPath:@"enabled" options:0 context:[ComBelkadanWebmailer_AddRemoveButtonsController class]];
+
+		[segmentedButtons setImage:[NSImage imageNamed:NSImageNameAddTemplate] forSegment:AddButton];
+		[segmentedButtons setImage:[NSImage imageNamed:NSImageNameRemoveTemplate] forSegment:RemoveButton];
 		
 		NSRect frame = [leftAlignedView frame];
 		frame.origin.x = NSMaxX([segmentedButtons frame]) + kLeftAlignedViewMargin;
 		[leftAlignedView setFrame:frame];
 
-	} else {
+	}
+	else
+#endif
+	{
 		[segmentedButtons removeFromSuperview];
 	}
 }
