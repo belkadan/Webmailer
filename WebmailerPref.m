@@ -64,12 +64,11 @@
 
 		NSImage *activeImage;
 #if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-		extern NSString * const NSImageNameStatusAvailable WEAK_IMPORT_ATTRIBUTE;
-		if (NSImageNameStatusAvailable)
+		if (&NSImageNameStatusAvailable != NULL)
 		{
 			activeImage = [[NSImage imageNamed:NSImageNameStatusAvailable] copy];
 		}
-		if (!activeImage)
+		else
 #endif
 		{
 			activeImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"active"]];
