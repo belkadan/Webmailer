@@ -25,9 +25,12 @@
 *******************************************************************************/
 
 #import <AppKit/AppKit.h>
+#import "DefaultsDomain.h"
 
 @interface WebmailerDaemon : NSObject
 {
+	DefaultsDomain *defaults;
+
 	NSString *mailtoURL;
 	ProcessSerialNumber sourcePSN;
 	

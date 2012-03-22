@@ -24,6 +24,8 @@
 
 /* Begin PBXBuildFile section */
 		8C083D4912ECDBC600A285FA /* TestPlaceholderExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C083D4812ECDBC600A285FA /* TestPlaceholderExpansion.m */; };
+		8C155A6A151AEA98002068BF /* DefaultsDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C155A69151AEA97002068BF /* DefaultsDomain.m */; };
+		8C155A6B151AEA98002068BF /* DefaultsDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C155A69151AEA97002068BF /* DefaultsDomain.m */; };
 		8C2DF6D3104C6BA300729496 /* FullWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2DF6D2104C6BA300729496 /* FullWidthView.m */; };
 		8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
 		8C2E37CF11067D4500766AB1 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
@@ -122,6 +124,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8C083D4812ECDBC600A285FA /* TestPlaceholderExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPlaceholderExpansion.m; sourceTree = "<group>"; };
+		8C155A68151AEA97002068BF /* DefaultsDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultsDomain.h; sourceTree = "<group>"; };
+		8C155A69151AEA97002068BF /* DefaultsDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultsDomain.m; sourceTree = "<group>"; };
 		8C2DF6D1104C6BA300729496 /* FullWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullWidthView.h; sourceTree = "<group>"; };
 		8C2DF6D2104C6BA300729496 /* FullWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullWidthView.m; sourceTree = "<group>"; };
 		8C2E37BE11067CC700766AB1 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../Sparkle 1/With Garbage Collection/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
@@ -282,6 +286,8 @@
 			children = (
 				8C6FFD1B0B32286700EF8A76 /* WebmailerShared.h */,
 				8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */,
+				8C155A68151AEA97002068BF /* DefaultsDomain.h */,
+				8C155A69151AEA97002068BF /* DefaultsDomain.m */,
 				8C379CA00B46F87D00F124AB /* mailhandlers_main.m */,
 			);
 			name = "Other Sources";
@@ -608,6 +614,7 @@
 				8C3196C8110A5FFC00556615 /* CTGradient.m in Sources */,
 				8C319709110A61B600556615 /* CTGradient+NSGradientCompatibility.m in Sources */,
 				8CC47321110C3BBA004BEF06 /* AddRemoveButtonsController.m in Sources */,
+				8C155A6B151AEA98002068BF /* DefaultsDomain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +627,7 @@
 				8C4211D40B3639CB0012E9BA /* main.m in Sources */,
 				8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */,
 				8C63D2E612D2E54C009196DF /* NSString+PrototypeExpansion.m in Sources */,
+				8C155A6A151AEA98002068BF /* DefaultsDomain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

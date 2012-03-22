@@ -189,16 +189,16 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 @implementation WebmailerDaemon
 - (void)awakeFromNib
 {
-	// Register for GetURL events.
-	NSAppleEventManager *aevtManager = [NSAppleEventManager sharedAppleEventManager];
-	[aevtManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-	
 	// Make sure the user has configured Webmailer before. 
-	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
-	if (!prefs)
+	defaults = [[DefaultsDomain domainForName:WebmailerAppDomain] retain];
+	if ([defaults count] == 0)
 	{
 		[self openPreferencePane:nil];
 	}
+
+	// Register for GetURL events.
+	NSAppleEventManager *aevtManager = [NSAppleEventManager sharedAppleEventManager];
+	[aevtManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 	
 	// Quit if no incoming event after 30s.
 	[NSTimer scheduledTimerWithTimeInterval:30 target:NSApp selector:@selector(terminate:) userInfo:nil repeats:NO];
@@ -206,6 +206,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 
 - (void)dealloc
 {
+	[defaults release];
 	[mailtoURL release];
 	[configurations release];
 	[super dealloc];
@@ -224,8 +225,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	[sortByDestination release];
 
 	// Sort the configurations.
-	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
-	NSArray *sortedConfigurations = [[prefs objectForKey:WebmailerConfigurationsKey] sortedArrayUsingDescriptors:sortDescriptors];
+	NSArray *sortedConfigurations = [[defaults objectForKey:WebmailerConfigurationsKey] sortedArrayUsingDescriptors:sortDescriptors];
 	[sortDescriptors release];
 	
 	// Update the displayed configurations.
@@ -328,8 +328,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	}
 	else
 	{
-		NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
-		[self launchDestination:[prefs objectForKey:WebmailerCurrentDestinationKey]];
+		[self launchDestination:[defaults objectForKey:WebmailerCurrentDestinationKey]];
 	}
 }
 
@@ -412,8 +411,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
  */
 - (NSURL *)chooseAppForOpeningURL:(NSURL *)url
 {
-	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain];
-	if ([[prefs objectForKey:WebmailerDisableAppChoosingKey] boolValue])
+	if ([[defaults objectForKey:WebmailerDisableAppChoosingKey] boolValue])
 	{
 		return nil;
 	}

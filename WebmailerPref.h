@@ -28,11 +28,13 @@
 #import <PreferencePanes/NSPreferencePane.h>
 
 #import "EditTrackingTableView.h"
+#import "DefaultsDomain.h"
 
 #define WebmailerPref ComBelkadanWebmailer_PrefPane
 
 @interface WebmailerPref : NSPreferencePane
 {
+	DefaultsDomain *defaults;
 	NSMutableArray *configurations;
 	IBOutlet EditTrackingTableView *configurationTable;
 }

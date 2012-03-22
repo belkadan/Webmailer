@@ -32,8 +32,8 @@
 
 /*!
  * The main controller for the Webmailer preferences pane, which is mainly handling
- * the list of configurations. Nearly all preferences are saved with the CFPreferences
- * API, in order to save to the "com.belkadan.Webmailer" domain.
+ * the list of configurations. Webmailer defaults are saved in the
+ * "com.belkadan.Webmailer" domain.
  *
  * @truename ComBelkadanWebmailer_PrefPane
  */
@@ -42,25 +42,20 @@
 {
 	if (self = [super initWithBundle:bundle])
 	{
-		NSArray *immutableConfigurations = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:WebmailerAppDomain] objectForKey:WebmailerConfigurationsKey] retain];
-		if (immutableConfigurations == nil)
+		defaults = [[DefaultsDomain domainForName:WebmailerAppDomain] retain];
+		if (defaults == nil)
 		{
 			// First time setup
 			NSDictionary *initialDefaults = [[NSDictionary alloc] initWithContentsOfFile:[bundle pathForResource:@"default" ofType:@"plist"]];
-			CFPreferencesSetMultiple((CFDictionaryRef) initialDefaults, NULL, (CFStringRef) WebmailerAppDomain, kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
-			CFPreferencesAppSynchronize((CFStringRef) WebmailerAppDomain);
-			
-			immutableConfigurations = [[initialDefaults objectForKey:WebmailerConfigurationsKey] retain];
+			[defaults setDictionary:initialDefaults];
 			[initialDefaults release];
 		}
-
 		
 		NSURL *daemonURL = [[NSURL alloc] initFileURLWithPath:[bundle pathForResource:@"Webmailer" ofType:@"app"]];
 		LSRegisterURL((CFURLRef) daemonURL, false);
 		[daemonURL release];
 		
-		configurations = [immutableConfigurations mutableDeepPropertyListCopy];
-		[immutableConfigurations release];
+		configurations = [[defaults objectForKey:WebmailerConfigurationsKey] mutableDeepPropertyListCopy];
 
 		NSImage *activeImage;
 #if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
@@ -116,23 +111,24 @@
 		
 		id newActiveDestination = [[configurationController arrangedObjects] objectAtIndex:row];
 		[newActiveDestination setValue:[NSNumber numberWithBool:YES] forKey:WebmailerDestinationIsActiveKey];
-		
+
 		NSString *currentDestination = [newActiveDestination valueForKey:WebmailerDestinationURLKey];
-		CFPreferencesSetAppValue((CFStringRef) WebmailerCurrentDestinationKey, currentDestination, (CFStringRef) WebmailerAppDomain);
-		CFPreferencesSetAppValue((CFStringRef) WebmailerConfigurationsKey, configurations, (CFStringRef) WebmailerAppDomain);
-		
-		CFPreferencesAppSynchronize((CFStringRef) WebmailerAppDomain);
+		[defaults beginTransaction];
+			[defaults setObject:currentDestination forKey:WebmailerCurrentDestinationKey];
+			[defaults setObject:configurations forKey:WebmailerConfigurationsKey];
+		[defaults endTransaction];
 	}
 }
 
 /*!
- * Saves changes to the name or destination of a configuration back to user defaults,
- * using CFPreferences. If the row that was changed was the active configuration,
+ * Saves changes to the name or destination of a configuration back to user defaults.
+ * If the row that was changed was the active configuration,
  * also refreshes the "currentDestination" key.
  */
 - (IBAction)update:(id)sender
 {
-	CFPreferencesSetAppValue((CFStringRef) WebmailerConfigurationsKey, configurations, (CFStringRef) WebmailerAppDomain);
+	[defaults beginTransaction];
+	[defaults setObject:configurations forKey:WebmailerConfigurationsKey];
 	
 	NSInteger row = [configurationTable selectedRow];
 	NSArray *arrangedConfigurations = [(NSArrayController *)[configurationTable dataSource] arrangedObjects];
@@ -140,10 +136,10 @@
 	if (row >= 0 && [[[arrangedConfigurations objectAtIndex:row] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
 	{
 		NSString *currentDestination = [[arrangedConfigurations objectAtIndex:row] objectForKey:WebmailerDestinationURLKey];
-		CFPreferencesSetAppValue((CFStringRef) WebmailerCurrentDestinationKey, currentDestination, (CFStringRef) WebmailerAppDomain);
+		[defaults setObject:currentDestination forKey:WebmailerCurrentDestinationKey];
 	}
 	
-	CFPreferencesAppSynchronize((CFStringRef) WebmailerAppDomain);
+	[defaults endTransaction];
 }
 
 /*!
@@ -177,7 +173,7 @@
  */
 - (BOOL)appChoosingDisabled
 {
-	return CFPreferencesGetAppBooleanValue((CFStringRef) WebmailerDisableAppChoosingKey, (CFStringRef) WebmailerAppDomain, NULL) ? YES : NO;
+	return [[defaults objectForKey:WebmailerDisableAppChoosingKey] boolValue];
 }
 
 /*!
@@ -188,9 +184,7 @@
  */
 - (void)setAppChoosingDisabled:(BOOL)disableAppChoosing
 {
-	CFBooleanRef value = disableAppChoosing ? kCFBooleanTrue : kCFBooleanFalse;
-	CFPreferencesSetAppValue((CFStringRef) WebmailerDisableAppChoosingKey, value, (CFStringRef) WebmailerAppDomain);
-	CFPreferencesAppSynchronize((CFStringRef) WebmailerAppDomain);
+	[defaults setObject:[NSNumber numberWithBool:disableAppChoosing] forKey:WebmailerDisableAppChoosingKey];
 }
 
 #pragma mark -
@@ -207,13 +201,13 @@
 - (void)removeConfigurationsAtIndexes:(NSIndexSet *)indexes
 {
 	[configurations removeObjectsAtIndexes:indexes];
-	CFPreferencesSetAppValue((CFStringRef) WebmailerConfigurationsKey, configurations, (CFStringRef) WebmailerAppDomain);
-	CFPreferencesAppSynchronize((CFStringRef) WebmailerAppDomain);
+	[defaults setObject:configurations forKey:WebmailerConfigurationsKey];
 }
 
 - (void)dealloc
 {
 	[configurations release];
+	[defaults release];
 	[super dealloc];
 }
 
