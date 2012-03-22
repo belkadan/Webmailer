@@ -43,11 +43,13 @@
 	if (self = [super initWithBundle:bundle])
 	{
 		defaults = [[DefaultsDomain domainForName:WebmailerAppDomain] retain];
-		if (defaults == nil)
+		if ([defaults objectForKey:WebmailerCurrentDestinationKey] == nil)
 		{
 			// First time setup
 			NSDictionary *initialDefaults = [[NSDictionary alloc] initWithContentsOfFile:[bundle pathForResource:@"default" ofType:@"plist"]];
+			[defaults beginTransaction];
 			[defaults setDictionary:initialDefaults];
+			[defaults endTransaction];
 			[initialDefaults release];
 		}
 		
