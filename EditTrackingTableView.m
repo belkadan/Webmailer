@@ -31,11 +31,6 @@
 
 #import "EditTrackingTableView.h"
 
-// to stop warnings on pre-10.5 builds
-@interface NSTableView (ComBelkadanWebmailer_NoWarn)
-- (NSCell *)preparedCellAtColumn:(NSInteger)column row:(NSInteger)row;
-@end
-
 /*!
  * A table view that sends an action when a text cell has finished editing. The
  * target and action are the cell's target and action.

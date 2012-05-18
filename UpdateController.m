@@ -1,5 +1,4 @@
 #import "UpdateController.h"
-#import "CTGradient.h"
 
 #import "SUHost.h"
 #import "SUInstaller.h"
@@ -52,11 +51,8 @@ static const CGFloat kUpdateBarHeight = 29;
 	[updateBar setFrame:updateFrame];
 	[updateBar setHidden:YES];
 	
-	// Set update bar gradient
-	Class Gradient_class = NSClassFromString(@"NSGradient");
-	if (Gradient_class == Nil) Gradient_class = [CTGradient class];
-	
-	id gradient = [[Gradient_class alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.19 alpha:1.0] endingColor:[NSColor colorWithCalibratedWhite:0.09 alpha:1.0]];
+	// Set update bar gradient	
+	NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.19 alpha:1.0] endingColor:[NSColor colorWithCalibratedWhite:0.09 alpha:1.0]];
 	[updateBar setBackgroundGradient:gradient];
 	[gradient release];
 	

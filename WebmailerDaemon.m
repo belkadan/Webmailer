@@ -1,5 +1,5 @@
 /*******************************************************************************
- Copyright (c) 2006-2011 Jordy Rose
+ Copyright (c) 2006-2012 Jordy Rose
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -263,25 +263,14 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	{
 		[[NSWorkspace sharedWorkspace] openFile:prefPanePath];
 	}
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-	else if (NSClassFromString(@"SBApplication"))
+	else
 	{
 		SystemPreferencesApplication *sysPrefs = [SBApplication applicationWithBundleIdentifier:@"com.apple.systempreferences"];
 		[sysPrefs setDelegate:self];
 		[sysPrefs activate];
 		[sysPrefs setCurrentPane:[[sysPrefs panes] objectWithID:@"com.belkadan.Webmailer"]];
 	}
-#endif
-	else
-	{
-		// Yes, having a compiled script would make this more efficient.
-		// However, then we'd have to read it in from disk, which would be slower
-		// and probably just make the bundle bigger overall.
-		// This section is only here for 10.4 compatibility anyway.
-		NSAppleScript *prefPaneOpenScript = [[NSAppleScript alloc] initWithSource:@"tell application \"System Preferences\"\nset current pane to pane \"com.belkadan.Webmailer\"\nactivate\nend tell"];
-		[prefPaneOpenScript executeAndReturnError:NULL];
-		[prefPaneOpenScript release];
-	}
+
 	[NSApp terminate:self];
 }
 
@@ -553,30 +542,10 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
  */
 - (void)launchTerminal:(NSString *)script
 {
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-	if (NSClassFromString(@"SBApplication"))
-	{
-		// If ScriptingBridge is available, use that.
-		TerminalApplication *terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
-		[terminal setDelegate:self];
-		[terminal activate];
-		(void)[terminal doScript:script in:nil];
-	}
-	else
-#endif
-	{
-		// Otherwise, use AppleScript.
-		NSMutableString *scriptSource = [script mutableCopy];
-		
-		[scriptSource replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:0 range:NSMakeRange(0, [script length])];
-		[scriptSource replaceCharactersInRange:NSMakeRange(0, 0) withString:@"tell application \"Terminal\" to do script \""];
-		[scriptSource appendString:@"\""];
-
-		NSAppleScript *runScript = [[NSAppleScript alloc] initWithSource:scriptSource];
-		[runScript executeAndReturnError:NULL];
-		[runScript release];
-		[scriptSource release];
-	}
+	TerminalApplication *terminal = [SBApplication applicationWithBundleIdentifier:@"com.apple.Terminal"];
+	[terminal setDelegate:self];
+	[terminal activate];
+	(void)[terminal doScript:script in:nil];
 }
 
 #pragma mark -

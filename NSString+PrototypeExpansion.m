@@ -27,10 +27,6 @@
 #import "NSString+PrototypeExpansion.h"
 #import "NSString+PrototypeExpansionPrivate.h"
 
-#if !defined(MAC_OS_X_VERSION_10_5) || MAC_OS_X_VERSION_10_5 > MAC_OS_X_VERSION_MAX_ALLOWED
-# define NSMakeCollectable(cfObj) ((id) cfObj)
-#endif
-
 @implementation NSString (ComBelkadanWebmailer_PrototypeExpansion)
 
 /*!
