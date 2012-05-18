@@ -26,7 +26,6 @@
 
 #import "WebmailerDaemon.h"
 #import "WebmailerShared.h"
-#import "WebmailerConfiguration.h"
 #import "ImageForStateTransformer.h"
 #import "NSString+PrototypeExpansion.h"
 
@@ -211,11 +210,6 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	return self;
 }
 
-- (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key
-{
-	return [key isEqual:@"configurations"];
-}
-
 - (void)dealloc
 {
 	[defaults release];
@@ -332,6 +326,42 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	}
 
 	return configurations;
+}
+
+- (ComBelkadanWebmailer_Configuration *)activeConfiguration
+{
+	if (!activeConfiguration) {
+		if (![NSThread isMainThread]) {
+			[self performSelectorOnMainThread:_cmd withObject:nil waitUntilDone:YES];			
+		} else {
+			for (ComBelkadanWebmailer_Configuration *next in self.configurations) {
+				if (next.active) {
+					activeConfiguration = next;
+					break;
+				}
+			}
+			NSAssert(activeConfiguration != nil, @"No active configuration found.");
+		}
+	}
+
+	return activeConfiguration;
+}
+
+- (void)setActiveConfiguration:(ComBelkadanWebmailer_Configuration *)newActive
+{
+	activeConfiguration.active = NO;
+	newActive.active = YES;
+	activeConfiguration = newActive;
+
+	[defaults beginTransaction];
+	[defaults setObject:[configurations valueForKey:@"dictionaryRepresentation"] forKey:WebmailerConfigurationsKey];
+	[defaults setObject:newActive.destination forKey:WebmailerCurrentDestinationKey];
+	[defaults endTransaction];
+}
+
+- (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key
+{
+	return [key isEqual:@"configurations"] || [key isEqual:@"activeConfiguration"];
 }
 
 #pragma mark -

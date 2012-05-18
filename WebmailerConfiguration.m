@@ -21,7 +21,7 @@
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 		self.name, WebmailerDestinationNameKey,
 		self.destination, WebmailerDestinationURLKey,
-		self.active, WebmailerDestinationIsActiveKey,
+		(self.active ? [NSNumber numberWithBool:YES] : nil), WebmailerDestinationIsActiveKey,
 		nil];
 }
 

@@ -133,11 +133,13 @@
 				<accessor style="test"/>
 				<accessor style="name"/>
 			</element>
+			<property name="active destination" code="Actv" type="destination">
+				<cocoa key="activeConfiguration"/>
+			</property>
 		</class-extension>
 		<class name="destination" code="Dest" inherits="item">
 			<cocoa class="ComBelkadanWebmailer_Configuration"/>
 			<property name="name" code="pnam" type="text"/>
-			<property name="active" code="Actv" type="boolean" access="r"/>
 			<property name="url" code="DURL" type="text">
 				<cocoa key="destination"/>
 			</property>

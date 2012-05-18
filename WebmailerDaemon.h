@@ -26,6 +26,7 @@
 
 #import <AppKit/AppKit.h>
 #import "DefaultsDomain.h"
+#import "WebmailerConfiguration.h"
 
 @interface WebmailerDaemon : NSObject
 {
@@ -35,6 +36,7 @@
 	ProcessSerialNumber sourcePSN;
 	
 	NSArray *configurations;
+	ComBelkadanWebmailer_Configuration *activeConfiguration;
 	
 	IBOutlet NSArrayController *configurationController;
 	IBOutlet NSTableView *configurationTable;
