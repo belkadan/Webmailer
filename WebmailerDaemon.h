@@ -47,4 +47,6 @@
 - (IBAction)openPreferencePane:(id)sender;
 
 - (void)launchDestination:(NSString *)destinationPrototype;
+
+@property(readonly) NSArray *configurations;
 @end

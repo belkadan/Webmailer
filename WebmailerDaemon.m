@@ -26,6 +26,7 @@
 
 #import "WebmailerDaemon.h"
 #import "WebmailerShared.h"
+#import "WebmailerConfiguration.h"
 #import "ImageForStateTransformer.h"
 #import "NSString+PrototypeExpansion.h"
 
@@ -187,8 +188,12 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
  * "daemon" less applicable, but the behavior of a faceless app still applies).
  */
 @implementation WebmailerDaemon
-- (void)awakeFromNib
+
+- (id)init
 {
+	self = [super init];
+	if (!self) return nil;
+
 	// Make sure the user has configured Webmailer before. 
 	defaults = [[DefaultsDomain domainForName:WebmailerAppDomain] retain];
 	if ([defaults count] == 0)
@@ -202,6 +207,13 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	
 	// Quit if no incoming event after 30s.
 	[NSTimer scheduledTimerWithTimeInterval:30 target:NSApp selector:@selector(terminate:) userInfo:nil repeats:NO];
+
+	return self;
+}
+
+- (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key
+{
+	return [key isEqual:@"configurations"];
 }
 
 - (void)dealloc
@@ -217,48 +229,29 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
  * The user can then choose which configuration to use for the URL that was clicked.
  */
 - (void)showConfigurationChooser {
-	// Set up sort descriptors for destination URLs.
-	NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationNameKey ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-	NSSortDescriptor *sortByDestination = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationURLKey ascending:YES];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByName, sortByDestination, nil];
-	[sortByName release];
-	[sortByDestination release];
-
-	// Sort the configurations.
-	NSArray *sortedConfigurations = [[defaults objectForKey:WebmailerConfigurationsKey] sortedArrayUsingDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	
-	// Update the displayed configurations.
-	[self willChangeValueForKey:@"configurations"];
-	configurations = [sortedConfigurations copy];
-	[self didChangeValueForKey:@"configurations"];
-
-		
 	// Create a new value transformer that shows an active icon for true values.
 	ImageForStateTransformer *transformer = [[ImageForStateTransformer alloc] initWithTrueImage:GetActiveDestinationImage() falseImage:nil];
 	[NSValueTransformer setValueTransformer:transformer forName:@"ImageForState"];
 	[transformer release];
-	
-	
+
 	// Select the active destination.
-	NSUInteger count = [configurations count];
+	NSArray *configs = self.configurations;
+	NSUInteger count = [configs count];
 	NSUInteger i;
-	
+
 	for (i = 0; i < count; i += 1)
 	{
-		if ([[[configurations objectAtIndex:i] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
+		if ([[[configs objectAtIndex:i] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
 		{
 			[configurationController setSelectionIndex:i];
 			[configurationTable scrollRowToVisible:i];
 			break;
 		}
 	}
-	
-	
+
 	// Set the table to fire an action on double-click.
 	[configurationTable setDoubleAction:@selector(confirmConfiguration:)];
 	[configurationTable setTarget:self];
-
 
 	// Bring up the configuration window.
 	[NSApp activateIgnoringOtherApps:YES]; // needed because we're an NSUIElement
@@ -306,6 +299,39 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 {
 	[configurationWindow orderOut:sender];
 	[self launchDestination:[[configurationController selection] valueForKey:WebmailerDestinationURLKey]];
+}
+
+#pragma mark -
+
+- (NSArray *)configurations
+{
+	if (!configurations) {
+		if (![NSThread isMainThread]) {
+			[self performSelectorOnMainThread:_cmd withObject:nil waitUntilDone:YES];			
+		} else {
+			// Set up sort descriptors for destination URLs.
+			NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationNameKey ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+			NSSortDescriptor *sortByDestination = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationURLKey ascending:YES];
+			NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByName, sortByDestination, nil];
+			[sortByName release];
+			[sortByDestination release];
+
+			// Sort the configurations.
+			NSArray *sortedDictionaries = [[defaults objectForKey:WebmailerConfigurationsKey] sortedArrayUsingDescriptors:sortDescriptors];
+			[sortDescriptors release];
+
+			NSMutableArray *allConfigurations = [[NSMutableArray alloc] initWithCapacity:[sortedDictionaries count]];
+			for (NSDictionary *dict in sortedDictionaries) {
+				id next = [[ComBelkadanWebmailer_Configuration alloc] initWithDictionaryRepresentation:dict];
+				[allConfigurations addObject:next];
+				[next release];
+			}
+
+			configurations = allConfigurations;
+		}
+	}
+
+	return configurations;
 }
 
 #pragma mark -
