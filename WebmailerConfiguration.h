@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 
 @interface ComBelkadanWebmailer_Configuration : NSObject {
@@ -6,6 +6,8 @@
 	NSString *destination;
 	BOOL active;
 }
+
+- (id)initWithName:(NSString *)name destination:(NSString *)destination;
 
 - (id)initWithDictionaryRepresentation:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
