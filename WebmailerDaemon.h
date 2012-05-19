@@ -33,7 +33,7 @@
 	DefaultsDomain *defaults;
 
 	NSString *mailtoURL;
-	ProcessSerialNumber sourcePSN;
+	NSURL *sourceAppURL;
 	
 	NSArray *configurations;
 	ComBelkadanWebmailer_Configuration *activeConfiguration;
@@ -42,7 +42,6 @@
 	IBOutlet NSTableView *configurationTable;
 	IBOutlet NSWindow *configurationWindow;
 }
-- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 
 - (void)showConfigurationChooser;
 - (IBAction)confirmConfiguration:(id)sender;

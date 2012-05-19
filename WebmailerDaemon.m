@@ -37,8 +37,11 @@
 @end
 
 
-@interface WebmailerDaemon (ComBelkadanWebmailer_Private)
-- (void)extractEventData:(NSAppleEventDescriptor *)event;
+@interface WebmailerDaemon ()
+@property(readwrite,copy) NSString *mailtoURL;
+@property(readwrite,copy) NSURL *sourceAppURL;
+
+- (void)openURLString:(NSString *)mailtoURLString fromApplicationAtURL:(NSURL *)appURL;
 
 - (void)launchShellScript:(NSString *)script;
 - (void)launchTerminal:(NSString *)script;
@@ -187,6 +190,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
  * "daemon" less applicable, but the behavior of a faceless app still applies).
  */
 @implementation WebmailerDaemon
+@synthesize mailtoURL, sourceAppURL;
 
 - (id)init
 {
@@ -199,13 +203,9 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	{
 		[self openPreferencePane:nil];
 	}
-
-	// Register for GetURL events.
-	NSAppleEventManager *aevtManager = [NSAppleEventManager sharedAppleEventManager];
-	[aevtManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 	
-	// Quit if no incoming event after 30s.
-	[NSTimer scheduledTimerWithTimeInterval:30 target:NSApp selector:@selector(terminate:) userInfo:nil repeats:NO];
+	// Quit if no incoming event.
+	[NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(quitIfInactive:) userInfo:nil repeats:YES];
 
 	return self;
 }
@@ -214,8 +214,15 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 {
 	[defaults release];
 	[mailtoURL release];
+	[sourceAppURL release];
 	[configurations release];
 	[super dealloc];
+}
+
+- (void)quitIfInactive:(NSTimer *)timer
+{
+	if (!mailtoURL)
+		[NSApp terminate:nil];
 }
 
 /*!
@@ -355,16 +362,10 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 
 #pragma mark -
 
-/*!
- * Respond to a GetURL Apple Event. The URL (the direct object of the event) is
- * stored for now in an instance variable; it must have the mailto: scheme.
- * If the shift key is held down, the configuration-choosing window is opened;
- * otherwise the program progresses directly to launching the destination URL.
- * The reply event is unused.
- */
-- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
-{		
-	[self extractEventData:event];
+- (void)openURLString:(NSString *)mailtoURLString fromApplicationAtURL:(NSURL *)appURL;
+{
+	self.mailtoURL = mailtoURLString;
+	self.sourceAppURL = appURL;
 
 	BOOL shouldShowConfigurations = isShiftKeyDown();
 	if (shouldShowConfigurations)
@@ -376,24 +377,6 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 		[self launchDestination:[defaults objectForKey:WebmailerCurrentDestinationKey]];
 	}
 }
-
-/*!
- * Extract any useful information from a GetURL AppleEvent, including the URL
- * that was clicked.
- */
-- (void)extractEventData:(NSAppleEventDescriptor *)event {
-	// Save mailto URL.
-	[mailtoURL release];
-	mailtoURL = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] copy];
-
-	// Save the PSN of the application that sent this message.
-	// TODO: Someday, maybe Apple will switch to something other than PSNs for this.
-	NSData *data = [[[event attributeDescriptorForKeyword:keyAddressAttr] coerceToDescriptorType: typeProcessSerialNumber] data];
-	NSAssert([data length] <= sizeof(sourcePSN), @"PSN key is too big!");
-	[data getBytes:&sourcePSN];
-}
-
-#pragma mark -
 
 /*!
  * This method uses the given destination URL and rewrites it, using the rules
@@ -440,7 +423,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 		}
 	}
 
-	[NSApp terminate:self]; // Don't want to just stick around, right?
+	self.mailtoURL = nil;
 }
 
 
@@ -462,8 +445,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	}
 	
 	// If the app that sent us the mailto URL can handle the destination, pick that.
-	NSURL *source = GetURLForPSN(&sourcePSN);
-	if (CanOpenURLWithApplication(url, source)) return source;
+	if (sourceAppURL && CanOpenURLWithApplication(url, sourceAppURL)) return sourceAppURL;
 	
 	// Otherwise, start scanning the list of open applications.
 	NSURL *defaultAppURL = GetDefaultAppURLForURL(url);
@@ -556,3 +538,33 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	return nil; // be stupid but forgiving
 }
 @end
+
+@implementation NSApplication (ComBelkadanWebmailer)
+
+- (void)ComBelkadanWebmailer_openURL:(NSScriptCommand *)command {
+	NSAppleEventDescriptor *event = [command appleEvent];
+	NSString *directObject = [command directParameter];
+
+	// Check that we really have a mailto URL.
+	NSURL *mailtoURLObject = [NSURL URLWithString:directObject];
+	if (!mailtoURLObject || ![@"mailto" isEqual:[mailtoURLObject scheme]]) {
+		[command setScriptErrorNumber:paramErr];
+		[command setScriptErrorString:@"not a valid mailto URL"];
+		
+		NSAppleEventDescriptor *directObjectDesc = [event paramDescriptorForKeyword:keyDirectObject];
+		[command setScriptErrorOffendingObjectDescriptor:directObjectDesc];
+		return;
+	}
+
+	ProcessSerialNumber psn;
+
+	NSData *data = [[[event attributeDescriptorForKeyword:keyAddressAttr] coerceToDescriptorType:typeProcessSerialNumber] data];
+	NSAssert([data length] <= sizeof(psn), @"PSN key is too big!");
+	[data getBytes:&psn];
+
+	WebmailerDaemon *delegate = (WebmailerDaemon *)[self delegate];
+	[delegate openURLString:directObject fromApplicationAtURL:GetURLForPSN(&psn)];
+}
+
+@end
+

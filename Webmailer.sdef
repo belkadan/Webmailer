@@ -136,6 +136,9 @@
 			<property name="active destination" code="Actv" type="destination">
 				<cocoa key="activeConfiguration"/>
 			</property>
+			<responds-to command="open URL">
+				<cocoa method="ComBelkadanWebmailer_openURL:"/>
+			</responds-to>
 		</class-extension>
 		<class name="destination" code="Dest" inherits="item">
 			<cocoa class="ComBelkadanWebmailer_Configuration"/>
@@ -144,9 +147,8 @@
 				<cocoa key="destination"/>
 			</property>
 		</class>
-		<event name="open URL" code="GURLGURL" description="Opens a mailto URL.">
+		<command name="open URL" code="GURLGURL" description="Opens a mailto URL">
 			<direct-parameter type="text"/>
-			<result type="missing value"/>
-		</event>
+		</command>
 	</suite>
 </dictionary>
