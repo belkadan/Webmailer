@@ -40,6 +40,7 @@
 @interface WebmailerDaemon ()
 @property(readwrite,copy) NSString *mailtoURL;
 @property(readwrite,copy) NSURL *sourceAppURL;
+@property(readwrite,assign) ComBelkadanWebmailer_Configuration *activeConfiguration;
 
 - (void)openURLString:(NSString *)mailtoURLString fromApplicationAtURL:(NSURL *)appURL;
 
@@ -313,6 +314,8 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 			NSMutableArray *allConfigurations = [[NSMutableArray alloc] initWithCapacity:[sortedDictionaries count]];
 			for (NSDictionary *dict in sortedDictionaries) {
 				id next = [[ComBelkadanWebmailer_Configuration alloc] initWithDictionaryRepresentation:dict];
+				[next addObserver:self forKeyPath:@"name" options:0 context:(void *)[WebmailerDaemon class]];
+				[next addObserver:self forKeyPath:@"destination" options:0 context:(void *)[WebmailerDaemon class]];
 				[allConfigurations addObject:next];
 				[next release];
 			}
@@ -358,6 +361,21 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 - (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key
 {
 	return [key isEqual:@"configurations"] || [key isEqual:@"activeConfiguration"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if (context == (void *)[WebmailerDaemon class]) {
+		[defaults beginTransaction];
+		ComBelkadanWebmailer_Configuration *changedConfiguration = object;
+		if (changedConfiguration.active && [keyPath isEqual:@"destination"]) {
+			[defaults setObject:changedConfiguration.destination forKey:WebmailerCurrentDestinationKey];
+		}
+		[defaults setObject:[configurations valueForKey:@"dictionaryRepresentation"] forKey:WebmailerConfigurationsKey];
+		[defaults endTransaction];
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
 }
 
 #pragma mark -

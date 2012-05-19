@@ -50,4 +50,5 @@
 - (void)launchDestination:(NSString *)destinationPrototype;
 
 @property(readonly) NSArray *configurations;
+@property(readonly) ComBelkadanWebmailer_Configuration *activeConfiguration;
 @end
