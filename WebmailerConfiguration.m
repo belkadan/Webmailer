@@ -2,7 +2,7 @@
 #import "WebmailerShared.h"
 
 @implementation ComBelkadanWebmailer_Configuration
-@synthesize name, destination, active;
+@synthesize name, destinationURL, active;
 
 - (id)initWithName:(NSString *)givenName destination:(NSString *)givenDestination
 {
@@ -10,7 +10,7 @@
 	if (!self) return nil;
 
 	self.name = givenName;
-	self.destination = givenDestination;
+	self.destinationURL = givenDestination;
 
 	return self;
 }
@@ -36,7 +36,7 @@
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 		self.name, WebmailerDestinationNameKey,
-		self.destination, WebmailerDestinationURLKey,
+		self.destinationURL, WebmailerDestinationURLKey,
 		(self.active ? [NSNumber numberWithBool:YES] : nil), WebmailerDestinationIsActiveKey,
 		nil];
 }
@@ -49,7 +49,7 @@
 - (void)dealloc
 {
 	[name release];
-	[destination release];
+	[destinationURL release];
 	[super dealloc];
 }
 

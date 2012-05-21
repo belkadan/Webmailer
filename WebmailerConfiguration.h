@@ -3,7 +3,7 @@
 
 @interface ComBelkadanWebmailer_Configuration : NSObject {
 	NSString *name;
-	NSString *destination;
+	NSString *destinationURL;
 	BOOL active;
 }
 
@@ -13,6 +13,6 @@
 - (NSDictionary *)dictionaryRepresentation;
 
 @property (readwrite,copy) NSString *name;
-@property (readwrite,copy) NSString *destination;
+@property (readwrite,copy) NSString *destinationURL;
 @property (readwrite,assign,getter=isActive) BOOL active;
 @end

@@ -243,7 +243,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 
 	for (i = 0; i < count; i += 1)
 	{
-		if ([[[configs objectAtIndex:i] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
+		if ([[configs objectAtIndex:i] isActive])
 		{
 			[configurationController setSelectionIndex:i];
 			[configurationTable scrollRowToVisible:i];
@@ -314,8 +314,8 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 			NSMutableArray *allConfigurations = [[NSMutableArray alloc] initWithCapacity:[sortedDictionaries count]];
 			for (NSDictionary *dict in sortedDictionaries) {
 				id next = [[ComBelkadanWebmailer_Configuration alloc] initWithDictionaryRepresentation:dict];
-				[next addObserver:self forKeyPath:@"name" options:0 context:(void *)[WebmailerDaemon class]];
-				[next addObserver:self forKeyPath:@"destination" options:0 context:(void *)[WebmailerDaemon class]];
+				[next addObserver:self forKeyPath:WebmailerDestinationNameKey options:0 context:(void *)[WebmailerDaemon class]];
+				[next addObserver:self forKeyPath:WebmailerDestinationURLKey options:0 context:(void *)[WebmailerDaemon class]];
 				[allConfigurations addObject:next];
 				[next release];
 			}
@@ -354,7 +354,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 
 	[defaults beginTransaction];
 	[defaults setObject:[configurations valueForKey:@"dictionaryRepresentation"] forKey:WebmailerConfigurationsKey];
-	[defaults setObject:newActive.destination forKey:WebmailerCurrentDestinationKey];
+	[defaults setObject:newActive.destinationURL forKey:WebmailerCurrentDestinationKey];
 	[defaults endTransaction];
 }
 
@@ -368,8 +368,8 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	if (context == (void *)[WebmailerDaemon class]) {
 		[defaults beginTransaction];
 		ComBelkadanWebmailer_Configuration *changedConfiguration = object;
-		if (changedConfiguration.active && [keyPath isEqual:@"destination"]) {
-			[defaults setObject:changedConfiguration.destination forKey:WebmailerCurrentDestinationKey];
+		if (changedConfiguration.active && [keyPath isEqual:WebmailerDestinationURLKey]) {
+			[defaults setObject:changedConfiguration.destinationURL forKey:WebmailerCurrentDestinationKey];
 		}
 		[defaults setObject:[configurations valueForKey:@"dictionaryRepresentation"] forKey:WebmailerConfigurationsKey];
 		[defaults endTransaction];
