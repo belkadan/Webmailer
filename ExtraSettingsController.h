@@ -1,14 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import <Sparkle/Sparkle.h>
-
-enum {
-	BrowserChoiceBestGuess = 0,
-	BrowserChoiceSystemDefault,
-	BrowserChoiceSpecific,
-
-	BrowserChoiceLast = BrowserChoiceSpecific
-};
-typedef NSUInteger BrowserChoice;
+#import "WebmailerShared.h"
 
 @interface ComBelkadanWebmailer_ExtraSettingsController : NSWindowController {
 	IBOutlet SUUpdater *updateController;

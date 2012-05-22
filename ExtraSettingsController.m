@@ -1,6 +1,5 @@
 #import "ExtraSettingsController.h"
 #import "DefaultsDomain.h"
-#import "WebmailerShared.h"
 
 @implementation ComBelkadanWebmailer_ExtraSettingsController
 
@@ -22,8 +21,8 @@
 		modeObject = [defaults objectForKey:WebmailerDisableAppChoosingKey];
 		if (modeObject)
 		{
-			//[defaults removeObjectForKey:WebmailerDisableAppChoosingKey];
-			//[defaults setObject:[NSNumber numberWithUnsignedInteger:[modeObject unsignedIntegerValue]] forKey:WebmailerBrowserChoosingModeKey];
+			[defaults removeObjectForKey:WebmailerDisableAppChoosingKey];
+			[defaults setObject:[NSNumber numberWithUnsignedInteger:[modeObject unsignedIntegerValue]] forKey:WebmailerBrowserChoosingModeKey];
 		}
 	}
 
