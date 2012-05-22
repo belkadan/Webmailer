@@ -22,11 +22,15 @@ static const CGFloat kUpdateBarHeight = 29;
 
 
 @interface ComBelkadanWebmailer_UpdateController ()
-- (void)makeUpdateBarVisible:(BOOL)showUpdateBar;
+- (void)showUpdateBar;
 - (void)getFramesForUpdateBarHeightChange:(CGFloat)deltaUpdateHeight updateBarFrame:(NSRect *)updateFrame mainFrame:(NSRect *)mainFrame;
+
+@property(retain) SUAppcastItem *availableUpdate;
 @end
 
 @implementation ComBelkadanWebmailer_UpdateController
+@synthesize availableUpdate;
+
 + (id)sharedUpdater {
     return [self updaterForBundle:[NSBundle bundleForClass:[self class]]];
 }
@@ -58,7 +62,8 @@ static const CGFloat kUpdateBarHeight = 29;
 	
 	// And check for updates
 	[self setDelegate:self];
-	[self checkForUpdateInformation];
+	if ([self automaticallyChecksForUpdates]) [self checkForUpdateInformation];
+	else hasPerformedInitialCheck = YES;
 }
 
 - (void)getFramesForUpdateBarHeightChange:(CGFloat)deltaUpdateHeight updateBarFrame:(NSRect *)updateFrame mainFrame:(NSRect *)mainFrame {
@@ -75,15 +80,11 @@ static const CGFloat kUpdateBarHeight = 29;
 	}
 }
 
-- (void)makeUpdateBarVisible:(BOOL)showUpdateBar {
-	if ([updateBar isHidden] != showUpdateBar) return;
+- (void)showUpdateBar {
+	if (![updateBar isHidden]) return;
 
 	CGFloat deltaUpdateHeight = kUpdateBarHeight;
-	if (!showUpdateBar) {
-		deltaUpdateHeight *= -1;
-	} else {
-		[updateBar setHidden:NO];
-	}
+	[updateBar setHidden:NO];
 
 	NSRect updateFrame, mainFrame;
 	[self getFramesForUpdateBarHeightChange:deltaUpdateHeight updateBarFrame:&updateFrame mainFrame:&mainFrame];
@@ -109,12 +110,20 @@ static const CGFloat kUpdateBarHeight = 29;
 
 #pragma mark -
 
-- (void)updater:(SUUpdater *)updater didFindValidUpdate:(SUAppcastItem *)update {	
-	[self willChangeValueForKey:@"availableUpdateVersion"];
-	availableUpdate = [update retain];
-	[self didChangeValueForKey:@"availableUpdateVersion"];
+- (void)updater:(SUUpdater *)updater didFindValidUpdate:(SUAppcastItem *)update {
+	self.availableUpdate = update;
 
-	[self makeUpdateBarVisible:YES];
+	if (hasPerformedInitialCheck) {
+		[self performSelector:@selector(showUpdateBar) withObject:nil afterDelay:1];		
+	} else {
+		[self showUpdateBar];		
+	}
+
+	hasPerformedInitialCheck = YES;
+}
+
+- (void)updaterDidNotFindUpdate:(SUUpdater *)update {
+	hasPerformedInitialCheck = YES;
 }
 
 - (IBAction)showReleaseNotes:(id)sender {
@@ -159,10 +168,6 @@ static const CGFloat kUpdateBarHeight = 29;
 		versionString = [[self hostBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 	}
 	return versionString;
-}
-
-- (NSString *)availableUpdateVersion {
-	return [availableUpdate displayVersionString];
 }
 
 @end

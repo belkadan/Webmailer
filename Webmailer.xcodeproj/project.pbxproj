@@ -37,6 +37,8 @@
 		8C379FF50B46FE5A00F124AB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
 		8C3840BF156BE82F00F7B42C /* PrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C3840BD156BE82F00F7B42C /* PrefPane.xib */; };
 		8C38413D156BF47300F7B42C /* ConfigurationChooser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C38413B156BF47300F7B42C /* ConfigurationChooser.xib */; };
+		8C384192156C059500F7B42C /* AdditionalSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C384190156C059500F7B42C /* AdditionalSettings.xib */; };
+		8C384198156C118300F7B42C /* ExtraSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C384197156C118300F7B42C /* ExtraSettingsController.m */; };
 		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
 		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
 		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
@@ -140,6 +142,9 @@
 		8C379E170B46FD3500F124AB /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		8C3840BE156BE82F00F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefPane.xib; sourceTree = "<group>"; };
 		8C38413C156BF47300F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ConfigurationChooser.xib; sourceTree = "<group>"; };
+		8C384191156C059500F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AdditionalSettings.xib; sourceTree = "<group>"; };
+		8C384196156C118300F7B42C /* ExtraSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtraSettingsController.h; sourceTree = "<group>"; };
+		8C384197156C118300F7B42C /* ExtraSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtraSettingsController.m; sourceTree = "<group>"; };
 		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
 		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansion.h"; sourceTree = "<group>"; };
@@ -302,6 +307,7 @@
 				8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */,
 				8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */,
 				8C3840BD156BE82F00F7B42C /* PrefPane.xib */,
+				8C384190156C059500F7B42C /* AdditionalSettings.xib */,
 				8C6FFB9B0B3220AD00EF8A76 /* Preference Pane-Info.plist */,
 				8C3196A6110A5E0800556615 /* DBBackgroundView.framework */,
 				8C2E37BE11067CC700766AB1 /* Sparkle.framework */,
@@ -366,6 +372,8 @@
 				8C975C490B310F6900B481FB /* AutosortArrayController.m */,
 				8CC4731F110C3BBA004BEF06 /* AddRemoveButtonsController.h */,
 				8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */,
+				8C384196156C118300F7B42C /* ExtraSettingsController.h */,
+				8C384197156C118300F7B42C /* ExtraSettingsController.m */,
 				8C975C950B3110C500B481FB /* NoReturnEditTableView.h */,
 				8C975C960B3110C500B481FB /* NoReturnEditTableView.m */,
 				8C8018DE0B33D17B005334D3 /* EditTrackingTableView.h */,
@@ -521,6 +529,7 @@
 				8C8C5C20110A7CA800D57BBE /* download.png in Resources */,
 				8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */,
 				8C3840BF156BE82F00F7B42C /* PrefPane.xib in Resources */,
+				8C384192156C059500F7B42C /* AdditionalSettings.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,13 +580,15 @@
 			files = (
 			);
 			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)",
 			);
 			name = "Symlink Preference Pane";
 			outputPaths = (
+				"~/Library/PreferencePanes/$(WRAPPER_NAME)",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -L ~/Library/PreferencePanes/\"${WRAPPER_NAME}\" ]; then\n\trm ~/Library/PreferencePanes/\"${WRAPPER_NAME}\"\n\tln -sf \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" ~/Library/PreferencePanes\nelif [ -d ~/Library/PreferencePanes/\"${WRAPPER_NAME}\" ]; then\n\techo \"warning: existing preference pane present (not removing)\"\nelse\n\tln -sf \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" ~/Library/PreferencePanes\nfi";
+			shellPath = /bin/zsh;
+			shellScript = "if [[ -L \"$SCRIPT_OUTPUT_FILE_0\" ]]; then\n\tif [[ $(readlink \"$SCRIPT_OUTPUT_FILE_0\") == \"$SCRIPT_INPUT_FILE_0\" ]]; then\n\t\texit 0\n\tfi\n\trm \"$SCRIPT_OUTPUT_FILE_0\" 2>/dev/null\nfi\n\nif [[ ! -e \"$SCRIPT_OUTPUT_FILE_0\" ]]; then\n\techo ln -s \"$SCRIPT_INPUT_FILE_0\" \"$SCRIPT_OUTPUT_FILE_0\"\n\tln -s \"$SCRIPT_INPUT_FILE_0\" \"$SCRIPT_OUTPUT_FILE_0\"\nelse\n\techo warning: \"$SCRIPT_OUTPUT_FILE_0\" \"exists;\" an older version of $PRODUCT_NAME may be in the way\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -618,6 +629,7 @@
 				8C3196C4110A5EC000556615 /* UpdateController.m in Sources */,
 				8CC47321110C3BBA004BEF06 /* AddRemoveButtonsController.m in Sources */,
 				8C155A6B151AEA98002068BF /* DefaultsDomain.m in Sources */,
+				8C384198156C118300F7B42C /* ExtraSettingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +687,14 @@
 				8C38413C156BF47300F7B42C /* English */,
 			);
 			name = ConfigurationChooser.xib;
+			sourceTree = "<group>";
+		};
+		8C384190156C059500F7B42C /* AdditionalSettings.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C384191156C059500F7B42C /* English */,
+			);
+			name = AdditionalSettings.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

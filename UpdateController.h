@@ -11,6 +11,7 @@
 
 	SUAppcastItem *availableUpdate;
 	SUUpdateAlert *updateAlert;
+	BOOL hasPerformedInitialCheck;
 }
 
 - (IBAction)showReleaseNotes:(id)sender;
