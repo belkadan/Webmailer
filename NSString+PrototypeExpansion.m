@@ -43,11 +43,16 @@
 	
 	NSMutableString *result = [[NSMutableString alloc] init];
 	NSString *replaceStr;
+	BOOL lastScanWasQuestionMark = NO;
 	
 	NSScanner *scanner = [NSScanner scannerWithString:self];
 	[scanner setCharactersToBeSkipped:nil];
+
 	// Take care of anything before the first placeholder.
-	if ([scanner scanUpToString:@"[" intoString:&replaceStr]) [result appendString:replaceStr];
+	if ([scanner scanUpToString:@"[" intoString:&replaceStr]) {
+		if ([replaceStr isEqual:@"?"]) lastScanWasQuestionMark = YES;
+		[result appendString:replaceStr];
+	}
 	
 	// While we still have placeholders to scan...
 	while ([scanner scanString:@"[" intoString:NULL])
@@ -62,14 +67,28 @@
 			if (replaceStr) [result appendString:replaceStr];
 		}
 		else
-		{			
+		{
 			// Substitute using the mailto fields.
-			[result appendString:[mailto valueForHeader:replaceStr escapeQuotes:shouldForceQuoteEscapes]];
+			NSString *value = [mailto valueForHeader:replaceStr escapeQuotes:shouldForceQuoteEscapes];
+
+			if (lastScanWasQuestionMark && [replaceStr hasSuffix:@"?"] && [value isEqual:@""])
+			{
+				// Special case for [?] following a single (literal) "?".
+				[result deleteCharactersInRange:NSMakeRange([result length]-1, 1)];
+			}
+			else
+			{
+				[result appendString:value];
+			}
 		}
 		
 		// Continue scanning until we get to the next placeholder.
 		// Treat what we scanned as literal text.
-		if ([scanner scanUpToString:@"[" intoString:&replaceStr]) [result appendString:replaceStr];
+		lastScanWasQuestionMark = NO;
+		if ([scanner scanUpToString:@"[" intoString:&replaceStr]) {
+			if ([replaceStr isEqual:@"?"]) lastScanWasQuestionMark = YES;
+			[result appendString:replaceStr];
+		}
 	}
 	
 	[mailto release];

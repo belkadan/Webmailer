@@ -110,4 +110,40 @@ static NSString * const testingURL = @"mailto:x@y.com?one=11&two=22";
 	STAssertEqualObjects(expectedQuotes, actualQuotes, @"");
 }
 
+- (void)testQuestionMark
+{
+	NSString *template = @"?[?]";
+	NSString *templateLeading = @"to?[?]";
+	NSString *templateLeadingPlaceholder = @"[to]?[?]";
+	NSString *templateTrailing = @"?[?]&abc=def";
+	NSString *templateLeadingTrailing = @"to?[?]&abc=def";
+	NSString *templateLeadingPlaceholderTrailing = @"[to]?[?]&abc=def";
+
+	STAssertEqualObjects([template replaceWebmailerPlaceholdersUsingMailtoURLString:testingURL alwaysEscapeQuotes:NO], @"?one=11&two=22", @"");
+	STAssertEqualObjects([templateLeading replaceWebmailerPlaceholdersUsingMailtoURLString:testingURL alwaysEscapeQuotes:NO], @"to?one=11&two=22", @"");
+	STAssertEqualObjects([templateLeadingPlaceholder replaceWebmailerPlaceholdersUsingMailtoURLString:testingURL alwaysEscapeQuotes:NO], @"x@y.com?one=11&two=22", @"");
+	STAssertEqualObjects([templateTrailing replaceWebmailerPlaceholdersUsingMailtoURLString:testingURL alwaysEscapeQuotes:NO], @"?one=11&two=22&abc=def", @"");
+	STAssertEqualObjects([templateLeadingTrailing replaceWebmailerPlaceholdersUsingMailtoURLString:testingURL alwaysEscapeQuotes:NO], @"to?one=11&two=22&abc=def", @"");
+	STAssertEqualObjects([templateLeadingPlaceholderTrailing replaceWebmailerPlaceholdersUsingMailtoURLString:testingURL alwaysEscapeQuotes:NO], @"x@y.com?one=11&two=22&abc=def", @"");
+}
+
+- (void)testNoExtraQuestionMark
+{
+	NSString *template = @"?[?]";
+	NSString *templateLeading = @"to?[?]";
+	NSString *templateLeadingPlaceholder = @"[to]?[?]";
+	NSString *templateTrailing = @"?[?]&abc=def";
+	NSString *templateLeadingTrailing = @"to?[?]&abc=def";
+	NSString *templateLeadingPlaceholderTrailing = @"[to]?[?]&abc=def";
+
+	NSString *simpleURL = @"mailto:x@y.com";
+	
+	STAssertEqualObjects([template replaceWebmailerPlaceholdersUsingMailtoURLString:simpleURL alwaysEscapeQuotes:NO], @"", @"");
+	STAssertEqualObjects([templateLeading replaceWebmailerPlaceholdersUsingMailtoURLString:simpleURL alwaysEscapeQuotes:NO], @"to?", @"");
+	STAssertEqualObjects([templateLeadingPlaceholder replaceWebmailerPlaceholdersUsingMailtoURLString:simpleURL alwaysEscapeQuotes:NO], @"x@y.com", @"");
+	STAssertEqualObjects([templateTrailing replaceWebmailerPlaceholdersUsingMailtoURLString:simpleURL alwaysEscapeQuotes:NO], @"&abc=def", @"");
+	STAssertEqualObjects([templateLeadingTrailing replaceWebmailerPlaceholdersUsingMailtoURLString:simpleURL alwaysEscapeQuotes:NO], @"to?&abc=def", @"");
+	STAssertEqualObjects([templateLeadingPlaceholderTrailing replaceWebmailerPlaceholdersUsingMailtoURLString:simpleURL alwaysEscapeQuotes:NO], @"x@y.com&abc=def", @"");
+}
+
 @end
