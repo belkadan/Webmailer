@@ -1,11 +1,41 @@
 #import "ExtraSettingsController.h"
-
+#import "DefaultsDomain.h"
+#import "WebmailerShared.h"
 
 @implementation ComBelkadanWebmailer_ExtraSettingsController
 
 - (id)init
 {
 	return [self initWithWindowNibName:@"AdditionalSettings"];
+}
+
+#pragma mark -
+
+- (BrowserChoice)browserChoosingMode
+{
+	ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:WebmailerAppDomain];
+	NSNumber *modeObject = [defaults objectForKey:WebmailerBrowserChoosingModeKey];
+
+	// Backwards compatibility
+	if (!modeObject)
+	{
+		modeObject = [defaults objectForKey:WebmailerDisableAppChoosingKey];
+		if (modeObject)
+		{
+			//[defaults removeObjectForKey:WebmailerDisableAppChoosingKey];
+			//[defaults setObject:[NSNumber numberWithUnsignedInteger:[modeObject unsignedIntegerValue]] forKey:WebmailerBrowserChoosingModeKey];
+		}
+	}
+
+	return [modeObject unsignedIntegerValue];
+}
+
+- (void)setBrowserChoosingMode:(BrowserChoice)mode
+{
+	NSAssert(mode <= BrowserChoiceLast, @"Invalid browser choice mode.");
+
+	ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:WebmailerAppDomain];
+	[defaults setObject:[NSNumber numberWithUnsignedInteger:mode] forKey:WebmailerBrowserChoosingModeKey];
 }
 
 #pragma mark -

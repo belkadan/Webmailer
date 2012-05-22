@@ -40,8 +40,16 @@ extern NSString * const WebmailerConfigurationsKey;
 /*! The key used to retrieve the current destination from the defaults. */
 extern NSString * const WebmailerCurrentDestinationKey;
 
+#define WebmailerBrowserChoosingModeKey ComBelkadanWebmailer_BrowserChoosingModeKey
+/*! The key used to retrieve the current browser choosing mode. */
+extern NSString * const WebmailerBrowserChoosingModeKey;
+
+#define WebmailerChosenBrowserIDKey ComBelkadanWebmailer_ChosenBrowserIDKey
+/*! The key used to retrieve the current browser choosing mode. */
+extern NSString * const WebmailerChosenBrowserIDKey;
+
 #define WebmailerDisableAppChoosingKey ComBelkadanWebmailer_DisableAppChoosingKey
-/*! The key used to retrieve whether or not the user wants smart app choosing. */
+/*! The old key for whether or not the user wants smart app choosing. */
 extern NSString * const WebmailerDisableAppChoosingKey;
 
 #define WebmailerMailtoScheme ComBelkadanWebmailer_MailtoScheme
