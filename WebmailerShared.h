@@ -44,6 +44,16 @@ extern NSString * const WebmailerCurrentDestinationKey;
 /*! The key used to retrieve the current browser choosing mode. */
 extern NSString * const WebmailerBrowserChoosingModeKey;
 
+enum {
+	BrowserChoiceBestGuess = 0,
+	BrowserChoiceSystemDefault,
+	BrowserChoiceSpecific,
+	
+	BrowserChoiceLast = BrowserChoiceSpecific
+};
+typedef NSUInteger BrowserChoice;
+
+
 #define WebmailerChosenBrowserIDKey ComBelkadanWebmailer_ChosenBrowserIDKey
 /*! The key used to retrieve the current browser choosing mode. */
 extern NSString * const WebmailerChosenBrowserIDKey;

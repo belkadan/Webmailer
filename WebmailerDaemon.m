@@ -159,12 +159,22 @@ void OpenURLWithApplication(NSURL *url, NSURL *appURL)
  */
 NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	// TODO: in 10.6, replace this function with -[NSWorkspace URLForApplicationToOpenURL:]
-	NSURL *appURL = nil;
+	NSURL *appURL;
 	OSStatus status = LSGetApplicationForURL((CFURLRef)url, kLSRolesAll, NULL, (CFURLRef*)&appURL);
 
-	if (status != noErr)
-		return nil;
+	if (status != noErr) return nil;
 	
+	return [appURL autorelease];
+}
+
+NSURL *GetURLForApplicationWithBundleIdentifier (NSString *bundleID)
+{
+	// TODO: in 10.6, replace this function with -[NSWorkspace URLForApplicationWithBundleIdentifier:]
+	NSURL *appURL;
+	OSStatus status = LSFindApplicationForInfo(kLSUnknownCreator, (CFStringRef)bundleID, NULL, NULL, (CFURLRef *)&appURL);
+
+	if (status != noErr) return nil;
+
 	return [appURL autorelease];
 }
 
@@ -206,7 +216,7 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	}
 	
 	// Quit if no incoming event.
-	[NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(quitIfInactive:) userInfo:nil repeats:YES];
+	[NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(quitIfInactive:) userInfo:nil repeats:YES];
 
 	return self;
 }
@@ -385,6 +395,8 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	self.mailtoURL = mailtoURLString;
 	self.sourceAppURL = appURL;
 
+	[defaults refresh];
+
 	BOOL shouldShowConfigurations = isShiftKeyDown();
 	if (shouldShowConfigurations)
 	{
@@ -450,16 +462,33 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
  * destination URL. If smart app choosing is disabled in the preferences, or
  * if no good applications can be found, returns nil.
  *
- * 1. If the app that sent us the mailto URL can handle the destination, pick that.
- * 2. If the default app for the destination URL is open, pick that.
- * 3. If any app that can handle the destination URL is open, pick one of them.
- * 4. Otherwise, give up and return nil.
+ * 1. If the user has explicitly chosen an app, pick that (if it can handle the destination).
+ * 2. If the app that sent us the mailto URL can handle the destination, pick that.
+ * 3. If the default app for the destination URL is open, pick that.
+ * 4. If any app that can handle the destination URL is open, pick one of them.
+ * 5. Otherwise, give up and return nil.
  */
 - (NSURL *)chooseAppForOpeningURL:(NSURL *)url
 {
-	if ([[defaults objectForKey:WebmailerDisableAppChoosingKey] boolValue])
-	{
+	NSNumber *choosingMode = [defaults objectForKey:WebmailerBrowserChoosingModeKey];
+	if (!choosingMode) choosingMode = [defaults objectForKey:WebmailerDisableAppChoosingKey];
+
+	BrowserChoice mode = [choosingMode unsignedIntegerValue];
+
+	switch (mode) {
+	case BrowserChoiceSystemDefault:
 		return nil;
+	case BrowserChoiceSpecific: {
+		NSString *identifier = [defaults objectForKey:WebmailerChosenBrowserIDKey];
+		if (identifier)
+		{
+			NSURL *chosenAppURL = GetURLForApplicationWithBundleIdentifier(identifier);
+			if (chosenAppURL && CanOpenURLWithApplication(url, chosenAppURL)) return chosenAppURL;
+		}
+		break;
+	case BrowserChoiceBestGuess:
+		break;
+	}
 	}
 	
 	// If the app that sent us the mailto URL can handle the destination, pick that.
@@ -474,10 +503,9 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 #if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 	if ([workspace respondsToSelector:@selector(runningApplications)])
 	{
-		NSURL *nextAppURL;
 		for (NSRunningApplication *nextApp in [workspace runningApplications])
 		{
-			nextAppURL = nextApp.bundleURL;
+			NSURL *nextAppURL = nextApp.bundleURL;
 			if ([nextAppURL isEqual:defaultAppURL])
 			{
 				return defaultAppURL;
@@ -491,12 +519,9 @@ NSURL *GetDefaultAppURLForURL(NSURL *url) {
 	else
 #endif
 	{
-		NSEnumerator *appEnum = [[workspace launchedApplications] objectEnumerator];
-		NSDictionary *nextAppInfo;
-		NSURL *nextAppURL;
-		while (nextAppInfo = [appEnum nextObject])
+		for (NSDictionary *nextAppInfo in [workspace launchedApplications])
 		{
-			nextAppURL = [NSURL fileURLWithPath:[nextAppInfo objectForKey:@"NSApplicationPath"]];
+			NSURL *nextAppURL = [NSURL fileURLWithPath:[nextAppInfo objectForKey:@"NSApplicationPath"]];
 			if ([nextAppURL isEqual:defaultAppURL])
 			{
 				return defaultAppURL;
