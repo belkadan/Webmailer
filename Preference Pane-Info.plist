@@ -22,6 +22,8 @@
 	<string>http://belkadan.com/webmailer/updates</string>
 	<key>SUAllowsAutomaticUpdates</key>
 	<false/>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>CFBundleSignature</key>
