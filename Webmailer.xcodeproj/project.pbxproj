@@ -794,6 +794,7 @@
 					"$(SRCROOT)/../DBBackgroundView/build/Release",
 					"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -817,6 +818,7 @@
 					"$(SRCROOT)/../DBBackgroundView/build/Release",
 					"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
