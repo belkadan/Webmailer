@@ -333,4 +333,23 @@
 	STAssertEqualObjects(@"24", [fields valueForHeader:@"%#?" escapeQuotes:YES], @"");
 }
 
+#pragma mark -
+
+- (void)testFieldSubstrings
+{
+	MailtoFields *fields = [[[MailtoFields alloc] initWithURLString:@"mailto:00?one=11&two=22&three=33"] autorelease];
+	
+	STAssertEqualObjects(@"", [fields rawValueForHeader:@"ne"], @"");
+	STAssertEqualObjects(@"", [fields rawValueForHeader:@"wo"], @"");
+	STAssertEqualObjects(@"", [fields rawValueForHeader:@"ree"], @"");
+}
+
+- (void)testFieldSubstringsContinuing
+{
+	MailtoFields *fields = [[[MailtoFields alloc] initWithURLString:@"mailto:?abc=1&bc=2"] autorelease];
+	
+	STAssertEqualObjects(@"2", [fields rawValueForHeader:@"bc"], @"");
+	STAssertEqualObjects(@"", [fields rawValueForHeader:@"c"], @"");
+}
+
 @end

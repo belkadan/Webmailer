@@ -239,34 +239,39 @@
 	// Search for "header=", rather than just "header"
 	header = [header stringByAppendingString:@"="];
 	NSRange headerRange = [mailtoURL rangeOfString:header options:NSCaseInsensitiveSearch];
-	if (headerRange.location == NSNotFound)
-	{
-		return @"";
-	}
-	else
+	while (headerRange.location != NSNotFound)
 	{
 		// Find where the header value ends.
 		NSRange restOfString;
 		restOfString.location = NSMaxRange(headerRange);
 		restOfString.length = urlLength - restOfString.location;
-		
-		NSUInteger nextAmpersand = [mailtoURL rangeOfString:@"&" options:0 range:restOfString].location;
-		if (nextAmpersand != NSNotFound)
-		{
-			// mailto:recipient?subject=hello&cc=me
-			//                          ^^^^^
-			NSRange valueRange;
-			valueRange.location = restOfString.location;
-			valueRange.length = nextAmpersand - valueRange.location;
-			return [mailtoURL substringWithRange:valueRange];
+
+		// Make sure we're not looking at the suffix of another header, i.e. longheader=
+		if (headerRange.location == 0 || headerRange.location-1 == questionMarkIndex ||
+			[mailtoURL characterAtIndex:headerRange.location-1] == '&')
+		{			
+			NSUInteger nextAmpersand = [mailtoURL rangeOfString:@"&" options:0 range:restOfString].location;
+			if (nextAmpersand != NSNotFound)
+			{
+				// mailto:recipient?subject=hello&cc=me
+				//                          ^^^^^
+				NSRange valueRange;
+				valueRange.location = restOfString.location;
+				valueRange.length = nextAmpersand - valueRange.location;
+				return [mailtoURL substringWithRange:valueRange];
+			}
+			else
+			{
+				// mailto:recipient?subject=hello&cc=me
+				//                                   ^^
+				return [mailtoURL substringFromIndex:restOfString.location];
+			}
 		}
-		else
-		{
-			// mailto:recipient?subject=hello&cc=me
-			//                                   ^^
-			return [mailtoURL substringFromIndex:restOfString.location];
-		}
-	}					
+
+		headerRange = [mailtoURL rangeOfString:header options:NSCaseInsensitiveSearch range:restOfString];
+	}
+
+	return @"";
 }
 
 @end
