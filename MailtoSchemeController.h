@@ -35,6 +35,7 @@
 
 @interface MailtoSchemeController : NSObject {
 	IBOutlet NSPopUpButton *emailAppPopup;
+	NSInteger numberOfExtraItems;
 }
 - (IBAction)refreshEmailAppList:(id)sender;
 - (IBAction)switchEmailApp:(id)sender;

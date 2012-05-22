@@ -34,7 +34,7 @@
 
 static const NSSize emailAppIconSize = {16, 16};
 
-@interface MailtoSchemeController (ComBelkadanWebmailer_Private)
+@interface MailtoSchemeController ()
 - (void)chooseAppPanelDidEnd:(NSOpenPanel *)openPanel returnCode:(NSInteger)returnCode contextInfo:(void *)unused;
 @end
 
@@ -50,7 +50,46 @@ static const NSSize emailAppIconSize = {16, 16};
 @implementation MailtoSchemeController
 - (void)awakeFromNib
 {
+	numberOfExtraItems = [emailAppPopup numberOfItems];
 	[self refreshEmailAppList:nil];
+}
+
+- (NSMenuItem *)menuItemForApplicationWithID:(NSString *)identifier name:(NSString *)name icon:(NSImage *)icon
+{
+	NSAssert(identifier, @"Must have an identifier.");
+	if (!name) name = identifier;
+	
+	NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:name action:@selector(switchEmailApp:) keyEquivalent:@""];
+	[item setRepresentedObject:identifier];
+	[item setTarget:self];
+	[item setImage:icon];
+	
+	return [item autorelease];	
+}
+
+- (NSMenuItem *)menuItemForApplicationWithID:(NSString *)identifier mustExist:(BOOL)mustExist
+{
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+
+	NSString *path = [workspace absolutePathForAppBundleWithIdentifier:identifier];
+	if (!path && mustExist) return nil;
+	
+	NSString *name;
+	NSImage *icon;
+	
+	if (path != nil)
+	{
+		name = [[NSFileManager defaultManager] displayNameAtPath:path];		
+		icon = [workspace iconForFile:path];
+		[icon setSize:emailAppIconSize];
+	}
+	else
+	{
+		name = identifier;
+		icon = nil;
+	}
+
+	return [self menuItemForApplicationWithID:identifier name:name icon:icon];
 }
 
 /*!
@@ -67,118 +106,68 @@ static const NSSize emailAppIconSize = {16, 16};
 	static NSArray *sortByTitleDescriptors = nil;
 	if (sortByTitleDescriptors == nil)
 	{
-		// should only be called from the main thread, so don't worry about thread safety
+		// This is not thread-safe, but in 10.5 locking to protect this is overkill.
+		// Currently IBActions are always called on the main thread anyway, but
+		// if that changes we don't want to crash. The one-time leak is preferable.
 		NSSortDescriptor *sortByTitle = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
 		sortByTitleDescriptors = [[NSArray alloc] initWithObjects:sortByTitle, nil];
 		[sortByTitle release];
 	}
-
+	
 	NSMenu *menu = [[NSMenu alloc] init];
 	NSMutableArray *menuItems = [[NSMutableArray alloc] init];
-	NSMenuItem *item, *selectedItem = nil;
+	NSMenuItem *selectedItem = nil;
 
-	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	
 	NSString *currentIdentifier = (NSString *) LSCopyDefaultHandlerForURLScheme((CFStringRef) WebmailerMailtoScheme);
 	NSArray *appIDs = (NSArray *) LSCopyAllHandlersForURLScheme((CFStringRef) WebmailerMailtoScheme);
 	
-	if (!appIDs) {
-		if (!currentIdentifier) {
-			currentIdentifier = (NSString *) CFRetain((CFStringRef) AppleMailDomain);
-		}
-
+	if (!currentIdentifier)
+	{
+		currentIdentifier = (NSString *) CFRetain((CFStringRef) AppleMailDomain);
+	}
+	if (!appIDs)
+	{
 		appIDs = (NSArray *) CFArrayCreate(NULL, (const void **)&currentIdentifier, 1, &kCFTypeArrayCallBacks);
 	}
 	
-	NSEnumerator *appIDEnum = [appIDs objectEnumerator];
-	
-	NSString *nextID, *nextPath, *nextName;
-	NSImage *nextImage;
-	
-	while (nextID = [appIDEnum nextObject])
+	for (NSString *nextID in appIDs)
 	{
-		nextPath = [workspace absolutePathForAppBundleWithIdentifier:nextID];
-		
-		if (nextPath != nil)
-		{
-			nextName = [fileManager displayNameAtPath:nextPath];
-			if (nextName == nil)
-				nextName = nextID;
-			
-			nextImage = [workspace iconForFile:nextPath];
-			[nextImage setSize:emailAppIconSize];
-			
-			item = [[NSMenuItem alloc] initWithTitle:nextName action:@selector(switchEmailApp:) keyEquivalent:@""];
-			[item setRepresentedObject:nextID];
-			[item setTarget:self];
-			[item setImage:nextImage];
-			
-			[menuItems addObject:item];
-			[item release];
-			
-			if ([nextID isEqual:currentIdentifier])
-				selectedItem = item;
-		}
+		NSMenuItem *item = [self menuItemForApplicationWithID:nextID mustExist:YES];
+		[menuItems addObject:item];
+
+		if ([nextID isEqual:currentIdentifier])
+			selectedItem = item;
 	}
-	
+	CFRelease(appIDs);
+
 	[menuItems sortUsingDescriptors:sortByTitleDescriptors];
-	NSEnumerator *menuItemEnum = [menuItems objectEnumerator];
-	while (item = [menuItemEnum nextObject])
+	for (NSMenuItem *item in menuItems)
 	{
 		[menu addItem:item];
 	}
+	[menuItems release];
 	
 	[menu addItem:[NSMenuItem separatorItem]];
 	
 	if (selectedItem == nil)
 	{
-		if (currentIdentifier != nil)
-		{
-			nextPath = [workspace absolutePathForAppBundleWithIdentifier:currentIdentifier];
-
-			if (nextPath != nil)
-			{
-				nextName = [fileManager displayNameAtPath:nextPath];
-				if (nextName == nil)
-					nextName = currentIdentifier;
-			
-				nextImage = [workspace iconForFile:nextPath];
-				[nextImage setSize:emailAppIconSize];
-			}
-			else
-			{
-				nextName = currentIdentifier;
-				nextImage = nil;
-			}
-				
-			selectedItem = [[NSMenuItem alloc] initWithTitle:nextName action:@selector(switchEmailApp:) keyEquivalent:@""];
-			[selectedItem setRepresentedObject:nextID];
-			[selectedItem setTarget:self];
-			[selectedItem setImage:nextImage];
-			
-			[menu addItem:selectedItem];
-			[selectedItem release];
-		}
-		else
-		{
-			selectedItem = [menu itemAtIndex:[menu indexOfItemWithRepresentedObject:AppleMailDomain]];
-		}
+		selectedItem = [self menuItemForApplicationWithID:currentIdentifier mustExist:NO];
+		[menu addItem:selectedItem];
 	}
-	
-	NSMenuItem *chooseOtherItem = [[emailAppPopup lastItem] retain];
-	[emailAppPopup removeItemAtIndex:([emailAppPopup numberOfItems] - 1)];
-	[menu addItem:chooseOtherItem];
-	[chooseOtherItem release];
+	CFRelease(currentIdentifier);
+
+	NSInteger extraItemIndex = [emailAppPopup numberOfItems] - numberOfExtraItems;
+	for (NSInteger i = 0; i < numberOfExtraItems; ++i) {
+		NSMenuItem *extraItem = [[emailAppPopup itemAtIndex:extraItemIndex] retain];
+		[emailAppPopup removeItemAtIndex:extraItemIndex];
+		[menu addItem:extraItem];
+		[extraItem release];
+	}
 	
 	[emailAppPopup setMenu:menu];
 	[emailAppPopup selectItem:selectedItem];
 	
 	[menu release];
-	[menuItems release];
-	
-	CFRelease(appIDs);
-	if (currentIdentifier) CFRelease(currentIdentifier);
 }
 
 /*!
@@ -204,17 +193,13 @@ static const NSSize emailAppIconSize = {16, 16};
  */
 - (IBAction)chooseOtherEmailApp:(id)sender
 {
-	//NSLog(@"%@", [emailAppPopup selectedItem]);
-
-	static NSArray *appTypes = nil; // no need to worry about thread-safety -- this method is only called from the main thread
-	if (appTypes == nil) appTypes = [[NSArray alloc] initWithObjects:@"app", nil];
 
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	[openPanel setTreatsFilePackagesAsDirectories:NO];
 	[openPanel setResolvesAliases:YES];
 	[openPanel setAllowsMultipleSelection:NO];
 	
-	[openPanel beginSheetForDirectory:nil file:nil types:appTypes modalForWindow:[emailAppPopup window] modalDelegate:self didEndSelector:@selector(chooseAppPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+	[openPanel beginSheetForDirectory:nil file:nil types:[NSArray arrayWithObject:@"app"] modalForWindow:[emailAppPopup window] modalDelegate:self didEndSelector:@selector(chooseAppPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 }
 
 /*!
@@ -230,28 +215,22 @@ static const NSSize emailAppIconSize = {16, 16};
 	{
 		NSString *path = [openPanel filename];
 		NSBundle *bundle = [[NSBundle alloc] initWithPath:path];
-		NSString *bundleID = [bundle bundleIdentifier];
+		NSString *bundleID = [[bundle bundleIdentifier] copy];
 		LSSetDefaultHandlerForURLScheme((CFStringRef) WebmailerMailtoScheme, (CFStringRef) bundleID);
+		[bundle release];
 		
 		NSURL *appURL = [openPanel URL];
 		NSString *appName;
 		LSCopyDisplayNameForURL((CFURLRef) appURL, (CFStringRef *) &appName);
-		
-		if (appName == nil) appName = [bundleID retain];
-		NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:appName action:@selector(switchEmailApp:) keyEquivalent:@""];
-		[item setRepresentedObject:bundleID];
-		[item setTarget:self];
-		
+
 		NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
 		[icon setSize:emailAppIconSize];
-		[item setImage:icon];
+
+		NSMenuItem *item = [self menuItemForApplicationWithID:bundleID name:appName icon:icon];
+		CFRelease(appName);
 		
-		[[emailAppPopup menu] insertItem:item atIndex:[emailAppPopup numberOfItems] - 3];
+		[[emailAppPopup menu] insertItem:item atIndex:[emailAppPopup numberOfItems] - numberOfExtraItems];
 		[emailAppPopup selectItem:item];
-		
-		[appName release];
-		[item release];
-		[bundle release];
 	}
 	else
 	{
