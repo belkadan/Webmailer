@@ -24,13 +24,12 @@
  dealings in this Software without prior authorization.
  *******************************************************************************/
 
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 
 @interface ComBelkadanWebmailer_AddRemoveButtonsController : NSObject {
 	IBOutlet NSSegmentedControl *segmentedButtons;
 	IBOutlet NSButton *addButton;
 	IBOutlet NSButton *removeButton;
-	IBOutlet NSView *leftAlignedView;
 }
 - (IBAction)segmentClicked:(NSSegmentedControl *)sender;
 @end

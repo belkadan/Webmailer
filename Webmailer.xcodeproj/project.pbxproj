@@ -35,6 +35,7 @@
 		8C3196C4110A5EC000556615 /* UpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3196C3110A5EC000556615 /* UpdateController.m */; };
 		8C379CA10B46F87D00F124AB /* mailhandlers_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C379CA00B46F87D00F124AB /* mailhandlers_main.m */; };
 		8C379FF50B46FE5A00F124AB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
+		8C3840BF156BE82F00F7B42C /* PrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C3840BD156BE82F00F7B42C /* PrefPane.xib */; };
 		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
 		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
 		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
@@ -43,7 +44,6 @@
 		8C63D34612D2F222009196DF /* NSString+PrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */; };
 		8C63D34D12D2F312009196DF /* TestFieldParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D32712D2F137009196DF /* TestFieldParsing.m */; };
 		8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */; };
-		8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */; };
 		8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */; };
 		8C6FFCDF0B3226AF00EF8A76 /* WebmailerDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */; };
 		8C6FFCF30B3226F000EF8A76 /* ConfigurationChooser.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */; };
@@ -139,6 +139,7 @@
 		8C379C9B0B46F81500F124AB /* Add Webmailer to Mail Handlers-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Add Webmailer to Mail Handlers-Info.plist"; sourceTree = "<group>"; };
 		8C379CA00B46F87D00F124AB /* mailhandlers_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailhandlers_main.m; sourceTree = "<group>"; };
 		8C379E170B46FD3500F124AB /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		8C3840BE156BE82F00F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefPane.xib; sourceTree = "<group>"; };
 		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
 		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansion.h"; sourceTree = "<group>"; };
@@ -153,7 +154,6 @@
 		8C6FFB500B321EC800EF8A76 /* Webmailer Daemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Webmailer Daemon-Info.plist"; sourceTree = "<group>"; };
 		8C6FFB9A0B3220AC00EF8A76 /* Webmailer.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Webmailer.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C6FFB9B0B3220AD00EF8A76 /* Preference Pane-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Preference Pane-Info.plist"; sourceTree = "<group>"; };
-		8C6FFBA20B3221B100EF8A76 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PrefPane.nib; sourceTree = "<group>"; };
 		8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebmailerDaemon.h; sourceTree = "<group>"; };
 		8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebmailerDaemon.m; sourceTree = "<group>"; };
@@ -307,7 +307,7 @@
 				8CE4E5AE0B339FD4000CAE73 /* icon.icns */,
 				8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */,
 				8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */,
-				8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */,
+				8C3840BD156BE82F00F7B42C /* PrefPane.xib */,
 				8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */,
 				8C7858FD0B32732800FB9370 /* Localizable.strings */,
 				8C6FFB500B321EC800EF8A76 /* Webmailer Daemon-Info.plist */,
@@ -502,13 +502,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C6FFBA30B3221B100EF8A76 /* PrefPane.nib in Resources */,
 				8C78582F0B326B5D00FB9370 /* Webmailer.app in Resources */,
 				8C7858930B326E9E00FB9370 /* default.plist in Resources */,
 				8C7858FE0B32732800FB9370 /* Localizable.strings in Resources */,
 				8CE4E5BF0B33A000000CAE73 /* icon_32.tiff in Resources */,
 				8C8C5C20110A7CA800D57BBE /* download.png in Resources */,
 				8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */,
+				8C3840BF156BE82F00F7B42C /* PrefPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,12 +649,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8C6FFBA10B3221B100EF8A76 /* PrefPane.nib */ = {
+		8C3840BD156BE82F00F7B42C /* PrefPane.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8C6FFBA20B3221B100EF8A76 /* English */,
+				8C3840BE156BE82F00F7B42C /* English */,
 			);
-			name = PrefPane.nib;
+			name = PrefPane.xib;
 			sourceTree = "<group>";
 		};
 		8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */ = {
@@ -842,6 +842,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Webmailer Daemon-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PREBINDING = NO;

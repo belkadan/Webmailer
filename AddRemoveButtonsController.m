@@ -32,26 +32,11 @@ enum {
 	RemoveButton
 };
 
-const CGFloat kLeftAlignedViewMargin = 7;
-
-@interface ComBelkadanWebmailer_AddRemoveButtonsController ()
-- (BOOL)hasSquareSegmentedControl;
-@end
-
 @implementation ComBelkadanWebmailer_AddRemoveButtonsController
 
 - (void)awakeFromNib {
-	NSAssert([self hasSquareSegmentedControl], @"FIXME: remove backup buttons from nib.");
-
 	[addButton addObserver:self forKeyPath:@"enabled" options:0 context:[ComBelkadanWebmailer_AddRemoveButtonsController class]];
 	[removeButton addObserver:self forKeyPath:@"enabled" options:0 context:[ComBelkadanWebmailer_AddRemoveButtonsController class]];
-
-	[segmentedButtons setImage:[NSImage imageNamed:NSImageNameAddTemplate] forSegment:AddButton];
-	[segmentedButtons setImage:[NSImage imageNamed:NSImageNameRemoveTemplate] forSegment:RemoveButton];
-	
-	NSRect frame = [leftAlignedView frame];
-	frame.origin.x = NSMaxX([segmentedButtons frame]) + kLeftAlignedViewMargin;
-	[leftAlignedView setFrame:frame];
 }
 
 - (IBAction)segmentClicked:(NSSegmentedControl *)sender {
@@ -73,7 +58,4 @@ const CGFloat kLeftAlignedViewMargin = 7;
 	}
 }
 
-- (BOOL)hasSquareSegmentedControl {
-	return YES;
-}
 @end
