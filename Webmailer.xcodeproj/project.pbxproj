@@ -36,6 +36,7 @@
 		8C379CA10B46F87D00F124AB /* mailhandlers_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C379CA00B46F87D00F124AB /* mailhandlers_main.m */; };
 		8C379FF50B46FE5A00F124AB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
 		8C3840BF156BE82F00F7B42C /* PrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C3840BD156BE82F00F7B42C /* PrefPane.xib */; };
+		8C38413D156BF47300F7B42C /* ConfigurationChooser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C38413B156BF47300F7B42C /* ConfigurationChooser.xib */; };
 		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
 		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
 		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
@@ -46,7 +47,6 @@
 		8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */; };
 		8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */; };
 		8C6FFCDF0B3226AF00EF8A76 /* WebmailerDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */; };
-		8C6FFCF30B3226F000EF8A76 /* ConfigurationChooser.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */; };
 		8C6FFDB60B3228EB00EF8A76 /* WebmailerShared.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */; };
 		8C6FFDB70B3228EB00EF8A76 /* WebmailerShared.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */; };
 		8C6FFDF10B322B2F00EF8A76 /* WebmailerPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975B310B30FCA900B481FB /* WebmailerPref.m */; };
@@ -140,6 +140,7 @@
 		8C379CA00B46F87D00F124AB /* mailhandlers_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailhandlers_main.m; sourceTree = "<group>"; };
 		8C379E170B46FD3500F124AB /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		8C3840BE156BE82F00F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefPane.xib; sourceTree = "<group>"; };
+		8C38413C156BF47300F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ConfigurationChooser.xib; sourceTree = "<group>"; };
 		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
 		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansion.h"; sourceTree = "<group>"; };
@@ -158,7 +159,6 @@
 		8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebmailerDaemon.h; sourceTree = "<group>"; };
 		8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebmailerDaemon.m; sourceTree = "<group>"; };
 		8C6FFCD90B32268900EF8A76 /* Webmailer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Webmailer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C6FFCF20B3226F000EF8A76 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/ConfigurationChooser.nib; sourceTree = "<group>"; };
 		8C6FFD1B0B32286700EF8A76 /* WebmailerShared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebmailerShared.h; sourceTree = "<group>"; };
 		8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebmailerShared.m; sourceTree = "<group>"; };
 		8C7858920B326E9E00FB9370 /* default.plist */ = {isa = PBXFileReference; fileEncoding = 30; languageSpecificationIdentifier = html; lastKnownFileType = text.plist; path = default.plist; sourceTree = "<group>"; };
@@ -307,8 +307,8 @@
 				8CE4E5AE0B339FD4000CAE73 /* icon.icns */,
 				8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */,
 				8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */,
+				8C38413B156BF47300F7B42C /* ConfigurationChooser.xib */,
 				8C3840BD156BE82F00F7B42C /* PrefPane.xib */,
-				8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */,
 				8C7858FD0B32732800FB9370 /* Localizable.strings */,
 				8C6FFB500B321EC800EF8A76 /* Webmailer Daemon-Info.plist */,
 				8C6FFB9B0B3220AD00EF8A76 /* Preference Pane-Info.plist */,
@@ -516,10 +516,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C6FFCF30B3226F000EF8A76 /* ConfigurationChooser.nib in Resources */,
 				8CE4E5B10B339FD4000CAE73 /* icon.icns in Resources */,
 				8C5E05730B37A96E00EC858C /* active.png in Resources */,
 				8C0B73471564AB5A00FA1133 /* Webmailer.sdef in Resources */,
+				8C38413D156BF47300F7B42C /* ConfigurationChooser.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,12 +657,12 @@
 			name = PrefPane.xib;
 			sourceTree = "<group>";
 		};
-		8C6FFCF10B3226F000EF8A76 /* ConfigurationChooser.nib */ = {
+		8C38413B156BF47300F7B42C /* ConfigurationChooser.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8C6FFCF20B3226F000EF8A76 /* English */,
+				8C38413C156BF47300F7B42C /* English */,
 			);
-			name = ConfigurationChooser.nib;
+			name = ConfigurationChooser.xib;
 			sourceTree = "<group>";
 		};
 		8C7858FD0B32732800FB9370 /* Localizable.strings */ = {
