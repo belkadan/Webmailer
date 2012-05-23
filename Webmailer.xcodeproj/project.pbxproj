@@ -39,7 +39,6 @@
 		8C38413D156BF47300F7B42C /* ConfigurationChooser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C38413B156BF47300F7B42C /* ConfigurationChooser.xib */; };
 		8C384192156C059500F7B42C /* AdditionalSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C384190156C059500F7B42C /* AdditionalSettings.xib */; };
 		8C384198156C118300F7B42C /* ExtraSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C384197156C118300F7B42C /* ExtraSettingsController.m */; };
-		8C4211D40B3639CB0012E9BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4211D30B3639CB0012E9BA /* main.m */; };
 		8C5E05730B37A96E00EC858C /* active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6F00110B323DDF00EF8A76 /* active.png */; };
 		8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
 		8C63D2E612D2E54C009196DF /* NSString+PrototypeExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */; };
@@ -63,6 +62,7 @@
 		8C8C5C20110A7CA800D57BBE /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8C5C1F110A7CA800D57BBE /* download.png */; };
 		8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */; };
 		8CA479AB156C59B7007FF2BF /* URLHandlerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA479AA156C59B7007FF2BF /* URLHandlerController.m */; };
+		8CA47A6A156C8AC8007FF2BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA47A68156C8ABB007FF2BF /* main.m */; };
 		8CBEC2CE104B9F41006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		8CBEC2CF104B9F42006DCE23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		8CBEC2D0104B9F45006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
@@ -145,7 +145,6 @@
 		8C384191156C059500F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AdditionalSettings.xib; sourceTree = "<group>"; };
 		8C384196156C118300F7B42C /* ExtraSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtraSettingsController.h; sourceTree = "<group>"; };
 		8C384197156C118300F7B42C /* ExtraSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtraSettingsController.m; sourceTree = "<group>"; };
-		8C4211D30B3639CB0012E9BA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Library/Xcode/Project Templates/Application/Cocoa Application/Cocoa Application/main.m"; sourceTree = DEVELOPER_DIR; };
 		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansion.h"; sourceTree = "<group>"; };
 		8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PrototypeExpansion.m"; sourceTree = "<group>"; };
@@ -182,6 +181,7 @@
 		8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = "../Sparkle 1/dsa_pub.pem"; sourceTree = SOURCE_ROOT; };
 		8CA479A9156C59B7007FF2BF /* URLHandlerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHandlerController.h; sourceTree = "<group>"; };
 		8CA479AA156C59B7007FF2BF /* URLHandlerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHandlerController.m; sourceTree = "<group>"; };
+		8CA47A68156C8ABB007FF2BF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemPreferences.h; sourceTree = "<group>"; };
 		8CAE44BA104B7B82005F3191 /* Terminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 		080E96DDFE201D6D7F000001 /* Daemon */ = {
 			isa = PBXGroup;
 			children = (
-				8C4211D30B3639CB0012E9BA /* main.m */,
+				8CA47A68156C8ABB007FF2BF /* main.m */,
 				8C6FFBE50B32248800EF8A76 /* WebmailerDaemon.h */,
 				8C6FFBE60B32248800EF8A76 /* WebmailerDaemon.m */,
 				8C8BDD391566FB2600F28BE9 /* WebmailerConfiguration.h */,
@@ -639,11 +639,11 @@
 			files = (
 				8C6FFCDF0B3226AF00EF8A76 /* WebmailerDaemon.m in Sources */,
 				8C6FFDB60B3228EB00EF8A76 /* WebmailerShared.m in Sources */,
-				8C4211D40B3639CB0012E9BA /* main.m in Sources */,
 				8C5E05770B37A98500EC858C /* ImageForStateTransformer.m in Sources */,
 				8C63D2E612D2E54C009196DF /* NSString+PrototypeExpansion.m in Sources */,
 				8C155A6A151AEA98002068BF /* DefaultsDomain.m in Sources */,
 				8C8BDD3B1566FB2600F28BE9 /* WebmailerConfiguration.m in Sources */,
+				8CA47A6A156C8AC8007FF2BF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -823,7 +823,8 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "Preference Pane-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
 				ONLY_ACTIVE_ARCH = YES;
@@ -847,7 +848,7 @@
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "Preference Pane-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
 				OTHER_LDFLAGS = "-ObjC";
@@ -867,7 +868,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Webmailer Daemon-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -885,7 +886,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "Webmailer Daemon-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PREBINDING = NO;
