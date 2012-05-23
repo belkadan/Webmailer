@@ -3,7 +3,6 @@
 #import <DBBackgroundView/DBBackgroundView.h>
 
 #import "SUHost.h"
-#import "SUInstaller.h"
 #import "SUStatusController.h"
 #import "SUUpdateAlert.h"
 #import "SUUIBasedUpdateDriver.h"
