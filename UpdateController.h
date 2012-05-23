@@ -1,7 +1,7 @@
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 #import <Sparkle/Sparkle.h>
-#import <DBBackgroundView/DBBackgroundView.h>
 
+@class DBBackgroundView;
 @class SUUpdateAlert;
 
 @interface ComBelkadanWebmailer_UpdateController : SUUpdater {

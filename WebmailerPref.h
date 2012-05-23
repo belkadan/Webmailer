@@ -27,13 +27,11 @@
 #import <AppKit/AppKit.h>
 #import <PreferencePanes/NSPreferencePane.h>
 
-#import "URLHandlerController.h"
-#import "EditTrackingTableView.h"
-#import "DefaultsDomain.h"
+@class ComBelkadanWebmailer_URLHandlerController, ComBelkadanUtils_EditTrackingTableView, ComBelkadanUtils_DefaultsDomain;
 
 @interface ComBelkadanWebmailer_PrefPane : NSPreferencePane
 {
-	DefaultsDomain *defaults;
+	ComBelkadanUtils_DefaultsDomain *defaults;
 	NSMutableArray *configurations;
 	IBOutlet ComBelkadanUtils_EditTrackingTableView *configurationTable;
 

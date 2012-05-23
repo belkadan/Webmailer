@@ -1,8 +1,8 @@
-#import <Cocoa/Cocoa.h>
-#import <Sparkle/Sparkle.h>
+#import <AppKit/AppKit.h>
 #import "WebmailerShared.h"
 #import "DropOverlayView.h"
 
+@class SUUpdater;
 @class ComBelkadanWebmailer_URLHandlerController;
 
 @interface ComBelkadanWebmailer_ExtraSettingsController : NSWindowController <ComBelkadanUtils_DropOverlayViewDelegate> {

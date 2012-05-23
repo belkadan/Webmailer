@@ -30,7 +30,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreFoundation/CFPropertyList.h>
 
 @interface NSDictionary (ComBelkadanUtils_PlistMutableCopying)
 - (id)mutableDeepPropertyListCopy; 

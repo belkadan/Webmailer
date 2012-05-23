@@ -25,9 +25,12 @@
 *******************************************************************************/
 
 #import "WebmailerDaemon.h"
-#import "WebmailerShared.h"
+
+#import "DefaultsDomain.h"
 #import "ImageForStateTransformer.h"
 #import "NSString+PrototypeExpansion.h"
+#import "WebmailerConfiguration.h"
+#import "WebmailerShared.h"
 
 #import "ScriptingBridgeApps.h"
 

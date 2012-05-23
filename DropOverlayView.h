@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 
 @class ComBelkadanUtils_DropOverlayView;
 

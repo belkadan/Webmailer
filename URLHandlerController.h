@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 
 
 @interface ComBelkadanWebmailer_URLHandlerController : NSObject {

@@ -30,6 +30,7 @@
 //
 
 #import "NSDictionary+NSArray+PlistMutableCopy.h"
+#import <CoreFoundation/CFPropertyList.h>
 
 /*!
  * Simple shortcut for deep mutable copying an NSDictionary.

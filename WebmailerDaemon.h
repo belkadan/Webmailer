@@ -25,12 +25,13 @@
 *******************************************************************************/
 
 #import <AppKit/AppKit.h>
-#import "DefaultsDomain.h"
-#import "WebmailerConfiguration.h"
+
+@class ComBelkadanUtils_DefaultsDomain;
+@class ComBelkadanWebmailer_Configuration;
 
 @interface WebmailerDaemon : NSObject
 {
-	DefaultsDomain *defaults;
+	ComBelkadanUtils_DefaultsDomain *defaults;
 
 	NSString *mailtoURL;
 	NSURL *sourceAppURL;

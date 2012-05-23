@@ -24,7 +24,7 @@
  dealings in this Software without prior authorization.
  *******************************************************************************/
 
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 
 
 #define FullWidthView ComBelkadanUtils_FullWidthView

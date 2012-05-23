@@ -1,5 +1,7 @@
 #import "UpdateController.h"
 
+#import <DBBackgroundView/DBBackgroundView.h>
+
 #import "SUHost.h"
 #import "SUInstaller.h"
 #import "SUStatusController.h"

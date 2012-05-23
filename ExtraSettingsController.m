@@ -1,4 +1,6 @@
 #import "ExtraSettingsController.h"
+
+#import <Sparkle/Sparkle.h>
 #import "URLHandlerController.h"
 #import "DefaultsDomain.h"
 
