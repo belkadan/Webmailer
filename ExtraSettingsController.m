@@ -97,7 +97,7 @@ static NSImage *GetWebmailerIcon ()
 	[savePanel setAllowsOtherFileTypes:NO];
 
 	[self endSheet:nil];
-	[savePanel beginSheetForDirectory:nil file:fileName modalForWindow:[NSApp mainWindow] modalDelegate:self didEndSelector:@selector(exportSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];	
+	[savePanel beginSheetForDirectory:nil file:fileName modalForWindow:[mainWindowView window] modalDelegate:self didEndSelector:@selector(exportSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];	
 }
 
 - (void)exportSettingsPanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)returnCode contextInfo:(void *)unused
@@ -116,7 +116,7 @@ static NSImage *GetWebmailerIcon ()
 
 - (IBAction)importSettings:(id)sender {
 	[self endSheet:nil];
-	[[NSOpenPanel openPanel] beginSheetForDirectory:nil file:nil types:[NSArray arrayWithObject:@"plist"] modalForWindow:[NSApp mainWindow] modalDelegate:self didEndSelector:@selector(importSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+	[[NSOpenPanel openPanel] beginSheetForDirectory:nil file:nil types:[NSArray arrayWithObject:@"plist"] modalForWindow:[mainWindowView window] modalDelegate:self didEndSelector:@selector(importSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 }
 
 - (void)importSettingsPanelDidEnd:(NSOpenPanel *)openPanel returnCode:(NSInteger)returnCode contextInfo:(void *)unused {
@@ -138,7 +138,7 @@ static NSImage *GetWebmailerIcon ()
 		[sorry setIcon:GetWebmailerIcon()];
 		[sorry setMessageText:NSLocalizedStringFromTableInBundle(@"Could not read settings file.", @"Localizable", bundle, @"Settings import/export")];
 		[sorry setInformativeText:NSLocalizedStringFromTableInBundle(@"This does not appear to be a Webmailer settings file.", @"Localizable", bundle, @"Settings import/export")];
-		[sorry beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+		[sorry beginSheetModalForWindow:[mainWindowView window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 		
 	} else if ([settingsVersion compare:@"2" options:NSCaseInsensitiveSearch|NSNumericSearch] != NSOrderedAscending) {
 		NSBundle *bundle = [NSBundle bundleForClass:[ExtraSettingsController class]];
@@ -147,7 +147,7 @@ static NSImage *GetWebmailerIcon ()
 		[sorry setIcon:GetWebmailerIcon()];
 		[sorry setMessageText:NSLocalizedStringFromTableInBundle(@"Could not read settings file.", @"Localizable", bundle, @"Settings import/export")];
 		[sorry setInformativeText:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"These settings are for Webmailer %@, but you have %@.", @"Localizable", bundle, @"Settings import/export"), settingsVersion, [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]]];
-		[sorry beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+		[sorry beginSheetModalForWindow:[mainWindowView window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 
 	} else {
 		ComBelkadanUtils_DefaultsDomain *defaults = [DefaultsDomain domainForName:WebmailerAppDomain];
@@ -222,9 +222,41 @@ static NSImage *GetWebmailerIcon ()
 
 #pragma mark -
 
+- (NSArray *)dragTypesForDropOverlayView:(ComBelkadanUtils_DropOverlayView *)dropView {
+	return [NSArray arrayWithObject:NSFilenamesPboardType];
+}
+
+- (NSDragOperation)dropOverlayView:(ComBelkadanUtils_DropOverlayView *)view validateDrop:(id <NSDraggingInfo>)info {
+	NSPasteboard *pboard = [info draggingPasteboard];
+	NSString *type = [pboard availableTypeFromArray:[NSArray arrayWithObject:NSFilenamesPboardType]];
+	NSAssert([type isEqual:NSFilenamesPboardType], @"Only our drag type should be enabled.");
+	
+	NSArray *array = [pboard propertyListForType:type];
+	if ([array count] != 1) return NSDragOperationNone;
+	
+	if (![[[array objectAtIndex:0] pathExtension] isEqual:@"plist"]) return NSDragOperationNone;
+	
+	return NSDragOperationCopy;
+}
+
+- (BOOL)dropOverlayView:(ComBelkadanUtils_DropOverlayView *)view acceptDrop:(id <NSDraggingInfo>)info {
+	NSPasteboard *pboard = [info draggingPasteboard];
+	NSString *type = [pboard availableTypeFromArray:[NSArray arrayWithObject:NSFilenamesPboardType]];
+	NSAssert([type isEqual:NSFilenamesPboardType], @"Only our drag type should be enabled.");
+	
+	NSArray *array = [pboard propertyListForType:type];
+	[self importSettingsFromURL:[NSURL fileURLWithPath:[array objectAtIndex:0]]];
+	
+	// Whether or not we succeeded in importing the file, the drag icon should
+	// still not slide back.
+	return YES;
+}
+
+#pragma mark -
+
 - (IBAction)showAsSheet:(id)sender
 {
-	[NSApp beginSheet:[self window] modalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+	[NSApp beginSheet:[self window] modalForWindow:[mainWindowView window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 }
 
 - (IBAction)endSheet:(id)sender

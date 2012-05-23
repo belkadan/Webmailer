@@ -27,6 +27,9 @@
 		8C0B73471564AB5A00FA1133 /* Webmailer.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8C0B73461564AB5A00FA1133 /* Webmailer.sdef */; };
 		8C155A6A151AEA98002068BF /* DefaultsDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C155A69151AEA97002068BF /* DefaultsDomain.m */; };
 		8C155A6B151AEA98002068BF /* DefaultsDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C155A69151AEA97002068BF /* DefaultsDomain.m */; };
+		8C1C3A48156D4CB4005A334A /* drop.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8C1C3A47156D4CB4005A334A /* drop.pdf */; };
+		8C1C3A4B156D4CBE005A334A /* DropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1C3A4A156D4CBE005A334A /* DropOverlayView.m */; };
+		8C1C3A7F156D4DF8005A334A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1C3A7E156D4DF8005A334A /* QuartzCore.framework */; };
 		8C2DF6D3104C6BA300729496 /* FullWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2DF6D2104C6BA300729496 /* FullWidthView.m */; };
 		8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
 		8C2E37CF11067D4500766AB1 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
@@ -130,6 +133,10 @@
 		8C0B73461564AB5A00FA1133 /* Webmailer.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = Webmailer.sdef; sourceTree = "<group>"; };
 		8C155A68151AEA97002068BF /* DefaultsDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultsDomain.h; sourceTree = "<group>"; };
 		8C155A69151AEA97002068BF /* DefaultsDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultsDomain.m; sourceTree = "<group>"; };
+		8C1C3A47156D4CB4005A334A /* drop.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = drop.pdf; sourceTree = "<group>"; };
+		8C1C3A49156D4CBE005A334A /* DropOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropOverlayView.h; sourceTree = "<group>"; };
+		8C1C3A4A156D4CBE005A334A /* DropOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropOverlayView.m; sourceTree = "<group>"; };
+		8C1C3A7E156D4DF8005A334A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		8C2DF6D1104C6BA300729496 /* FullWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullWidthView.h; sourceTree = "<group>"; };
 		8C2DF6D2104C6BA300729496 /* FullWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullWidthView.m; sourceTree = "<group>"; };
 		8C2E37BE11067CC700766AB1 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../Sparkle 1/With Garbage Collection/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
@@ -226,6 +233,7 @@
 				8CBEC2D0104B9F45006DCE23 /* AppKit.framework in Frameworks */,
 				8CBEC2D1104B9F46006DCE23 /* Foundation.framework in Frameworks */,
 				8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */,
+				8C1C3A7F156D4DF8005A334A /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +315,7 @@
 				8C7858920B326E9E00FB9370 /* default.plist */,
 				8C8C5C1F110A7CA800D57BBE /* download.png */,
 				8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */,
+				8C1C3A47156D4CB4005A334A /* drop.pdf */,
 				8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */,
 				8C3840BD156BE82F00F7B42C /* PrefPane.xib */,
 				8C384190156C059500F7B42C /* AdditionalSettings.xib */,
@@ -326,6 +335,7 @@
 				8C379E170B46FD3500F124AB /* ApplicationServices.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				8C1C3A7E156D4DF8005A334A /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -383,6 +393,8 @@
 				8C8018DF0B33D17B005334D3 /* EditTrackingTableView.m */,
 				8C2DF6D1104C6BA300729496 /* FullWidthView.h */,
 				8C2DF6D2104C6BA300729496 /* FullWidthView.m */,
+				8C1C3A49156D4CBE005A334A /* DropOverlayView.h */,
+				8C1C3A4A156D4CBE005A334A /* DropOverlayView.m */,
 				8C6F00450B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.h */,
 				8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */,
 				8CC5D14B1056346200ED5BF7 /* BWHyperlinkButton */,
@@ -534,6 +546,7 @@
 				8C3840BF156BE82F00F7B42C /* PrefPane.xib in Resources */,
 				8C384192156C059500F7B42C /* AdditionalSettings.xib in Resources */,
 				8CA47AE3156C930F007FF2BF /* Localizable.strings in Resources */,
+				8C1C3A48156D4CB4005A334A /* drop.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +647,7 @@
 				8C155A6B151AEA98002068BF /* DefaultsDomain.m in Sources */,
 				8C384198156C118300F7B42C /* ExtraSettingsController.m in Sources */,
 				8CA479AB156C59B7007FF2BF /* URLHandlerController.m in Sources */,
+				8C1C3A4B156D4CBE005A334A /* DropOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
