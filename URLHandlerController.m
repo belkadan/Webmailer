@@ -7,7 +7,6 @@ static const NSSize kIconSize = {16, 16};
 
 @property(readwrite,copy) NSString *scheme;
 @property(readwrite,copy) NSString *fallbackBundleID;
-@property(readwrite,copy) NSString *selectedBundleID;
 @end
 
 
@@ -118,12 +117,15 @@ static const NSSize kIconSize = {16, 16};
 	for (NSString *nextID in appIDs)
 	{
 		NSMenuItem *item = [self menuItemForApplicationWithID:nextID mustExist:YES];
-		[menuItems addObject:item];
-		
-		// LaunchServices returns lowercase identifiers!
-		if ([nextID compare:currentIdentifier options:NSCaseInsensitiveSearch] == NSOrderedSame)
+		if (item)
 		{
-			selectedItem = item;			
+			[menuItems addObject:item];
+			
+			// LaunchServices returns lowercase identifiers!
+			if ([nextID compare:currentIdentifier options:NSCaseInsensitiveSearch] == NSOrderedSame)
+			{
+				selectedItem = item;			
+			}			
 		}
 	}
 	CFRelease(appIDs);

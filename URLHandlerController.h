@@ -21,7 +21,7 @@
 
 - (void)setScheme:(NSString *)scheme fallbackBundleID:(NSString *)fallback;
 
-@property(readonly,copy) NSString *selectedBundleID;
+@property(readwrite,copy) NSString *selectedBundleID;
 @property(readwrite) BOOL shouldFullRefresh;
 @end
 

@@ -1,11 +1,26 @@
 #import "ExtraSettingsController.h"
+#import "URLHandlerController.h"
 #import "DefaultsDomain.h"
+
+static NSString * const kHTTPScheme = @"http";
+static NSString * const kAppleSafariID = @"com.apple.safari";
 
 @implementation ComBelkadanWebmailer_ExtraSettingsController
 
 - (id)init
 {
 	return [self initWithWindowNibName:@"AdditionalSettings"];
+}
+
+- (void)windowDidLoad
+{
+	[super windowDidLoad];
+
+	ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:WebmailerAppDomain];
+
+	browserController.selectedBundleID = [defaults objectForKey:WebmailerChosenBrowserIDKey];
+	[browserController setScheme:kHTTPScheme fallbackBundleID:kAppleSafariID];
+	[browserController addObserver:self forKeyPath:@"selectedBundleID" options:0 context:[ExtraSettingsController class]];
 }
 
 #pragma mark -
@@ -35,6 +50,20 @@
 
 	ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:WebmailerAppDomain];
 	[defaults setObject:[NSNumber numberWithUnsignedInteger:mode] forKey:WebmailerBrowserChoosingModeKey];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if (context == [ExtraSettingsController class])
+	{
+		NSAssert(object == browserController, @"No other objects should be observed.");
+		ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:WebmailerAppDomain];
+		[defaults setObject:browserController.selectedBundleID forKey:WebmailerChosenBrowserIDKey];
+	}
+	else
+	{
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
 }
 
 #pragma mark -
