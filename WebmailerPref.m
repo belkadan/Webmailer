@@ -30,14 +30,7 @@
 #import "NSDictionary+NSArray+PlistMutableCopy.h"
 #import "WebmailerShared.h"
 
-/*!
- * The main controller for the Webmailer preferences pane, which is mainly handling
- * the list of configurations. Webmailer defaults are saved in the
- * "com.belkadan.Webmailer" domain.
- *
- * @truename ComBelkadanWebmailer_PrefPane
- */
-@implementation WebmailerPref
+@implementation ComBelkadanWebmailer_PrefPane
 - (id)initWithBundle:(NSBundle *)bundle
 {
 	if (self = [super initWithBundle:bundle])
@@ -91,6 +84,10 @@
 	
 	[configurationTable setDoubleAction:@selector(apply:)];
 	[configurationTable setTarget:self];
+
+	mailtoController.shouldFullRefresh = YES;
+	[mailtoController setScheme:WebmailerMailtoScheme fallbackBundleID:AppleMailDomain];
+	[mailtoController addObserver:self forKeyPath:@"selectedBundleID" options:0 context:[WebmailerPref class]];
 }
 
 /*!
@@ -160,6 +157,22 @@
 	
 	[configurationTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 	[configurationTable editColumn:1 row:0 withEvent:nil select:YES];
+}
+
+#pragma mark -
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if (context == [WebmailerPref class])
+	{
+		NSAssert(object == mailtoController, @"No other objects should be observed.");
+		(void)LSSetDefaultHandlerForURLScheme((CFStringRef)WebmailerMailtoScheme, (CFStringRef)mailtoController.selectedBundleID);
+	}
+	else
+	{
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
+
 }
 
 #pragma mark -

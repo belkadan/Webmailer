@@ -27,18 +27,21 @@
 #import <AppKit/AppKit.h>
 #import <PreferencePanes/NSPreferencePane.h>
 
+#import "URLHandlerController.h"
 #import "EditTrackingTableView.h"
 #import "DefaultsDomain.h"
 
-#define WebmailerPref ComBelkadanWebmailer_PrefPane
-
-@interface WebmailerPref : NSPreferencePane
+@interface ComBelkadanWebmailer_PrefPane : NSPreferencePane
 {
 	DefaultsDomain *defaults;
 	NSMutableArray *configurations;
-	IBOutlet EditTrackingTableView *configurationTable;
+	IBOutlet ComBelkadanUtils_EditTrackingTableView *configurationTable;
+
+	IBOutlet ComBelkadanWebmailer_URLHandlerController *mailtoController;
 }
 - (IBAction)apply:(id)sender;
 - (IBAction)update:(id)sender;
 - (IBAction)add:(id)sender;
 @end
+
+@compatibility_alias WebmailerPref ComBelkadanWebmailer_PrefPane;

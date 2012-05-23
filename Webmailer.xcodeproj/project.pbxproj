@@ -62,6 +62,7 @@
 		8C8BDDE91567105700F28BE9 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */; };
 		8C8C5C20110A7CA800D57BBE /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8C5C1F110A7CA800D57BBE /* download.png */; };
 		8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */; };
+		8CA479AB156C59B7007FF2BF /* URLHandlerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA479AA156C59B7007FF2BF /* URLHandlerController.m */; };
 		8CBEC2CE104B9F41006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		8CBEC2CF104B9F42006DCE23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		8CBEC2D0104B9F45006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
@@ -71,7 +72,6 @@
 		8CC47321110C3BBA004BEF06 /* AddRemoveButtonsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */; };
 		8CC5D1501056346200ED5BF7 /* BWHyperlinkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D14D1056346200ED5BF7 /* BWHyperlinkButton.m */; };
 		8CC5D1511056346200ED5BF7 /* BWHyperlinkButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */; };
-		8CE4E45C0B338E49000CAE73 /* MailtoSchemeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */; };
 		8CE4E5B10B339FD4000CAE73 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
 		8CE4E5BF0B33A000000CAE73 /* icon_32.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */; };
 /* End PBXBuildFile section */
@@ -180,6 +180,8 @@
 		8C975C950B3110C500B481FB /* NoReturnEditTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoReturnEditTableView.h; sourceTree = "<group>"; };
 		8C975C960B3110C500B481FB /* NoReturnEditTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoReturnEditTableView.m; sourceTree = "<group>"; };
 		8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = "../Sparkle 1/dsa_pub.pem"; sourceTree = SOURCE_ROOT; };
+		8CA479A9156C59B7007FF2BF /* URLHandlerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHandlerController.h; sourceTree = "<group>"; };
+		8CA479AA156C59B7007FF2BF /* URLHandlerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHandlerController.m; sourceTree = "<group>"; };
 		8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemPreferences.h; sourceTree = "<group>"; };
 		8CAE44BA104B7B82005F3191 /* Terminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
@@ -190,8 +192,6 @@
 		8CC5D14D1056346200ED5BF7 /* BWHyperlinkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHyperlinkButton.m; sourceTree = "<group>"; };
 		8CC5D14E1056346200ED5BF7 /* BWHyperlinkButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHyperlinkButtonCell.h; sourceTree = "<group>"; };
 		8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHyperlinkButtonCell.m; sourceTree = "<group>"; };
-		8CE4E45A0B338E49000CAE73 /* MailtoSchemeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailtoSchemeController.h; sourceTree = "<group>"; };
-		8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailtoSchemeController.m; sourceTree = "<group>"; };
 		8CE4E5AE0B339FD4000CAE73 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = icon_32.tiff; sourceTree = "<group>"; };
 		8CFEB4F912C9E076002D85E8 /* ScriptingBridgeApps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptingBridgeApps.h; sourceTree = "<group>"; };
@@ -364,8 +364,8 @@
 			children = (
 				8C975B300B30FCA900B481FB /* WebmailerPref.h */,
 				8C975B310B30FCA900B481FB /* WebmailerPref.m */,
-				8CE4E45A0B338E49000CAE73 /* MailtoSchemeController.h */,
-				8CE4E45B0B338E49000CAE73 /* MailtoSchemeController.m */,
+				8CA479A9156C59B7007FF2BF /* URLHandlerController.h */,
+				8CA479AA156C59B7007FF2BF /* URLHandlerController.m */,
 				8C3196C2110A5EC000556615 /* UpdateController.h */,
 				8C3196C3110A5EC000556615 /* UpdateController.m */,
 				8C975C480B310F6900B481FB /* AutosortArrayController.h */,
@@ -621,7 +621,6 @@
 				8C6FFDF30B322B3000EF8A76 /* AutosortArrayController.m in Sources */,
 				8C6FFDF40B322B3100EF8A76 /* NoReturnEditTableView.m in Sources */,
 				8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */,
-				8CE4E45C0B338E49000CAE73 /* MailtoSchemeController.m in Sources */,
 				8C8018E10B33D17B005334D3 /* EditTrackingTableView.m in Sources */,
 				8C2DF6D3104C6BA300729496 /* FullWidthView.m in Sources */,
 				8CC5D1501056346200ED5BF7 /* BWHyperlinkButton.m in Sources */,
@@ -630,6 +629,7 @@
 				8CC47321110C3BBA004BEF06 /* AddRemoveButtonsController.m in Sources */,
 				8C155A6B151AEA98002068BF /* DefaultsDomain.m in Sources */,
 				8C384198156C118300F7B42C /* ExtraSettingsController.m in Sources */,
+				8CA479AB156C59B7007FF2BF /* URLHandlerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
