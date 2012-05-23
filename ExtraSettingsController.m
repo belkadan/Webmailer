@@ -82,7 +82,7 @@ static NSString * const kAppleSafariID = @"com.apple.safari";
 	[savePanel setAllowsOtherFileTypes:NO];
 
 	[self endSheet:nil];
-	[savePanel beginSheetForDirectory:nil file:fileName modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(exportSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];	
+	[savePanel beginSheetForDirectory:nil file:fileName modalForWindow:[NSApp mainWindow] modalDelegate:self didEndSelector:@selector(exportSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];	
 }
 
 - (void)exportSettingsPanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)returnCode contextInfo:(void *)unused
