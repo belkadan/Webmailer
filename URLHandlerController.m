@@ -48,7 +48,7 @@ static const NSSize kIconSize = {16, 16};
 	if (!name) name = identifier;
 	
 	NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:name action:@selector(chooseApp:) keyEquivalent:@""];
-	[item setRepresentedObject:identifier];
+	[item setRepresentedObject:[identifier lowercaseString]];
 	[item setTarget:self];
 	[item setImage:icon];
 	
@@ -94,7 +94,7 @@ static const NSSize kIconSize = {16, 16};
 	
 	NSMenu *menu = [[NSMenu alloc] init];
 	NSMutableArray *menuItems = [[NSMutableArray alloc] init];
-	NSMenuItem *selectedItem = nil;
+	BOOL foundCurrentIdentifier = NO;
 	
 	// Get all the relevant applications.
 	NSString *currentIdentifier = self.selectedBundleID;
@@ -103,8 +103,6 @@ static const NSSize kIconSize = {16, 16};
 		CFStringRef defaultHandler = LSCopyDefaultHandlerForURLScheme((CFStringRef) self.scheme);
 		currentIdentifier = [NSMakeCollectable(defaultHandler) autorelease];
 		if (!currentIdentifier) currentIdentifier = self.fallbackBundleID;
-
-		self.selectedBundleID = currentIdentifier;
 	}
 
 	NSArray *appIDs = (NSArray *) LSCopyAllHandlersForURLScheme((CFStringRef) self.scheme);
@@ -122,9 +120,9 @@ static const NSSize kIconSize = {16, 16};
 			[menuItems addObject:item];
 			
 			// LaunchServices returns lowercase identifiers!
-			if ([nextID compare:currentIdentifier options:NSCaseInsensitiveSearch] == NSOrderedSame)
+			if (!foundCurrentIdentifier && [nextID compare:currentIdentifier options:NSCaseInsensitiveSearch] == NSOrderedSame)
 			{
-				selectedItem = item;			
+				foundCurrentIdentifier = YES;
 			}			
 		}
 	}
@@ -141,10 +139,9 @@ static const NSSize kIconSize = {16, 16};
 	
 	// If we happen to have a selected item that didn't show up in LaunchServices,
 	// add it after the separator.
-	if (selectedItem == nil)
+	if (!foundCurrentIdentifier)
 	{
-		selectedItem = [self menuItemForApplicationWithID:currentIdentifier mustExist:NO];
-		[menu addItem:selectedItem];
+		[menu addItem:[self menuItemForApplicationWithID:currentIdentifier mustExist:NO]];
 	}
 
 	// Transfer over any non-app items from the old menu.
@@ -158,9 +155,9 @@ static const NSSize kIconSize = {16, 16};
 	
 	// Finally, put the new menu in place on the popup button.
 	[popup setMenu:menu];
-	[popup selectItem:selectedItem];
-	
 	[menu release];
+
+	self.selectedBundleID = currentIdentifier;
 }
 
 #pragma mark -
@@ -168,8 +165,17 @@ static const NSSize kIconSize = {16, 16};
 - (void)setSelectedBundleID:(NSString *)newID
 {
 	[selectedBundleID autorelease];
-	selectedBundleID = [newID copy];
-	[popup selectItemAtIndex:[popup indexOfItemWithRepresentedObject:selectedBundleID]];
+	selectedBundleID = [newID lowercaseString];
+
+	NSInteger index = [popup indexOfItemWithRepresentedObject:selectedBundleID];
+	if (index != -1)
+	{
+		[popup selectItemAtIndex:index];
+	}
+	else
+	{
+		[self refresh:nil];
+	}
 }
 
 - (IBAction)chooseApp:(id)sender

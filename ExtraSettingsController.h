@@ -6,6 +6,8 @@
 
 @interface ComBelkadanWebmailer_ExtraSettingsController : NSWindowController {
 	IBOutlet SUUpdater *updateController;
+	IBOutlet NSArrayController *configurationController;
+
 	IBOutlet ComBelkadanWebmailer_URLHandlerController *browserController;
 }
 

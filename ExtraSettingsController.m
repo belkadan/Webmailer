@@ -150,44 +150,71 @@ static NSImage *GetWebmailerIcon ()
 		[sorry beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 
 	} else {
-//		BOOL changed = NO;
-//		for (NSDictionary *dict in completions) {
-//			ComBelkadanKeystone_QueryCompletionItem *item = [[ComBelkadanKeystone_QueryCompletionItem alloc] initWithDictionary:dict];
-//			NSUInteger index = [sortedCompletionPossibilities indexOfObjectWithPrimarySortValue:item.keyword];
-//			NSUInteger count = [sortedCompletionPossibilities count];
-//			BOOL found = NO;
-//			while (index < count) {
-//				ComBelkadanKeystone_QueryCompletionItem *existing = [sortedCompletionPossibilities objectAtIndex:index];
-//				if (![existing.keyword isEqual:item.keyword]) {
-//					break;
-//				} else if ([existing.URL isEqual:item.URL]) {
-//					found = YES;
-//					break;
-//				}
-//				++index;
-//			}
-//			
-//			if (!found) {
-//				[sortedCompletionPossibilities addObject:item];
-//				changed = YES;
-//			}
-//			
-//			[item release];
-//		}
-//		
-//		if (changed) {
-//			[self save];
-//			[completionTable reloadData];
-//		}
-//		
-//		// Even though this is a secret setting right now, we should handle it.
-//		NSNumber *autocompletionMode = [settings objectForKey:kPreferencesAutocompletionModeKey];
-//		if (autocompletionMode) {
-//			ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:kKeystonePreferencesDomain];
-//			if (![autocompletionMode isEqual:[defaults objectForKey:kPreferencesAutocompletionModeKey]]) {
-//				[defaults setObject:autocompletionMode forKey:kPreferencesAutocompletionModeKey];
-//			}
-//		}
+		ComBelkadanUtils_DefaultsDomain *defaults = [DefaultsDomain domainForName:WebmailerAppDomain];
+		[defaults beginTransaction];
+
+		NSMutableSet *existingDestinations = [NSMutableSet setWithArray:[[configurationController arrangedObjects] valueForKey:WebmailerDestinationURLKey]];
+
+		// Change to the new selected destination.
+		NSString *newActiveDestination = [settings objectForKey:WebmailerCurrentDestinationKey];
+		if (newActiveDestination && ![[defaults objectForKey:WebmailerCurrentDestinationKey] isEqual:newActiveDestination]) {
+			if ([existingDestinations containsObject:newActiveDestination]) {
+				// Case 1: The selected destination already exists in the current set.
+				// We have to (a) set the new active destination, and (b) clear the old one.
+				BOOL foundOneAlready = NO;
+				for (NSMutableDictionary *existing in [configurationController arrangedObjects]) {
+					if ([newActiveDestination isEqual:[existing objectForKey:WebmailerDestinationURLKey]]) {
+						[existing setObject:[NSNumber numberWithBool:YES] forKey:WebmailerDestinationIsActiveKey];
+						if (foundOneAlready) break;
+						foundOneAlready = YES;
+					} else if ([[existing objectForKey:WebmailerDestinationIsActiveKey] boolValue]) {
+						[existing removeObjectForKey:WebmailerDestinationIsActiveKey];
+						if (foundOneAlready) break;
+						foundOneAlready = YES;
+					}
+				}
+			} else {
+				// Case 2: The selected destination is new.
+				// We only have to clear the old active flag.
+				for (NSMutableDictionary *existing in [configurationController arrangedObjects]) {
+					if ([[existing objectForKey:WebmailerDestinationIsActiveKey] boolValue]) {
+						[existing removeObjectForKey:WebmailerDestinationIsActiveKey];
+						break;
+					}
+				}
+			}
+
+			[defaults setObject:newActiveDestination forKey:WebmailerCurrentDestinationKey];
+		}
+		
+		// Add any missing destination URLs. Unique by URL only -- if two destinations have the same name, keep the existing one.
+		BOOL didChange = NO;
+		for (NSDictionary *dict in destinations) {
+			if (![existingDestinations containsObject:[dict objectForKey:WebmailerDestinationURLKey]]) {
+				NSMutableDictionary *newConfiguration = [dict mutableCopy];
+				if (!newActiveDestination) [newConfiguration removeObjectForKey:WebmailerDestinationIsActiveKey];
+				[configurationController addObject:newConfiguration];
+				[newConfiguration release];
+				didChange = YES;
+			}
+		}
+		if (didChange) [configurationController rearrangeObjects];
+
+		// Set the browser choosing mode...
+		NSNumber *browserChoosingMode = [settings objectForKey:WebmailerBrowserChoosingModeKey];
+		if (!browserChoosingMode) {
+			if (![defaults objectForKey:WebmailerBrowserChoosingModeKey]) {
+				// Only fall back to the legacy key if we don't have an explicit setting here.
+				browserChoosingMode = [settings objectForKey:WebmailerDisableAppChoosingKey];
+			}
+		}
+		if (browserChoosingMode) self.browserChoosingMode = [browserChoosingMode unsignedIntegerValue];
+
+		// ...and the selected browser.
+		NSString *selectedBrowser = [settings objectForKey:WebmailerChosenBrowserIDKey];
+		if (selectedBrowser) browserController.selectedBundleID = selectedBrowser;
+
+		[defaults endTransaction];
 	}
 	
 	[settings release];
