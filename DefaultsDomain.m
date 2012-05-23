@@ -7,6 +7,8 @@ static NSMutableDictionary *domains = nil;
 @end
 
 @implementation ComBelkadanUtils_DefaultsDomain
+@synthesize domain;
+
 + (void)initialize {
 	if (self == [ComBelkadanUtils_DefaultsDomain class]) {
 		domains = [[NSMutableDictionary alloc] init];
@@ -23,6 +25,10 @@ static NSMutableDictionary *domains = nil;
 	return domain;
 }
 
+- (id)init {
+	return [self initWithDomainName:[[NSBundle mainBundle] bundleIdentifier]];
+}
+
 - (id)initWithDomainName:(NSString *)domainName {
 	self = [super init];
 	if (self) {
@@ -32,10 +38,6 @@ static NSMutableDictionary *domains = nil;
 	}
 	
 	return self;
-}
-
-- (NSString *)domain {
-	return domain;
 }
 
 - (void)dealloc {
@@ -49,18 +51,19 @@ static NSMutableDictionary *domains = nil;
 }
 
 - (void)save {
-	if (!inTransaction) {
+	if (transactionCount == 0) {
 		[[NSUserDefaults standardUserDefaults] setPersistentDomain:values forName:self.domain];
 	}
 }
 
 - (void)beginTransaction {
-	inTransaction = YES;
+	++transactionCount;
 }
 
 - (void)endTransaction {
-	inTransaction = NO;
-	[self save];
+	NSAssert(transactionCount > 0, @"Unbalanced transaction count (more ends than begins)");
+	--transactionCount;
+	if (transactionCount == 0) [self save];
 }
 
 #pragma mark -
@@ -68,6 +71,16 @@ static NSMutableDictionary *domains = nil;
 - (id)objectForKey:(id)key {
 	return [values objectForKey:key];
 }
+
+- (NSUInteger)count {
+	return [values count];
+}
+
+- (NSEnumerator *)keyEnumerator {
+	return [values keyEnumerator];
+}
+
+#pragma mark -
 
 - (void)removeObjectForKey:(id)key {
 	[values	removeObjectForKey:key];
@@ -79,29 +92,25 @@ static NSMutableDictionary *domains = nil;
 	[self save];
 }
 
-- (NSUInteger)count {
-	return [values count];
+- (void)addEntriesFromDictionary:(NSDictionary *)otherDictionary {
+	[values addEntriesFromDictionary:otherDictionary];
+	[self save];
 }
 
-- (NSEnumerator *)keyEnumerator {
-	return [values keyEnumerator];
+- (void)removeAllObjects {
+	[values removeAllObjects];
+	[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:self.domain];
+}
+
+- (void)removeObjectsForKeys:(NSArray *)keyArray {
+	[values removeObjectsForKeys:keyArray];
+	[self save];
+}
+
+- (void)setDictionary:(NSDictionary *)otherDictionary {
+	[values setDictionary:otherDictionary];
+	[self save];
 }
 
 // TODO: setValue:forKeyPath:
-
-#pragma mark -
-
-- (void)forwardInvocation:(NSInvocation *)invocation {
-	SEL cmd = [invocation selector];
-	if ([[NSDictionary class] instancesRespondToSelector:cmd]) {
-		[invocation invokeWithTarget:values];
-
-	} else if ([[NSMutableDictionary class] instancesRespondToSelector:cmd]) {
-		[invocation invokeWithTarget:values];
-		[self save];
-		
-	} else {
-		[self doesNotRecognizeSelector:cmd];
-	}
-}
 @end

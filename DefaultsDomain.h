@@ -3,12 +3,12 @@
 @interface ComBelkadanUtils_DefaultsDomain : NSMutableDictionary {
 	NSString *domain;
 	NSMutableDictionary *values;
-	BOOL inTransaction;
+	NSUInteger transactionCount;
 }
 
 + (ComBelkadanUtils_DefaultsDomain *)domainForName:(NSString *)domainName;
 
-- (NSString *)domain;
+@property(readonly,copy) NSString *domain;
 
 - (void)refresh;
 

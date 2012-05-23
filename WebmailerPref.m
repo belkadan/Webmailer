@@ -43,9 +43,7 @@ static NSString *const kAppleMailID = @"com.apple.mail";
 		{
 			// First time setup
 			NSDictionary *initialDefaults = [[NSDictionary alloc] initWithContentsOfFile:[bundle pathForResource:@"default" ofType:@"plist"]];
-			[defaults beginTransaction];
 			[defaults setDictionary:initialDefaults];
-			[defaults endTransaction];
 			[initialDefaults release];
 		}
 		
