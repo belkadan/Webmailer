@@ -4,6 +4,21 @@
 
 static NSString * const kHTTPScheme = @"http";
 static NSString * const kAppleSafariID = @"com.apple.safari";
+static NSString * const kWebmailerIconName = @"com.belkadan.Webmailer";
+
+static NSImage *GetWebmailerIcon ()
+{
+	static NSImage *prefIcon = nil;
+	if (!prefIcon) {
+		prefIcon = [NSImage imageNamed:kWebmailerIconName];
+		if (!prefIcon) {
+			NSBundle *bundle = [NSBundle bundleForClass:[ExtraSettingsController class]];
+			prefIcon = [[NSImage alloc] initByReferencingFile:[bundle pathForImageResource:@"icon"]];
+			[prefIcon setName:kWebmailerIconName];
+		}
+	}
+	return prefIcon;
+}
 
 @implementation ComBelkadanWebmailer_ExtraSettingsController
 
@@ -99,11 +114,85 @@ static NSString * const kAppleSafariID = @"com.apple.safari";
 	[settings release];
 }
 
-- (IBAction)importSettings:(id)sender
-{
-	NSBeep();
+- (IBAction)importSettings:(id)sender {
+	[self endSheet:nil];
+	[[NSOpenPanel openPanel] beginSheetForDirectory:nil file:nil types:[NSArray arrayWithObject:@"plist"] modalForWindow:[NSApp mainWindow] modalDelegate:self didEndSelector:@selector(importSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 }
-	 
+
+- (void)importSettingsPanelDidEnd:(NSOpenPanel *)openPanel returnCode:(NSInteger)returnCode contextInfo:(void *)unused {
+	if (returnCode == NSCancelButton) return;
+	[openPanel orderOut:nil];
+	
+	[self importSettingsFromURL:[openPanel URL]];
+}
+
+- (void)importSettingsFromURL:(NSURL *)url {
+	NSDictionary *settings = [[NSDictionary alloc] initWithContentsOfURL:url];
+	NSString *settingsVersion = [settings objectForKey:WebmailerAppDomain];
+	NSArray *destinations = [settings objectForKey:WebmailerConfigurationsKey];
+	
+	if (!settingsVersion && !destinations) {
+		NSBundle *bundle = [NSBundle bundleForClass:[ExtraSettingsController class]];
+		
+		NSAlert *sorry = [[[NSAlert alloc] init] autorelease];
+		[sorry setIcon:GetWebmailerIcon()];
+		[sorry setMessageText:NSLocalizedStringFromTableInBundle(@"Could not read settings file.", @"Localizable", bundle, @"Settings import/export")];
+		[sorry setInformativeText:NSLocalizedStringFromTableInBundle(@"This does not appear to be a Webmailer settings file.", @"Localizable", bundle, @"Settings import/export")];
+		[sorry beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+		
+	} else if ([settingsVersion compare:@"2" options:NSCaseInsensitiveSearch|NSNumericSearch] != NSOrderedAscending) {
+		NSBundle *bundle = [NSBundle bundleForClass:[ExtraSettingsController class]];
+		
+		NSAlert *sorry = [[[NSAlert alloc] init] autorelease];
+		[sorry setIcon:GetWebmailerIcon()];
+		[sorry setMessageText:NSLocalizedStringFromTableInBundle(@"Could not read settings file.", @"Localizable", bundle, @"Settings import/export")];
+		[sorry setInformativeText:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"These settings are for Webmailer %@, but you have %@.", @"Localizable", bundle, @"Settings import/export"), settingsVersion, [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]]];
+		[sorry beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+
+	} else {
+//		BOOL changed = NO;
+//		for (NSDictionary *dict in completions) {
+//			ComBelkadanKeystone_QueryCompletionItem *item = [[ComBelkadanKeystone_QueryCompletionItem alloc] initWithDictionary:dict];
+//			NSUInteger index = [sortedCompletionPossibilities indexOfObjectWithPrimarySortValue:item.keyword];
+//			NSUInteger count = [sortedCompletionPossibilities count];
+//			BOOL found = NO;
+//			while (index < count) {
+//				ComBelkadanKeystone_QueryCompletionItem *existing = [sortedCompletionPossibilities objectAtIndex:index];
+//				if (![existing.keyword isEqual:item.keyword]) {
+//					break;
+//				} else if ([existing.URL isEqual:item.URL]) {
+//					found = YES;
+//					break;
+//				}
+//				++index;
+//			}
+//			
+//			if (!found) {
+//				[sortedCompletionPossibilities addObject:item];
+//				changed = YES;
+//			}
+//			
+//			[item release];
+//		}
+//		
+//		if (changed) {
+//			[self save];
+//			[completionTable reloadData];
+//		}
+//		
+//		// Even though this is a secret setting right now, we should handle it.
+//		NSNumber *autocompletionMode = [settings objectForKey:kPreferencesAutocompletionModeKey];
+//		if (autocompletionMode) {
+//			ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:kKeystonePreferencesDomain];
+//			if (![autocompletionMode isEqual:[defaults objectForKey:kPreferencesAutocompletionModeKey]]) {
+//				[defaults setObject:autocompletionMode forKey:kPreferencesAutocompletionModeKey];
+//			}
+//		}
+	}
+	
+	[settings release];
+}
+
 #pragma mark -
 
 - (IBAction)showAsSheet:(id)sender

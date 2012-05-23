@@ -16,6 +16,8 @@
 - (IBAction)exportSettings:(id)sender;
 - (IBAction)importSettings:(id)sender;
 
+- (void)importSettingsFromURL:(NSURL *)url;
+
 @property(readwrite) BrowserChoice browserChoosingMode;
 @end
 

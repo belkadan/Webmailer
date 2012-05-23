@@ -1,2 +1,5 @@
 /* Settings import/export */
 "Webmailer Settings" = "Webmailer Settings";
+"Could not read settings file." = "Could not read settings file.";
+"This does not appear to be a Webmailer settings file." = "This does not appear to be a Webmailer settings file. Try re-exporting your settings.";
+"These settings are for Webmailer %@, but you have %@." = "These settings are for Webmailer %1$@, but you have version %2$@. Update Webmailer to the latest version and try again.";
