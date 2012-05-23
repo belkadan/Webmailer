@@ -30,6 +30,9 @@
 #import "NSDictionary+NSArray+PlistMutableCopy.h"
 #import "WebmailerShared.h"
 
+static NSString *const kMailtoScheme = @"mailto";
+static NSString *const kAppleMailID = @"com.apple.mail";
+
 @implementation ComBelkadanWebmailer_PrefPane
 - (id)initWithBundle:(NSBundle *)bundle
 {
@@ -86,7 +89,7 @@
 	[configurationTable setTarget:self];
 
 	mailtoController.shouldFullRefresh = YES;
-	[mailtoController setScheme:WebmailerMailtoScheme fallbackBundleID:AppleMailDomain];
+	[mailtoController setScheme:kMailtoScheme fallbackBundleID:kAppleMailID];
 	[mailtoController addObserver:self forKeyPath:@"selectedBundleID" options:0 context:[WebmailerPref class]];
 }
 
@@ -166,7 +169,7 @@
 	if (context == [WebmailerPref class])
 	{
 		NSAssert(object == mailtoController, @"No other objects should be observed.");
-		(void)LSSetDefaultHandlerForURLScheme((CFStringRef)WebmailerMailtoScheme, (CFStringRef)mailtoController.selectedBundleID);
+		(void)LSSetDefaultHandlerForURLScheme((CFStringRef)kMailtoScheme, (CFStringRef)mailtoController.selectedBundleID);
 	}
 	else
 	{

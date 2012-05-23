@@ -24,10 +24,6 @@
  dealings in this Software without prior authorization.
 *******************************************************************************/
 
-#define AppleMailDomain ComBelkadanWebmailer_AppleMailDomain
-/*! The domain "com.apple.mail", used to select a default Mail app if the user has not. */
-extern NSString * const AppleMailDomain;
-
 #define WebmailerAppDomain ComBelkadanWebmailer_AppDomain
 /*! The domain "com.belkadan.Webmailer", used for all Webmailer defaults. */
 extern NSString * const WebmailerAppDomain;
@@ -61,10 +57,6 @@ extern NSString * const WebmailerChosenBrowserIDKey;
 #define WebmailerDisableAppChoosingKey ComBelkadanWebmailer_DisableAppChoosingKey
 /*! The old key for whether or not the user wants smart app choosing. */
 extern NSString * const WebmailerDisableAppChoosingKey;
-
-#define WebmailerMailtoScheme ComBelkadanWebmailer_MailtoScheme
-/*! The mailto URL scheme, i.e. <code>@"mailto"</code> */
-extern NSString * const WebmailerMailtoScheme;
 
 
 #define WebmailerDestinationIsActiveKey ComBelkadanWebmailer_DestinationIsActiveKey

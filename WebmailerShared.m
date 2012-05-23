@@ -26,14 +26,12 @@
 
 #import "WebmailerShared.h"
 
-NSString * const AppleMailDomain = @"com.apple.mail";
 NSString * const WebmailerAppDomain = @"com.belkadan.Webmailer";
 NSString * const WebmailerConfigurationsKey = @"configurations";
 NSString * const WebmailerCurrentDestinationKey = @"currentDestination";
 NSString * const WebmailerBrowserChoosingModeKey = @"browserChoosingMode";
 NSString * const WebmailerChosenBrowserIDKey = @"chosenBrowser";
 NSString * const WebmailerDisableAppChoosingKey = @"disableSmartAppChoosing";
-NSString * const WebmailerMailtoScheme = @"mailto";
 
 NSString * const WebmailerDestinationIsActiveKey = @"active";
 NSString * const WebmailerDestinationURLKey = @"destinationURL";
