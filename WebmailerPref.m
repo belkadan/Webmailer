@@ -107,7 +107,7 @@ static NSString *const kAppleMailID = @"com.apple.mail";
 	if (row >= 0)
 	{
 		NSArrayController *configurationController = (NSArrayController *)[configurationTable dataSource];
-		[[configurationController arrangedObjects] setValue:[NSNumber numberWithBool:NO] forKey:WebmailerDestinationIsActiveKey];
+		[[configurationController arrangedObjects] setValue:nil forKey:WebmailerDestinationIsActiveKey];
 		
 		id newActiveDestination = [[configurationController arrangedObjects] objectAtIndex:row];
 		[newActiveDestination setValue:[NSNumber numberWithBool:YES] forKey:WebmailerDestinationIsActiveKey];
@@ -149,11 +149,15 @@ static NSString *const kAppleMailID = @"com.apple.mail";
 - (IBAction)add:(id)sender
 {
 	NSMutableDictionary *newConfiguration = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-		[NSNumber numberWithBool:NO], WebmailerDestinationIsActiveKey,
 		@"", WebmailerDestinationNameKey,
 		@"", WebmailerDestinationURLKey,
 		nil];
-	[(NSArrayController *)[configurationTable dataSource] insertObject:newConfiguration atArrangedObjectIndex:0];
+
+	// Avoid a save with manual KVO notifications.
+	NSIndexSet *lastIndex = [NSIndexSet indexSetWithIndex:[configurations count]];
+	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:lastIndex forKey:@"configurations"];
+	[configurations addObject:newConfiguration];
+	[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:lastIndex forKey:@"configurations"];
 	[newConfiguration release];
 	
 	[configurationTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
@@ -178,14 +182,15 @@ static NSString *const kAppleMailID = @"com.apple.mail";
 
 #pragma mark -
 
-// This family of methods is for KVC on the configurations list
-// Only -remove... is interesting, because it has to save its changes
-// (-insert... is always paired with an edit in Webmailer, which triggers a save anyway)
-
 - (NSUInteger)countOfConfigurations { return [configurations count]; }
 - (NSArray *)configurationsAtIndexes:(NSIndexSet *)indexes { return [configurations objectsAtIndexes:indexes]; }
 - (void)getConfigurations:(id *)buffer range:(NSRange)range { [configurations getObjects:buffer range:range]; }
-- (void)insertConfigurations:(NSArray *)newConfigurations atIndexes:(NSIndexSet *)indexes { [configurations insertObjects:newConfigurations atIndexes:indexes]; }
+
+- (void)insertConfigurations:(NSArray *)newConfigurations atIndexes:(NSIndexSet *)indexes
+{
+	[configurations insertObjects:newConfigurations atIndexes:indexes];
+	[defaults setObject:configurations forKey:WebmailerConfigurationsKey];
+}
 
 - (void)removeConfigurationsAtIndexes:(NSIndexSet *)indexes
 {
