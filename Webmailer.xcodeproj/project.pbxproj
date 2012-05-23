@@ -63,6 +63,7 @@
 		8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */; };
 		8CA479AB156C59B7007FF2BF /* URLHandlerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA479AA156C59B7007FF2BF /* URLHandlerController.m */; };
 		8CA47A6A156C8AC8007FF2BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA47A68156C8ABB007FF2BF /* main.m */; };
+		8CA47AE3156C930F007FF2BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8CA47AE2156C930F007FF2BF /* Localizable.strings */; };
 		8CBEC2CE104B9F41006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		8CBEC2CF104B9F42006DCE23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		8CBEC2D0104B9F45006DCE23 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
@@ -182,6 +183,7 @@
 		8CA479A9156C59B7007FF2BF /* URLHandlerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHandlerController.h; sourceTree = "<group>"; };
 		8CA479AA156C59B7007FF2BF /* URLHandlerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHandlerController.m; sourceTree = "<group>"; };
 		8CA47A68156C8ABB007FF2BF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8CA47AE0156C930B007FF2BF /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		8CAE44B4104B7ABA005F3191 /* SystemPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemPreferences.h; sourceTree = "<group>"; };
 		8CAE44BA104B7B82005F3191 /* Terminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */,
 				8C3840BD156BE82F00F7B42C /* PrefPane.xib */,
 				8C384190156C059500F7B42C /* AdditionalSettings.xib */,
+				8CA47AE2156C930F007FF2BF /* Localizable.strings */,
 				8C6FFB9B0B3220AD00EF8A76 /* Preference Pane-Info.plist */,
 				8C3196A6110A5E0800556615 /* DBBackgroundView.framework */,
 				8C2E37BE11067CC700766AB1 /* Sparkle.framework */,
@@ -530,6 +533,7 @@
 				8C9E9903110BCE4B00BD7153 /* dsa_pub.pem in Resources */,
 				8C3840BF156BE82F00F7B42C /* PrefPane.xib in Resources */,
 				8C384192156C059500F7B42C /* AdditionalSettings.xib in Resources */,
+				8CA47AE3156C930F007FF2BF /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,6 +699,14 @@
 				8C384191156C059500F7B42C /* English */,
 			);
 			name = AdditionalSettings.xib;
+			sourceTree = "<group>";
+		};
+		8CA47AE2156C930F007FF2BF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8CA47AE0156C930B007FF2BF /* English */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

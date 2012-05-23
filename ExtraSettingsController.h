@@ -13,6 +13,8 @@
 - (IBAction)endSheet:(id)sender;
 
 - (IBAction)checkForUpdates:(id)sender;
+- (IBAction)exportSettings:(id)sender;
+- (IBAction)importSettings:(id)sender;
 
 @property(readwrite) BrowserChoice browserChoosingMode;
 @end

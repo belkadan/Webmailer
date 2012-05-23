@@ -73,6 +73,37 @@ static NSString * const kAppleSafariID = @"com.apple.safari";
 	[updateController checkForUpdates:sender];
 }
 
+- (IBAction)exportSettings:(id)sender
+{
+	NSString *fileName = NSLocalizedStringFromTableInBundle(@"Webmailer Settings", @"Localizable", [NSBundle bundleForClass:[ExtraSettingsController class]], @"Settings import/export");
+
+	NSSavePanel *savePanel = [NSSavePanel savePanel];
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"plist"]];
+	[savePanel setAllowsOtherFileTypes:NO];
+
+	[self endSheet:nil];
+	[savePanel beginSheetForDirectory:nil file:fileName modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(exportSettingsPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];	
+}
+
+- (void)exportSettingsPanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)returnCode contextInfo:(void *)unused
+{
+	if (returnCode == NSCancelButton) return;
+	
+	NSMutableDictionary *settings = [[ComBelkadanUtils_DefaultsDomain domainForName:WebmailerAppDomain] mutableCopy];
+
+	NSBundle *bundle = [NSBundle bundleForClass:[ExtraSettingsController class]];
+	NSString *bundleVersion = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+	[settings setObject:bundleVersion forKey:WebmailerAppDomain];
+	 
+	[settings writeToURL:[savePanel URL] atomically:YES];
+	[settings release];
+}
+
+- (IBAction)importSettings:(id)sender
+{
+	NSBeep();
+}
+	 
 #pragma mark -
 
 - (IBAction)showAsSheet:(id)sender
