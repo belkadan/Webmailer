@@ -72,8 +72,11 @@ NSImage *GetActiveDestinationImage ()
 
 	// If available, use the active state image that comes with Mac OS X.
 #if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-	image = [NSImage imageNamed:@"NSStatusAvailable"]; // don't use the constant to avoid crash on Tiger
-	if (!image)
+	if (&NSImageNameStatusAvailable != NULL)
+	{
+		image = [NSImage imageNamed:NSImageNameStatusAvailable];
+	}
+	else
 #endif
 	{
 		// Otherwise, use our own bundled image.
