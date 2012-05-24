@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="MacRoman"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
 <dictionary title="Webmailer Terminology">
 	<suite name="Standard Suite" code="????" description="Common classes and commands for most applications.">
@@ -73,7 +73,7 @@
 			</parameter>
 		</command>
 	</suite>
-	<suite name="Webmailer Suite" code="B✉">
+	<suite name="Webmailer Suite" code="B‚úâ">
 		<class-extension extends="application">
 			<element type="destination" access="r">
 				<cocoa key="configurations"/>
