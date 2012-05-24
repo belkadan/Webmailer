@@ -388,14 +388,6 @@ NSURL *GetURLForApplicationWithBundleIdentifier (NSString *bundleID)
 	}
 }
 
-/*!
- * This method uses the given destination URL and rewrites it, using the rules
- * described in the Webmailer Read Me file. Then, it takes the appropriate action,
- * based on whether the result is a URL or a shell script. Non-interactive shell
- * scripts are run using NSTask if possible, defaulting back to NSAppleScript if 
- * not. Interactive shell scripts are launched in Terminal using Scripting Bridge
- * (if available) or NSAppleScript (if not).
- */
 - (void)launchDestination:(NSString *)destinationPrototype
 {
 	if ([destinationPrototype characterAtIndex:0] == '#')
@@ -562,8 +554,16 @@ NSURL *GetURLForApplicationWithBundleIdentifier (NSString *bundleID)
 }
 @end
 
+
 @implementation NSApplication (ComBelkadanWebmailer)
 
+/*!
+ * Handles an 'open URL' AppleScript event. Application-targeted commands can't be
+ * passed off for free to delegates like properties can, so this method on NSApplication
+ * handles the nasty bits of Cocoa Scripting and passes clean URLs to the main controller.
+ *
+ * See -[WebmailerDaemon openURLString:fromApplicationAtURL:]
+ */
 - (void)ComBelkadanWebmailer_openURL:(NSScriptCommand *)command {
 	NSAppleEventDescriptor *event = [command appleEvent];
 	NSString *directObject = [command directParameter];

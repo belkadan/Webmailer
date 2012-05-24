@@ -3,8 +3,6 @@
 /*!
  * A table view that sends an action when a text cell has finished editing. The
  * target and action are the cell's target and action.
- *
- * @truename ComBelkadanUtils_EditTrackingTableView
  */
 @implementation EditTrackingTableView
 - (void)textDidEndEditing:(NSNotification *)note

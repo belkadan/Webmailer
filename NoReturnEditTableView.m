@@ -3,8 +3,6 @@
 /*!
  * A table view that ends editing when the Return key is pressed, instead of moving
  * to the next cell down. The Tab key still moves across the row.
- *
- * @truename ComBelkadanUtils_NoReturnEditTableView
  */
 @implementation NoReturnEditTableView
 

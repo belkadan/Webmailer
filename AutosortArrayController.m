@@ -5,8 +5,6 @@
  * Must be both <code>delegate</code> and <code>dataSource</code> of the
  * table in question. This is most useful with Cocoa bindings, not for complicated
  * uses of a table.
- *
- * @truename ComBelkadanUtils_AutosortArrayController
  */
 @implementation AutosortArrayController
 // these two methods just stop console spam on Tiger; they are not actually used
