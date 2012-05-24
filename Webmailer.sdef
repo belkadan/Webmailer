@@ -91,7 +91,7 @@
 			<cocoa class="ComBelkadanWebmailer_Configuration"/>
 			<property name="name" code="pnam" type="text"/>
 			<property name="URL" code="DURL" type="text">
-				<cocoa key="destination"/>
+				<cocoa key="destinationURL"/>
 			</property>
 		</class>
 		<command name="open URL" code="GURLGURL" description="Opens a mailto URL">
