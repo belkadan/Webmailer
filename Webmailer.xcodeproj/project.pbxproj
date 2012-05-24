@@ -291,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				8C63D2DB12D2E126009196DF /* README.md */,
+				8C36E4E00B35DD7300E6041F /* Read Me.rtf */,
 				080E96DDFE201D6D7F000001 /* Daemon */,
 				8C6FFB6C0B32203300EF8A76 /* Preference Pane */,
 				29B97315FDCFA39411CA2CEA /* Shared */,
@@ -318,7 +319,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8C36E4E00B35DD7300E6041F /* Read Me.rtf */,
 				8C7858920B326E9E00FB9370 /* default.plist */,
 				8C8C5C1F110A7CA800D57BBE /* download.png */,
 				8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */,
