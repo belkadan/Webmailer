@@ -12,8 +12,7 @@
 - (void)checkForUpdatesWithDriver:(SUUpdateDriver *)updateDriver;
 @end
 
-@interface ComBelkadanWebmailer_KnownItemUpdateDriver : SUUIBasedUpdateDriver {
-}
+@interface ComBelkadanWebmailer_KnownItemUpdateDriver : SUUIBasedUpdateDriver
 - (id)initWithUpdater:(SUUpdater *)updater updateItem:(SUAppcastItem *)updateItem;
 @end
 
@@ -179,7 +178,6 @@ static const CGFloat kUpdateBarHeight = 29;
 
 @interface SUBasicUpdateDriver ()
 - (BOOL)shouldInstallSynchronously;
-- (id <SUVersionComparison>)_versionComparator;
 @end
 
 @implementation ComBelkadanWebmailer_KnownItemUpdateDriver
