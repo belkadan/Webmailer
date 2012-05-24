@@ -1,6 +1,7 @@
 #import "WebmailerShared.h"
 
 NSString * const WebmailerAppDomain = @"com.belkadan.Webmailer";
+NSString * const WebmailerMailtoScheme = @"mailto";
 NSString * const WebmailerConfigurationsKey = @"configurations";
 NSString * const WebmailerCurrentDestinationKey = @"currentDestination";
 NSString * const WebmailerBrowserChoosingModeKey = @"browserChoosingMode";

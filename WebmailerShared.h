@@ -2,6 +2,10 @@
 /*! The domain "com.belkadan.Webmailer", used for all Webmailer defaults. */
 extern NSString * const WebmailerAppDomain;
 
+#define WebmailerMailtoScheme ComBelkadanWebmailer_MailtoScheme
+/*! The URL scheme "mailto". */
+extern NSString * const WebmailerMailtoScheme;
+
 #define WebmailerConfigurationsKey ComBelkadanWebmailer_ConfigurationsKey
 /*! The key used to retrieve the list of configurations from the defaults. */
 extern NSString * const WebmailerConfigurationsKey;

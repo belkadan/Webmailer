@@ -266,7 +266,7 @@ NSURL *GetURLForApplicationWithBundleIdentifier (NSString *bundleID)
 		SystemPreferencesApplication *sysPrefs = [SBApplication applicationWithBundleIdentifier:@"com.apple.systempreferences"];
 		[sysPrefs setDelegate:self];
 		[sysPrefs activate];
-		[sysPrefs setCurrentPane:[[sysPrefs panes] objectWithID:@"com.belkadan.Webmailer"]];
+		[sysPrefs setCurrentPane:[[sysPrefs panes] objectWithID:WebmailerAppDomain]];
 	}
 
 	[NSApp terminate:self];
@@ -570,7 +570,7 @@ NSURL *GetURLForApplicationWithBundleIdentifier (NSString *bundleID)
 
 	// Check that we really have a mailto URL.
 	NSURL *mailtoURLObject = [NSURL URLWithString:directObject];
-	if (!mailtoURLObject || ![@"mailto" isEqual:[mailtoURLObject scheme]]) {
+	if (!mailtoURLObject || ![WebmailerMailtoScheme isEqual:[mailtoURLObject scheme]]) {
 		[command setScriptErrorNumber:paramErr];
 		[command setScriptErrorString:@"not a valid mailto URL"];
 		
