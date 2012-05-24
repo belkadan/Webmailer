@@ -1,5 +1,4 @@
 #import "WebmailerPref.h"
-#import "AutosortArrayController.h"
 #import "DefaultsDomain.h"
 #import "EditTrackingTableView.h"
 #import "ImageForStateTransformer.h"
@@ -103,11 +102,17 @@ static NSString *const kAppleMailID = @"com.apple.mail";
  */
 - (IBAction)update:(id)sender
 {
+	NSArrayController *dataSource = (NSArrayController *)[configurationTable dataSource];
+	if ([configurationTable editedRow] == -1)
+	{
+		[dataSource rearrangeObjects];
+	}
+
 	[defaults beginTransaction];
 	[defaults setObject:configurations forKey:WebmailerConfigurationsKey];
 	
 	NSInteger row = [configurationTable selectedRow];
-	NSArray *arrangedConfigurations = [(NSArrayController *)[configurationTable dataSource] arrangedObjects];
+	NSArray *arrangedConfigurations = [dataSource arrangedObjects];
 		
 	if (row >= 0 && [[[arrangedConfigurations objectAtIndex:row] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
 	{

@@ -51,7 +51,6 @@
 		8C6FFDB70B3228EB00EF8A76 /* WebmailerShared.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FFDB50B3228EB00EF8A76 /* WebmailerShared.m */; };
 		8C6FFDF10B322B2F00EF8A76 /* WebmailerPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975B310B30FCA900B481FB /* WebmailerPref.m */; };
 		8C6FFDF20B322B2F00EF8A76 /* ImageForStateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */; };
-		8C6FFDF30B322B3000EF8A76 /* AutosortArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975C490B310F6900B481FB /* AutosortArrayController.m */; };
 		8C6FFDF40B322B3100EF8A76 /* NoReturnEditTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C975C960B3110C500B481FB /* NoReturnEditTableView.m */; };
 		8C78582F0B326B5D00FB9370 /* Webmailer.app in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FFCD90B32268900EF8A76 /* Webmailer.app */; };
 		8C7858930B326E9E00FB9370 /* default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C7858920B326E9E00FB9370 /* default.plist */; };
@@ -180,8 +179,6 @@
 		8C975AF60B30F03B00B481FB /* ImageForStateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ImageForStateTransformer.m; sourceTree = "<group>"; };
 		8C975B300B30FCA900B481FB /* WebmailerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WebmailerPref.h; sourceTree = "<group>"; };
 		8C975B310B30FCA900B481FB /* WebmailerPref.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = WebmailerPref.m; sourceTree = "<group>"; };
-		8C975C480B310F6900B481FB /* AutosortArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutosortArrayController.h; sourceTree = "<group>"; };
-		8C975C490B310F6900B481FB /* AutosortArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutosortArrayController.m; sourceTree = "<group>"; };
 		8C975C950B3110C500B481FB /* NoReturnEditTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoReturnEditTableView.h; sourceTree = "<group>"; };
 		8C975C960B3110C500B481FB /* NoReturnEditTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoReturnEditTableView.m; sourceTree = "<group>"; };
 		8C9E9902110BCE4A00BD7153 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = "../Sparkle 1/dsa_pub.pem"; sourceTree = SOURCE_ROOT; };
@@ -387,8 +384,6 @@
 				8CA479AA156C59B7007FF2BF /* URLHandlerController.m */,
 				8C3196C2110A5EC000556615 /* UpdateController.h */,
 				8C3196C3110A5EC000556615 /* UpdateController.m */,
-				8C975C480B310F6900B481FB /* AutosortArrayController.h */,
-				8C975C490B310F6900B481FB /* AutosortArrayController.m */,
 				8CC4731F110C3BBA004BEF06 /* AddRemoveButtonsController.h */,
 				8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */,
 				8C384196156C118300F7B42C /* ExtraSettingsController.h */,
@@ -657,7 +652,6 @@
 				8C6FFDB70B3228EB00EF8A76 /* WebmailerShared.m in Sources */,
 				8C6FFDF10B322B2F00EF8A76 /* WebmailerPref.m in Sources */,
 				8C6FFDF20B322B2F00EF8A76 /* ImageForStateTransformer.m in Sources */,
-				8C6FFDF30B322B3000EF8A76 /* AutosortArrayController.m in Sources */,
 				8C6FFDF40B322B3100EF8A76 /* NoReturnEditTableView.m in Sources */,
 				8C6F00470B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m in Sources */,
 				8C8018E10B33D17B005334D3 /* EditTrackingTableView.m in Sources */,
