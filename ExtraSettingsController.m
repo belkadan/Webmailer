@@ -35,8 +35,8 @@ static NSImage *GetWebmailerIcon ()
 
 	ComBelkadanUtils_DefaultsDomain *defaults = [ComBelkadanUtils_DefaultsDomain domainForName:WebmailerAppDomain];
 
-	browserController.selectedBundleID = [defaults objectForKey:WebmailerChosenBrowserIDKey];
 	[browserController setScheme:kHTTPScheme fallbackBundleID:kAppleSafariID];
+	browserController.selectedBundleID = [defaults objectForKey:WebmailerChosenBrowserIDKey];
 	[browserController addObserver:self forKeyPath:@"selectedBundleID" options:0 context:[ExtraSettingsController class]];
 }
 
