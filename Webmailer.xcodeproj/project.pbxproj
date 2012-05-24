@@ -31,10 +31,6 @@
 		8C1C3A4B156D4CBE005A334A /* DropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1C3A4A156D4CBE005A334A /* DropOverlayView.m */; };
 		8C1C3A7F156D4DF8005A334A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1C3A7E156D4DF8005A334A /* QuartzCore.framework */; };
 		8C2DF6D3104C6BA300729496 /* FullWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2DF6D2104C6BA300729496 /* FullWidthView.m */; };
-		8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
-		8C2E37CF11067D4500766AB1 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2E37BE11067CC700766AB1 /* Sparkle.framework */; };
-		8C3196A7110A5E0800556615 /* DBBackgroundView.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3196A6110A5E0800556615 /* DBBackgroundView.framework */; };
-		8C3196B4110A5E2B00556615 /* DBBackgroundView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3196A6110A5E0800556615 /* DBBackgroundView.framework */; };
 		8C3196C4110A5EC000556615 /* UpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3196C3110A5EC000556615 /* UpdateController.m */; };
 		8C379CA10B46F87D00F124AB /* mailhandlers_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C379CA00B46F87D00F124AB /* mailhandlers_main.m */; };
 		8C379FF50B46FE5A00F124AB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
@@ -76,6 +72,10 @@
 		8CC47321110C3BBA004BEF06 /* AddRemoveButtonsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC47320110C3BBA004BEF06 /* AddRemoveButtonsController.m */; };
 		8CC5D1501056346200ED5BF7 /* BWHyperlinkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D14D1056346200ED5BF7 /* BWHyperlinkButton.m */; };
 		8CC5D1511056346200ED5BF7 /* BWHyperlinkButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */; };
+		8CD120ED156DCC2A0077C3E7 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD120EC156DCC2A0077C3E7 /* Sparkle.framework */; };
+		8CD120F6156DCC300077C3E7 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD120EC156DCC2A0077C3E7 /* Sparkle.framework */; };
+		8CD12108156DCD1A0077C3E7 /* DBBackgroundView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD12107156DCD1A0077C3E7 /* DBBackgroundView.framework */; };
+		8CD1210E156DCD230077C3E7 /* DBBackgroundView.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD12107156DCD1A0077C3E7 /* DBBackgroundView.framework */; };
 		8CE4E5B10B339FD4000CAE73 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5AE0B339FD4000CAE73 /* icon.icns */; };
 		8CE4E5BF0B33A000000CAE73 /* icon_32.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */; };
 /* End PBXBuildFile section */
@@ -118,8 +118,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8C3196A7110A5E0800556615 /* DBBackgroundView.framework in Copy Frameworks */,
-				8C2E37CF11067D4500766AB1 /* Sparkle.framework in Copy Frameworks */,
+				8CD1210E156DCD230077C3E7 /* DBBackgroundView.framework in Copy Frameworks */,
+				8CD120F6156DCC300077C3E7 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,8 +139,6 @@
 		8C1C3A7E156D4DF8005A334A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		8C2DF6D1104C6BA300729496 /* FullWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullWidthView.h; sourceTree = "<group>"; };
 		8C2DF6D2104C6BA300729496 /* FullWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullWidthView.m; sourceTree = "<group>"; };
-		8C2E37BE11067CC700766AB1 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../Sparkle 1/With Garbage Collection/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
-		8C3196A6110A5E0800556615 /* DBBackgroundView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBBackgroundView.framework; path = ../DBBackgroundView/build/Release/DBBackgroundView.framework; sourceTree = SOURCE_ROOT; };
 		8C3196C2110A5EC000556615 /* UpdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateController.h; sourceTree = "<group>"; };
 		8C3196C3110A5EC000556615 /* UpdateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateController.m; sourceTree = "<group>"; };
 		8C36E4E00B35DD7300E6041F /* Read Me.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Read Me.rtf"; sourceTree = "<group>"; };
@@ -153,7 +151,7 @@
 		8C384191156C059500F7B42C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AdditionalSettings.xib; sourceTree = "<group>"; };
 		8C384196156C118300F7B42C /* ExtraSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtraSettingsController.h; sourceTree = "<group>"; };
 		8C384197156C118300F7B42C /* ExtraSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtraSettingsController.m; sourceTree = "<group>"; };
-		8C63D2DB12D2E126009196DF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		8C63D2DB12D2E126009196DF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		8C63D2E412D2E54C009196DF /* NSString+PrototypeExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PrototypeExpansion.h"; sourceTree = "<group>"; };
 		8C63D2E512D2E54C009196DF /* NSString+PrototypeExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PrototypeExpansion.m"; sourceTree = "<group>"; };
 		8C63D31A12D2F0AA009196DF /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +199,15 @@
 		8CC5D14D1056346200ED5BF7 /* BWHyperlinkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHyperlinkButton.m; sourceTree = "<group>"; };
 		8CC5D14E1056346200ED5BF7 /* BWHyperlinkButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHyperlinkButtonCell.h; sourceTree = "<group>"; };
 		8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHyperlinkButtonCell.m; sourceTree = "<group>"; };
+		8CD12079156DCA2F0077C3E7 /* SUHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUHost.h; sourceTree = "<group>"; };
+		8CD1207A156DCA2F0077C3E7 /* SUStatusController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUStatusController.h; sourceTree = "<group>"; };
+		8CD1207B156DCA2F0077C3E7 /* SUUIBasedUpdateDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUUIBasedUpdateDriver.h; sourceTree = "<group>"; };
+		8CD1207C156DCA2F0077C3E7 /* SUUpdateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUUpdateAlert.h; sourceTree = "<group>"; };
+		8CD120EC156DCC2A0077C3E7 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		8CD12101156DCCC70077C3E7 /* SUWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUWindowController.h; sourceTree = "<group>"; };
+		8CD12102156DCCFF0077C3E7 /* SUBasicUpdateDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUBasicUpdateDriver.h; sourceTree = "<group>"; };
+		8CD12103156DCD040077C3E7 /* SUUpdateDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUUpdateDriver.h; sourceTree = "<group>"; };
+		8CD12107156DCD1A0077C3E7 /* DBBackgroundView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBBackgroundView.framework; sourceTree = "<group>"; };
 		8CE4E5AE0B339FD4000CAE73 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		8CE4E5BE0B33A000000CAE73 /* icon_32.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = icon_32.tiff; sourceTree = "<group>"; };
 		8CFEB4F912C9E076002D85E8 /* ScriptingBridgeApps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptingBridgeApps.h; sourceTree = "<group>"; };
@@ -228,12 +235,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C3196B4110A5E2B00556615 /* DBBackgroundView.framework in Frameworks */,
 				8C6FFBB20B3221F300EF8A76 /* PreferencePanes.framework in Frameworks */,
 				8CBEC2D0104B9F45006DCE23 /* AppKit.framework in Frameworks */,
 				8CBEC2D1104B9F46006DCE23 /* Foundation.framework in Frameworks */,
-				8C2E37BF11067CC700766AB1 /* Sparkle.framework in Frameworks */,
 				8C1C3A7F156D4DF8005A334A /* QuartzCore.framework in Frameworks */,
+				8CD120ED156DCC2A0077C3E7 /* Sparkle.framework in Frameworks */,
+				8CD12108156DCD1A0077C3E7 /* DBBackgroundView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,13 +290,13 @@
 		29B97314FDCFA39411CA2CEA /* Webmailer */ = {
 			isa = PBXGroup;
 			children = (
-				8C63D2DB12D2E126009196DF /* README.txt */,
+				8C63D2DB12D2E126009196DF /* README.md */,
 				080E96DDFE201D6D7F000001 /* Daemon */,
 				8C6FFB6C0B32203300EF8A76 /* Preference Pane */,
 				29B97315FDCFA39411CA2CEA /* Shared */,
 				8C384180156C007300F7B42C /* Mail Hander Fix */,
 				8C63D32012D2F10B009196DF /* Testing */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				29B97323FDCFA39411CA2CEA /* System Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Webmailer;
@@ -321,23 +328,22 @@
 				8C384190156C059500F7B42C /* AdditionalSettings.xib */,
 				8CA47AE2156C930F007FF2BF /* Localizable.strings */,
 				8C6FFB9B0B3220AD00EF8A76 /* Preference Pane-Info.plist */,
-				8C3196A6110A5E0800556615 /* DBBackgroundView.framework */,
-				8C2E37BE11067CC700766AB1 /* Sparkle.framework */,
+				8CD12107156DCD1A0077C3E7 /* DBBackgroundView.framework */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+		29B97323FDCFA39411CA2CEA /* System Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				8C6FFBB10B3221F300EF8A76 /* PreferencePanes.framework */,
 				8CAE43C2104B78EC005F3191 /* ScriptingBridge.framework */,
+				8C1C3A7E156D4DF8005A334A /* QuartzCore.framework */,
 				8C379E170B46FD3500F124AB /* ApplicationServices.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-				8C1C3A7E156D4DF8005A334A /* QuartzCore.framework */,
 			);
-			name = Frameworks;
+			name = "System Frameworks";
 			sourceTree = "<group>";
 		};
 		8C384164156C000E00F7B42C /* Resources */ = {
@@ -398,6 +404,7 @@
 				8C6F00450B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.h */,
 				8C6F00460B323F0000EF8A76 /* NSDictionary+NSArray+PlistMutableCopy.m */,
 				8CC5D14B1056346200ED5BF7 /* BWHyperlinkButton */,
+				8CD12076156DC9460077C3E7 /* Sparkle */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 			);
 			name = "Preference Pane";
@@ -412,6 +419,21 @@
 				8CC5D14F1056346200ED5BF7 /* BWHyperlinkButtonCell.m */,
 			);
 			path = BWHyperlinkButton;
+			sourceTree = "<group>";
+		};
+		8CD12076156DC9460077C3E7 /* Sparkle */ = {
+			isa = PBXGroup;
+			children = (
+				8CD12102156DCCFF0077C3E7 /* SUBasicUpdateDriver.h */,
+				8CD12079156DCA2F0077C3E7 /* SUHost.h */,
+				8CD1207A156DCA2F0077C3E7 /* SUStatusController.h */,
+				8CD1207B156DCA2F0077C3E7 /* SUUIBasedUpdateDriver.h */,
+				8CD1207C156DCA2F0077C3E7 /* SUUpdateAlert.h */,
+				8CD12103156DCD040077C3E7 /* SUUpdateDriver.h */,
+				8CD12101156DCCC70077C3E7 /* SUWindowController.h */,
+				8CD120EC156DCC2A0077C3E7 /* Sparkle.framework */,
+			);
+			path = Sparkle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -841,8 +863,9 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../DBBackgroundView/build/Release",
-					"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection",
+					"$(inherited)",
+					"\"$(SRCROOT)/Sparkle\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -856,7 +879,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Webmailer;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Sparkle 1/Extras/Source Code\"";
 				WRAPPER_EXTENSION = prefPane;
 			};
 			name = Debug;
@@ -866,8 +888,9 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../DBBackgroundView/build/Release",
-					"$(SRCROOT)/../Sparkle\\ 1/With\\ Garbage\\ Collection",
+					"$(inherited)",
+					"\"$(SRCROOT)/Sparkle\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -879,7 +902,6 @@
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Webmailer;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Sparkle 1/Extras/Source Code\"";
 				WRAPPER_EXTENSION = prefPane;
 			};
 			name = Release;
