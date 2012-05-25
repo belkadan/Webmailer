@@ -527,6 +527,7 @@ NSURL *GetURLForApplicationWithBundleIdentifier (NSString *bundleID)
 	// Write the script.
 	NSFileHandle *input = [pipe fileHandleForWriting];
 	[input writeData:[script dataUsingEncoding:NSUTF8StringEncoding]];
+	[input writeData:[NSData dataWithBytesNoCopy:"\n" length:1 freeWhenDone:NO]];
 	[input closeFile];
 	[task waitUntilExit];
 	[task release];
