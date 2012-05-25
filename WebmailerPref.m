@@ -53,7 +53,7 @@ static NSString *const kAppleMailID = @"com.apple.mail";
 	NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationNameKey ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
 	NSSortDescriptor *sortByDestination = [[NSSortDescriptor alloc] initWithKey:WebmailerDestinationURLKey ascending:YES];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByName, sortByDestination, nil];
-	[(NSArrayController *)[configurationTable dataSource] setSortDescriptors:sortDescriptors];
+	[configurationController setSortDescriptors:sortDescriptors];
 	[sortDescriptors release];
 	[sortByName release];
 	[sortByDestination release];
@@ -81,7 +81,6 @@ static NSString *const kAppleMailID = @"com.apple.mail";
 	
 	if (row >= 0)
 	{
-		NSArrayController *configurationController = (NSArrayController *)[configurationTable dataSource];
 		[[configurationController arrangedObjects] setValue:nil forKey:WebmailerDestinationIsActiveKey];
 		
 		id newActiveDestination = [[configurationController arrangedObjects] objectAtIndex:row];
@@ -102,17 +101,16 @@ static NSString *const kAppleMailID = @"com.apple.mail";
  */
 - (IBAction)update:(id)sender
 {
-	NSArrayController *dataSource = (NSArrayController *)[configurationTable dataSource];
 	if ([configurationTable editedRow] == -1)
 	{
-		[dataSource rearrangeObjects];
+		[configurationController rearrangeObjects];
 	}
 
 	[defaults beginTransaction];
 	[defaults setObject:configurations forKey:WebmailerConfigurationsKey];
 	
 	NSInteger row = [configurationTable selectedRow];
-	NSArray *arrangedConfigurations = [dataSource arrangedObjects];
+	NSArray *arrangedConfigurations = [configurationController arrangedObjects];
 		
 	if (row >= 0 && [[[arrangedConfigurations objectAtIndex:row] objectForKey:WebmailerDestinationIsActiveKey] boolValue])
 	{
@@ -135,13 +133,13 @@ static NSString *const kAppleMailID = @"com.apple.mail";
 		nil];
 
 	// Avoid a save with manual KVO notifications.
-	NSIndexSet *lastIndex = [NSIndexSet indexSetWithIndex:[configurations count]];
-	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:lastIndex forKey:@"configurations"];
-	[configurations addObject:newConfiguration];
-	[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:lastIndex forKey:@"configurations"];
+	NSIndexSet *firstIndex = [NSIndexSet indexSetWithIndex:0];
+	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:firstIndex forKey:@"configurations"];
+	[configurations insertObject:newConfiguration atIndex:0];
+	[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:firstIndex forKey:@"configurations"];
 	[newConfiguration release];
 	
-	[configurationTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+	[configurationTable selectRowIndexes:firstIndex byExtendingSelection:NO];
 	[configurationTable editColumn:1 row:0 withEvent:nil select:YES];
 }
 

@@ -7,6 +7,8 @@
 {
 	ComBelkadanUtils_DefaultsDomain *defaults;
 	NSMutableArray *configurations;
+
+	IBOutlet NSArrayController *configurationController;
 	IBOutlet ComBelkadanUtils_EditTrackingTableView *configurationTable;
 
 	IBOutlet ComBelkadanWebmailer_URLHandlerController *mailtoController;

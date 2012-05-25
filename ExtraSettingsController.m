@@ -190,17 +190,19 @@ static NSImage *GetWebmailerIcon ()
 		}
 		
 		// Add any missing destination URLs. Unique by URL only -- if two destinations have the same name, keep the existing one.
-		BOOL didChange = NO;
+		NSMutableArray *newConfigurations = [NSMutableArray array];
 		for (NSDictionary *dict in destinations) {
 			if (![existingDestinations containsObject:[dict objectForKey:WebmailerDestinationURLKey]]) {
 				NSMutableDictionary *newConfiguration = [dict mutableCopy];
 				if (!newActiveDestination) [newConfiguration removeObjectForKey:WebmailerDestinationIsActiveKey];
-				[configurationController addObject:newConfiguration];
+				[newConfigurations addObject:newConfiguration];
 				[newConfiguration release];
-				didChange = YES;
 			}
 		}
-		if (didChange) [configurationController rearrangeObjects];
+		if ([newConfigurations count] > 0) {
+			[configurationController addObjects:newConfigurations];
+			[configurationController rearrangeObjects];
+		}
 
 		// Set the browser choosing mode...
 		NSNumber *browserChoosingMode = [settings objectForKey:WebmailerBrowserChoosingModeKey];
